@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allWork = await getCollection('work', ({ data }) => !data.draft);
+const work = allWork.sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="[Name Placeholder] — Product Designer">
+	<section>
+		<h1>[Intro / hero placeholder — short positioning statement]</h1>
+	</section>
+
+	<section class="work-grid">
+		{
+			work.map((project) => (
+				<a class="work-grid__item" href={`/work/${project.id}/`}>
+					<div class="work-grid__thumb" />
+					<div class="work-grid__title">{project.data.title}</div>
+					<div class="work-grid__summary">{project.data.summary}</div>
+				</a>
+			))
+		}
+	</section>
+</BaseLayout>

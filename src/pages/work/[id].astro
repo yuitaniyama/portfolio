@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+	const work = await getCollection('work', ({ data }) => !data.draft);
+	return work.map((project) => ({
+		params: { id: project.id },
+		props: { project },
+	}));
+}
+
+const { project } = Astro.props;
+const { data } = project;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={`${data.title} — [Name Placeholder]`}>
+	<article>
+		<div class="case-hero" />
+
+		<h1>{data.title}</h1>
+
+		<div class="case-meta">
+			{data.projectType && (
+				<div>
+					<div class="case-meta__label">Project Type</div>
+					<div class="case-meta__value">{data.projectType}</div>
+				</div>
+			)}
+			{data.role && (
+				<div>
+					<div class="case-meta__label">My Role</div>
+					<div class="case-meta__value">{data.role}</div>
+				</div>
+			)}
+			{data.timeline && (
+				<div>
+					<div class="case-meta__label">Timeline</div>
+					<div class="case-meta__value">{data.timeline}</div>
+				</div>
+			)}
+			{data.team && (
+				<div>
+					<div class="case-meta__label">Team</div>
+					<div class="case-meta__value">{data.team}</div>
+				</div>
+			)}
+		</div>
+
+		<div class="prose" style="margin-top: 2.5rem;">
+			<Content />
+		</div>
+	</article>
+</BaseLayout>
