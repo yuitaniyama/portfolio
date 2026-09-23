@@ -1,0 +1,52 @@
+---
+// Section 04 (hubstep case study) — Outcome, Sales Report. Same
+// editorial split as the Home outcome, direction reversed (preview
+// left, copy right) for a subtle alternating rhythm. Text stays first
+// in source order for accessibility; only the visual column order is
+// flipped on wide screens via CSS. Copy is verbatim from the approved
+// Section 04 text.
+import ScrollableProductPreview from '../ScrollableProductPreview.astro';
+---
+
+<div class="oss">
+	<div class="prose oss__text">
+		<h3>Sales Report</h3>
+		<p>
+			The Sales Dashboard was reorganized as Sales Report, with its role focused on viewing team-level
+			sales information and performance.
+		</p>
+	</div>
+	<div class="oss__visual">
+		<ScrollableProductPreview
+			src="/section-04/section04-sales-report-after.png"
+			alt="Redesigned Sales Report"
+			label="Sales Report"
+			height={280}
+		/>
+	</div>
+</div>
+
+<style>
+	.oss {
+		display: grid;
+		grid-template-columns: 1.1fr 0.9fr;
+		gap: var(--space-4);
+		align-items: start;
+	}
+
+	.oss__text {
+		max-width: none;
+	}
+
+	@container (min-width: 641px) {
+		.oss__visual {
+			order: -1;
+		}
+	}
+
+	@container (max-width: 640px) {
+		.oss {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

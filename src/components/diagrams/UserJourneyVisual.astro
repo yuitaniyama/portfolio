@@ -1,0 +1,28 @@
+---
+// Section 04 (hubstep case study) — the role-based user journeys,
+// standalone under "Clarifying the roles of the two pages..." (the
+// NEXT step after visualizing the existing flow). Capped narrower than
+// full Reading Column width now that it stands alone, so it reads as
+// legible supporting evidence rather than an oversized hero.
+import EnlargeableImage from '../EnlargeableImage.astro';
+---
+
+<div class="ujv">
+	<EnlargeableImage
+		src="/section-04/section04-user-journey-roles.png"
+		alt="User journeys comparing salesperson and manager roles"
+	/>
+	<p class="ujv__caption">User journeys for different roles</p>
+</div>
+
+<style>
+	.ujv {
+		max-width: 42rem;
+	}
+
+	.ujv__caption {
+		margin: var(--space-2) 0 0;
+		font-size: var(--text-label);
+		color: var(--color-text-muted);
+	}
+</style>

@@ -1,0 +1,51 @@
+---
+// Section 05 (hubstep-foundation case study) — the four design-approach
+// principles used to restructure the List Upload flow, shown as a 2x2
+// grid of rows.
+import DiagramIcon from './DiagramIcon.astro';
+
+const principles = [
+	{ icon: 'grid', text: 'Sort actions into Action / Check Point / Optional' },
+	{ icon: 'split', text: 'Separate operations of a different nature into their own step' },
+	{ icon: 'check', text: 'Distinguish required actions from optional settings' },
+	{ icon: 'checklist', text: 'Make clear, at every step, what must be completed to move on' },
+];
+---
+
+<div class="lap-list">
+	{
+		principles.map((p) => (
+			<div class="lap-row">
+				<DiagramIcon name={p.icon} />
+				<span class="lap-row__text">{p.text}</span>
+			</div>
+		))
+	}
+</div>
+
+<style>
+	.lap-list {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--space-2);
+	}
+
+	.lap-row {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
+		padding: var(--space-3) var(--space-4);
+		background: #fafafa;
+		border-radius: 10px;
+	}
+
+	.lap-row__text {
+		font-weight: 600;
+	}
+
+	@container (max-width: 560px) {
+		.lap-list {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

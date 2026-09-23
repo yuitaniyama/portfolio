@@ -2,24 +2,278 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
+// Homepage card copy (meta tag / description / skills) is hand-authored
+// per project, same as the rest of the site's editorial content — not
+// derived from the `work` collection's own fields, which serve the case
+// study page itself. Keyed by slug; a project without an entry here
+// simply doesn't render a card yet.
+const CARD_COPY: Record<
+	string,
+	{
+		image?: { src: string; width: number; height: number };
+		meta: string;
+		description: string;
+		skills: string[];
+	}
+> = {
+	'hubstep-sfa-platform': {
+		image: { src: '/home/selected-work/hubstep-sfa-cover.png', width: 7032, height: 3950 },
+		meta: 'Product Design · SFA / CRM',
+		description: 'Designing through a product transition from direct mail operations to a broader sales workflow.',
+		skills: ['Workflow Design', 'Information Architecture', 'Prototyping'],
+	},
+	'hubstep-foundation': {
+		image: { src: '/home/selected-work/hubstep-foundation-cover.png', width: 7032, height: 3950 },
+		meta: 'Product Design · UI/UX & Design Systems',
+		description:
+			'Joining hubstep mid-development, then shaping its UI/UX, Design System, and product communication through continuous, real-world-driven improvement.',
+		skills: ['UI/UX Design', 'Design Systems', 'Product Communication'],
+	},
+};
+
 const allWork = await getCollection('work', ({ data }) => !data.draft);
-const work = allWork.sort((a, b) => a.data.order - b.data.order);
+const projects = allWork
+	.sort((a, b) => a.data.order - b.data.order)
+	.map((project) => {
+		const slug = project.id.replace(/\/_meta$/, '');
+		return { slug, title: project.data.title, copy: CARD_COPY[slug] };
+	})
+	.filter((p): p is typeof p & { copy: NonNullable<(typeof p)['copy']> } => Boolean(p.copy));
+
+// Project 03 (Freedom Tax Japan) is a standalone page, not in the `work`
+// collection, so its card is added here. Copy below is temporary
+// (wireframe stage); the cover stays a gray placeholder until final.
+projects.push({
+	slug: 'freedom-tax-japan',
+	title: 'Freedom Tax Japan',
+	copy: {
+		meta: 'UX Research · Usability Testing · Supporting Case Study',
+		description: 'Using research and usability testing to contribute to a B2C redesign. (Temporary copy)',
+		skills: ['Competitive Research', 'UI Exploration', 'Usability Testing'],
+	},
+});
 ---
 
-<BaseLayout title="[Name Placeholder] — Product Designer">
-	<section>
-		<h1>[Intro / hero placeholder — short positioning statement]</h1>
+<BaseLayout title="Yui Taniyama — Product Designer">
+	<section class="content-grid hero">
+		<h1 class="hero__headline">
+			<span class="hero__line">I’ve always liked making the things</span>{' '}
+			<span class="hero__line">people use every day</span>{' '}
+			<span class="hero__line">a little easier to live with.</span>
+		</h1>
+
+		<div class="prose hero__supporting">
+			<p>
+				I started in fashion, where I spent 10 years designing and bringing 1,200+ products to
+				market. Now I design digital products.
+			</p>
+			<p><strong>Different materials, similar process:</strong> research, sketch, prototype, refine, repeat.</p>
+		</div>
 	</section>
 
-	<section class="work-grid">
-		{
-			work.map((project) => (
-				<a class="work-grid__item" href={`/work/${project.id}/`}>
-					<div class="work-grid__thumb" />
-					<div class="work-grid__title">{project.data.title}</div>
-					<div class="work-grid__summary">{project.data.summary}</div>
-				</a>
-			))
-		}
-	</section>
+	{
+		projects.length > 0 && (
+			<section class="content-grid selected-work">
+				<div class="selected-work__label">Selected Work</div>
+
+				<div class="work-list">
+					{
+						projects.map((project, i) => (
+							<a class="work-card" href={`/work/${project.slug}/`}>
+								<span class="work-card__image-wrap">
+									{project.copy.image ? (
+										<img
+											class="work-card__image"
+											src={project.copy.image.src}
+											alt={project.title}
+											width={project.copy.image.width}
+											height={project.copy.image.height}
+											loading={i === 0 ? 'eager' : 'lazy'}
+										/>
+									) : (
+										<span class="work-card__placeholder">Hero visual — TBD</span>
+									)}
+								</span>
+								<div class="work-card__info">
+									<div class="work-card__details">
+										<p class="work-card__meta">{project.copy.meta}</p>
+										<p class="work-card__description">{project.copy.description}</p>
+									</div>
+
+									<div class="work-card__skills">
+										<div class="work-card__skills-label">Top Skills</div>
+										<ul class="work-card__skills-list">
+											{project.copy.skills.map((skill) => (
+												<li>{skill}</li>
+											))}
+										</ul>
+									</div>
+								</div>
+							</a>
+						))
+					}
+				</div>
+			</section>
+		)
+	}
 </BaseLayout>
+
+<style>
+	.hero {
+		margin-top: var(--space-8);
+	}
+
+	.hero__headline {
+		line-height: 1.15;
+	}
+
+	.hero__line {
+		display: block;
+	}
+
+	.hero__supporting {
+		margin-top: var(--space-4);
+		color: var(--color-text-muted);
+	}
+
+	.hero__supporting strong {
+		font-weight: 600;
+		color: var(--color-text);
+	}
+
+	@media (max-width: 640px) {
+		.hero__line {
+			display: inline;
+		}
+	}
+
+	.selected-work {
+		margin-top: var(--space-editorial);
+	}
+
+	.selected-work__label {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.work-list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-12);
+		margin-top: var(--space-4);
+	}
+
+	.work-card {
+		display: block;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.work-card__image-wrap {
+		display: block;
+		overflow: hidden;
+	}
+
+	.work-card__image {
+		width: 100%;
+		height: auto;
+		transition: transform 400ms ease;
+	}
+
+	.work-card:hover .work-card__image,
+	.work-card:focus-visible .work-card__image {
+		transform: scale(1.015);
+	}
+
+	.work-card:focus-visible {
+		outline: 2px solid var(--color-text);
+		outline-offset: 4px;
+	}
+
+	/* Placeholder stands in for a case study's cover image while it isn't
+	   ready yet — same visual language as `.case-hero` on the case study
+	   page itself: an obviously-a-placeholder gray box, not a fake image. */
+	.work-card__placeholder {
+		aspect-ratio: 16 / 9;
+		background: #eeeeee;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--color-text-muted);
+		font-size: var(--text-label);
+		letter-spacing: 0.02em;
+	}
+
+	.work-card__info {
+		margin-top: var(--space-3);
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: var(--space-4);
+	}
+
+	.work-card__details {
+		min-width: 0;
+	}
+
+	.work-card__meta {
+		font-size: 1.125rem;
+		color: var(--color-text-muted);
+	}
+
+	.work-card__description {
+		margin-top: var(--space-2);
+		max-width: var(--measure);
+		color: var(--color-text-muted);
+	}
+
+	.work-card__skills {
+		flex: none;
+		max-width: 15rem;
+	}
+
+	.work-card__skills-label {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+		margin-bottom: var(--space-1);
+	}
+
+	.work-card__skills-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-1);
+	}
+
+	.work-card__skills-list li {
+		font-size: 0.75rem;
+		line-height: 1;
+		padding: 0.45em 0.85em;
+		border: 1px solid var(--color-border);
+		border-radius: 999px;
+		color: var(--color-text-muted);
+		white-space: nowrap;
+	}
+
+	@media (max-width: 640px) {
+		.work-card__info {
+			flex-direction: column;
+		}
+
+		.work-card__skills {
+			max-width: none;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.work-card__image {
+			transition: none;
+		}
+	}
+</style>

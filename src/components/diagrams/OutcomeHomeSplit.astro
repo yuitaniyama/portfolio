@@ -1,0 +1,46 @@
+---
+// Section 04 (hubstep case study) — Outcome, Home / Account Home.
+// Editorial split: copy left, redesigned product preview right on
+// wide screens, stacking on narrow ones. Copy is verbatim from the
+// approved Section 04 text, just composed alongside its own visual
+// instead of sitting in a separate prose block above a shared grid.
+import ScrollableProductPreview from '../ScrollableProductPreview.astro';
+---
+
+<div class="ohs">
+	<div class="prose ohs__text">
+		<h3>Home / Account Home</h3>
+		<p>Account Home was reframed around the logged-in user's work for the day.</p>
+		<p>
+			Access to Home was added directly to the side navigation, and the page was reorganized so users could
+			reach key areas of the product from Home.
+		</p>
+	</div>
+	<div class="ohs__visual">
+		<ScrollableProductPreview
+			src="/section-04/section04-home-after.png"
+			alt="Redesigned Account Home"
+			label="Account Home"
+			height={280}
+		/>
+	</div>
+</div>
+
+<style>
+	.ohs {
+		display: grid;
+		grid-template-columns: 0.9fr 1.1fr;
+		gap: var(--space-4);
+		align-items: start;
+	}
+
+	.ohs__text {
+		max-width: none;
+	}
+
+	@container (max-width: 640px) {
+		.ohs {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

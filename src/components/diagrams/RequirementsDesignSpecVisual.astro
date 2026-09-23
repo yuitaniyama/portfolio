@@ -1,0 +1,318 @@
+---
+// Visual 03 for Section 02 (hubstep case study only). Uses the real
+// project artifacts in public/section-02/ — this component only
+// arranges them (layout, labels, relationship lines); it never tries
+// to recreate their content in HTML.
+//
+// Title alignment: the three stage titles ("Requirements" / "Design
+// exploration" / "Specification") must sit on one shared baseline even
+// though the source images have different natural proportions. Rather
+// than forcing the images to a fixed height (which would crop or
+// distort them), each image/title/caption is placed on its own CSS
+// Grid row (image row / title row / caption row) spanning all three
+// stages. Grid sizes each row to its tallest item automatically, so
+// every title starts at the same Y regardless of how tall any one
+// image happens to render — no hard-coded heights to keep in sync.
+import EnlargeableImage from '../EnlargeableImage.astro';
+
+const BASE = '/section-02';
+---
+
+<div class="rq">
+	<div class="rq-row">
+		<img
+			class="rq-img"
+			style="grid-column: req;"
+			src={`${BASE}/requirements.png`}
+			alt="Spreadsheets listing SFA requirements, use cases, and stakeholder requests"
+			loading="eager"
+			decoding="async"
+		/>
+		<div class="rq-label" style="grid-column: req;">Requirements</div>
+		<div class="rq-caption" style="grid-column: req;">What needed to be supported</div>
+
+		<div class="rq-connector" style="grid-column: connA;">
+			<div class="rq-rel">
+				<span class="rq-rel__text">Clarify requirements</span>
+				<span class="rq-rel__line rq-rel__line--fwd" aria-hidden="true" />
+			</div>
+			<div class="rq-rel rq-rel--reverse">
+				<span class="rq-rel__line rq-rel__line--rev" aria-hidden="true" />
+				<span class="rq-rel__text">Ask questions and explore options</span>
+			</div>
+		</div>
+
+		<img
+			class="rq-img"
+			style="grid-column: design;"
+			src={`${BASE}/design-exploration.png`}
+			alt="A wide Figma board showing many iterated SFA design explorations, connected by annotation lines"
+			loading="eager"
+			decoding="async"
+		/>
+		<div class="rq-label" style="grid-column: design;">Design exploration</div>
+		<div class="rq-caption" style="grid-column: design;">
+			Making the workflow concrete enough to discuss, challenge, and refine
+		</div>
+
+		<div class="rq-connector" style="grid-column: connB;">
+			<div class="rq-rel">
+				<span class="rq-rel__text">Propose design and rationale</span>
+				<span class="rq-rel__line rq-rel__line--fwd" aria-hidden="true" />
+			</div>
+			<div class="rq-rel rq-rel--reverse">
+				<span class="rq-rel__line rq-rel__line--rev" aria-hidden="true" />
+				<span class="rq-rel__text">Provide feedback and finalize details</span>
+			</div>
+		</div>
+
+		<img
+			class="rq-img"
+			style="grid-column: spec;"
+			src={`${BASE}/specification.png`}
+			alt="Specification documents in the team's shared repository"
+			loading="eager"
+			decoding="async"
+		/>
+		<div class="rq-label" style="grid-column: spec;">Specification</div>
+		<div class="rq-caption" style="grid-column: spec;">Turning decisions into a shared implementation reference</div>
+	</div>
+
+	<div class="rq-evidence">
+		<div class="rq-evidence__eyebrow">Exploring ideas through visuals</div>
+
+		<div class="rq-metrics">
+			<div class="rq-metric">
+				<div class="rq-metric__value">50+</div>
+				<div class="rq-metric__label">screens explored</div>
+			</div>
+			<div class="rq-metric">
+				<div class="rq-metric__value">20+</div>
+				<div class="rq-metric__label">supporting modals</div>
+			</div>
+		</div>
+
+		<div class="rq-evidence__grid">
+			<figure class="rq-evidence__item">
+				<EnlargeableImage
+					src={`${BASE}/section02-sales-input-notes.png`}
+					alt="Pink sticky notes organizing sales input and feature ideas into themes"
+				/>
+				<figcaption>
+					<div class="rq-label">Sales input and feature ideas</div>
+					<div class="rq-caption">
+						Feedback and requests from the sales team, organized to identify concrete needs.
+					</div>
+				</figcaption>
+			</figure>
+
+			<figure class="rq-evidence__item">
+				<EnlargeableImage
+					src={`${BASE}/section02-design-iterations.png`}
+					alt="Two hubstep dashboard design iterations shown side by side with annotation notes"
+				/>
+				<figcaption>
+					<div class="rq-label">Design exploration in progress</div>
+					<div class="rq-caption">
+						Screens and flows reviewed, annotated, and refined as the product became more concrete.
+					</div>
+				</figcaption>
+			</figure>
+		</div>
+	</div>
+</div>
+
+<style>
+	.rq {
+		--connector-w: 7rem;
+		padding: var(--space-4) 0;
+		max-width: 100%;
+	}
+
+	.rq-row {
+		display: grid;
+		grid-template-columns:
+			[req] 1fr
+			[connA] var(--connector-w)
+			[design] 1.7fr
+			[connB] var(--connector-w)
+			[spec] 1fr;
+		grid-template-rows: auto auto auto;
+		align-items: start;
+		column-gap: var(--space-3);
+		row-gap: var(--space-2);
+		max-width: 100%;
+	}
+
+	.rq-img {
+		grid-row: 1;
+		width: 100%;
+		height: auto;
+		display: block;
+		align-self: start;
+	}
+
+	.rq-label {
+		grid-row: 2;
+		font-weight: 600;
+	}
+
+	.rq-caption {
+		grid-row: 3;
+		font-size: 0.875em;
+		color: var(--color-text-muted);
+	}
+
+	/* Relationship connectors: thin lines + short reciprocal captions,
+	   not a technical flowchart. Deliberately quiet relative to the
+	   artifacts on either side — vertically centered against the image
+	   row only, not the whole card. */
+	.rq-connector {
+		grid-row: 1;
+		align-self: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: var(--space-3);
+		min-width: 0;
+	}
+
+	.rq-rel {
+		display: flex;
+		align-items: center;
+		gap: var(--space-1);
+		font-size: var(--text-label);
+		line-height: 1.4;
+		color: var(--color-text-muted);
+	}
+
+	.rq-rel--reverse {
+		justify-content: flex-end;
+		text-align: right;
+	}
+
+	.rq-rel__line {
+		position: relative;
+		width: 1rem;
+		height: 1px;
+		background: var(--color-border);
+		flex: none;
+	}
+
+	.rq-rel__line--fwd::after {
+		content: '';
+		position: absolute;
+		right: -3px;
+		top: 50%;
+		transform: translateY(-50%);
+		border-top: 3px solid transparent;
+		border-bottom: 3px solid transparent;
+		border-left: 4px solid var(--color-border);
+	}
+
+	.rq-rel__line--rev::after {
+		content: '';
+		position: absolute;
+		left: -3px;
+		top: 50%;
+		transform: translateY(-50%);
+		border-top: 3px solid transparent;
+		border-bottom: 3px solid transparent;
+		border-right: 4px solid var(--color-border);
+	}
+
+	/* Supporting evidence: quieter and secondary to the three-stage
+	   visual above — plain captions, no cards, no new color. The
+	   three-stage row is now this block's natural end, so the evidence
+	   section's own top spacing/rule is what separates the two. */
+	.rq-evidence {
+		margin-top: var(--space-6);
+		padding-top: var(--space-6);
+		border-top: 1px solid var(--color-border);
+	}
+
+	.rq-evidence__eyebrow {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.rq-metrics {
+		display: flex;
+		gap: var(--space-6);
+		margin-top: var(--space-3);
+	}
+
+	.rq-metric__value {
+		font-size: var(--text-h3);
+		font-weight: 700;
+	}
+
+	.rq-metric__label {
+		margin-top: 0.25em;
+		font-size: 0.875em;
+		color: var(--color-text-muted);
+	}
+
+	.rq-evidence__grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--space-4);
+		margin-top: var(--space-4);
+	}
+
+	.rq-evidence__item {
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+		min-width: 0;
+	}
+
+	.rq-evidence__item img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	/* Below tablet width, precise center-column proportions and inline
+	   connectors stop working well — reflow to a simple vertical stack
+	   instead of shrinking everything in place. A container query, not
+	   a media query: the available width here is set by the Reading
+	   Column, not the viewport. Grid placement is abandoned in favor of
+	   plain DOM order (already image -> title -> caption per stage). */
+	@container (max-width: 860px) {
+		.rq-row {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.rq-img,
+		.rq-label,
+		.rq-caption,
+		.rq-connector {
+			grid-column: auto;
+			grid-row: auto;
+		}
+
+		.rq-connector {
+			width: auto;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: var(--space-4);
+			padding: var(--space-3) 0;
+		}
+
+		.rq-rel,
+		.rq-rel--reverse {
+			justify-content: center;
+			text-align: center;
+		}
+
+		.rq-evidence__grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

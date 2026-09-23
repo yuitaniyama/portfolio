@@ -1,0 +1,27 @@
+---
+// Section 06 (hubstep case study) — the adopted direction: familiar DM
+// work brought into the SFA Home. The key design decision of this
+// section, so it gets the small eyebrow-label treatment already
+// established elsewhere in the case study (e.g. Section 03's "First
+// SFA Release" marker) to read as the primary visual — not a new
+// decorative style, just the existing pattern reused for emphasis.
+import EnlargeableImage from '../EnlargeableImage.astro';
+---
+
+<div class="ihd">
+	<div class="ihd__label">Adopted direction</div>
+	<EnlargeableImage
+		src="/section-06/integrated-home-direction.png"
+		alt="Adopted direction: familiar DM work brought into the SFA Home"
+	/>
+</div>
+
+<style>
+	.ihd__label {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+		margin-bottom: var(--space-3);
+	}
+</style>

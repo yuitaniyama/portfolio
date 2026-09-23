@@ -1,0 +1,55 @@
+---
+// Section 03 (hubstep case study) — the three places post-release
+// issues surfaced from, exactly as stated in the surrounding prose:
+// sales-team feedback, friction the designer noticed personally, and
+// workflows grown more complex as the product expanded. Presented as
+// three parallel, unordered sources (no numbering, no sequence arrows)
+// rather than a process — they happened at the same time, not in order.
+import DiagramIcon from './DiagramIcon.astro';
+
+const sources = [
+	{ icon: 'mail', text: 'Feedback from the internal sales team' },
+	{ icon: 'activity', text: 'Friction I noticed while using the product myself' },
+	{ icon: 'analysis', text: 'Workflows that had grown more complex as hubstep expanded beyond DM' },
+];
+---
+
+<div class="is-grid">
+	{
+		sources.map((s) => (
+			<div class="is-item">
+				<DiagramIcon name={s.icon} />
+				<p class="is-item__text">{s.text}</p>
+			</div>
+		))
+	}
+</div>
+
+<style>
+	.is-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-4);
+	}
+
+	.is-item {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--space-2);
+	}
+
+	.is-item__text {
+		margin: 0;
+		font-size: var(--text-label);
+		line-height: 1.5;
+		color: var(--color-text-muted);
+	}
+
+	@container (max-width: 640px) {
+		.is-grid {
+			grid-template-columns: 1fr;
+			gap: var(--space-4);
+		}
+	}
+</style>

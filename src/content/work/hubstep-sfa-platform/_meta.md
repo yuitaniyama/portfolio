@@ -1,0 +1,18 @@
+---
+title: "Evolving hubstep from a DM Tool into a Sales Platform"
+summary: "hubstep began as a CRM focused on direct mail operations."
+gridSize: wide
+draft: false
+order: 1
+eyebrow: "Product Design · SFA / CRM"
+meta:
+  - label: Role
+    value: "UI/UX / Product Designer"
+  - label: Focus
+    value: "Workflow Design · Information Architecture · Prototyping"
+heroVisual: "Visual 01 — Hero composition using several strong hubstep screens. Home / Sales Report can be central elements."
+intro: |
+  hubstep began as a CRM focused on direct mail operations. As the business expanded into SFA, I worked across two different design challenges: first, helping the team turn an ambiguous product direction into something concrete enough to build; later, re-examining the released product as new UX problems became visible.
+
+  My role gradually expanded from translating requirements into UI to questioning navigation, page responsibilities, and workflows across the product — while exploring what the next sales experience could become.
+---

@@ -15,11 +15,17 @@ const { title } = Astro.props;
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 	<body>
-		<header class="page-padding">
+		<header class="page-padding site-header">
 			<nav class="site-nav">
-				<a href="/">[Name Placeholder]</a>
+				<a href="/">YUI TANIYAMA</a>
 				<div class="site-nav__links">
 					<a href="/about">About</a>
 					<a href="/resume.pdf" target="_blank" rel="noopener">Resume</a>
@@ -28,6 +34,22 @@ const { title } = Astro.props;
 				</div>
 			</nav>
 		</header>
+
+		<script>
+			// Measures the real header height (not hardcoded — the header's
+			// own padding/type scale already vary slightly by breakpoint) so
+			// sticky-header-aware offsets (anchor scroll-margin, the Section
+			// Index's sticky `top`) stay correct without duplicating layout
+			// values in two places.
+			const header = document.querySelector('.site-header');
+			if (header) {
+				const setHeaderHeight = () => {
+					document.documentElement.style.setProperty('--header-h', `${header.offsetHeight}px`);
+				};
+				setHeaderHeight();
+				window.addEventListener('resize', setHeaderHeight);
+			}
+		</script>
 
 		<main class="page-padding">
 			<slot />

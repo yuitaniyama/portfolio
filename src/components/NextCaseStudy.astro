@@ -1,0 +1,138 @@
+---
+// Reusable "continue to the next case study" footer block for any work
+// detail page. Queries the `work` collection itself (self-contained),
+// finds the next published project after the current one in `order`,
+// and wraps to the first project if the current one is last.
+//
+// With only one case study published so far, there is no real "next"
+// project to link to — rather than invent placeholder project content,
+// this renders a plain, honest "more work in progress" state instead.
+import { getCollection } from 'astro:content';
+
+interface Props {
+	currentSlug: string;
+}
+
+const { currentSlug } = Astro.props;
+
+const allWork = await getCollection('work', ({ data }) => !data.draft);
+const ordered = allWork.sort((a, b) => a.data.order - b.data.order);
+const currentIndex = ordered.findIndex((p) => p.id.replace(/\/_meta$/, '') === currentSlug);
+const next =
+	ordered.length > 1 ? ordered[(currentIndex + 1) % ordered.length] : undefined;
+---
+
+{
+	next ? (
+		<a class="next-case-study" href={`/work/${next.id.replace(/\/_meta$/, '')}/`}>
+			<div class="next-case-study__text">
+				<div class="next-case-study__label">Next case study</div>
+				<div class="next-case-study__title">{next.data.title}</div>
+				<div class="next-case-study__summary">{next.data.summary}</div>
+			</div>
+			<span class="next-case-study__arrow" aria-hidden="true">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M5 12h14M13 6l6 6-6 6" />
+				</svg>
+			</span>
+		</a>
+	) : (
+		<div class="next-case-study next-case-study--empty">
+			<div class="next-case-study__text">
+				<div class="next-case-study__label">More work</div>
+				<div class="next-case-study__title">More case studies are on the way</div>
+			</div>
+			<a class="next-case-study__link" href="/">
+				Back to all projects
+				<span aria-hidden="true">→</span>
+			</a>
+		</div>
+	)
+}
+
+<style>
+	.next-case-study {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-4);
+		margin-top: var(--space-16);
+		padding: var(--space-6) var(--space-4);
+		border-top: 1px solid var(--color-border);
+		text-decoration: none;
+		color: inherit;
+		transition: opacity 150ms ease;
+	}
+
+	a.next-case-study:hover,
+	a.next-case-study:focus-visible {
+		opacity: 0.7;
+	}
+
+	a.next-case-study:focus-visible {
+		outline: 2px solid var(--color-text);
+		outline-offset: 4px;
+	}
+
+	.next-case-study__label {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.next-case-study__title {
+		margin-top: var(--space-2);
+		font-size: var(--text-h3);
+		font-weight: 700;
+	}
+
+	.next-case-study__summary {
+		margin-top: var(--space-2);
+		color: var(--color-text-muted);
+		max-width: var(--measure);
+	}
+
+	.next-case-study__arrow {
+		flex: none;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		border: 1px solid var(--color-border);
+		color: var(--color-text);
+	}
+
+	.next-case-study__arrow svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	.next-case-study--empty {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--space-3);
+	}
+
+	.next-case-study__link {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-1);
+		color: var(--color-text);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	@media (max-width: 640px) {
+		.next-case-study {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.next-case-study__arrow {
+			align-self: flex-end;
+		}
+	}
+</style>

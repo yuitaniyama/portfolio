@@ -1,0 +1,151 @@
+---
+// Section 08 (hubstep-foundation case study) — post-launch adoption
+// figures, reproduced exactly as stated in the source material. The
+// source also included a month-by-month trend chart, but since only the
+// Sep 2025 and Sep 2026 endpoints are given as exact figures (not the
+// intermediate monthly values), this renders a two-point comparison for
+// those two dates rather than an invented monthly series.
+const stats = [
+	{ value: '2,166', label: 'Cases on hubstep', detail: 'Sep 2026' },
+	{ value: '60.0%', label: 'Overall migration rate', detail: 'Sep 2026' },
+	{ value: '79.3%', label: 'DMNET migration rate', detail: '1,150 of 1,451 cases (Sep 2026)' },
+	{ value: '14.8×', label: 'Growth in hubstep cases', detail: '146 → 2,166 cases (Sep 2025 – Sep 2026)' },
+];
+
+const casesStart = 146;
+const casesEnd = 2166;
+const maxCases = casesEnd;
+---
+
+<div class="as-wrap">
+	<div class="as-grid">
+		{
+			stats.map((s) => (
+				<div class="as-card">
+					<div class="as-card__value">{s.value}</div>
+					<div class="as-card__label">{s.label}</div>
+					<div class="as-card__detail">{s.detail}</div>
+				</div>
+			))
+		}
+	</div>
+
+	<div class="as-trend">
+		<div class="as-trend__title">Hubstep cases, Sep 2025 → Sep 2026</div>
+		<div class="as-trend__bars">
+			<div class="as-trend__point">
+				<div class="as-trend__bar" style={`height: ${Math.max((casesStart / maxCases) * 100, 4)}%`} />
+				<div class="as-trend__point-value">{casesStart}</div>
+				<div class="as-trend__point-label">Sep 2025</div>
+			</div>
+			<div class="as-trend__point">
+				<div class="as-trend__bar as-trend__bar--end" style={`height: ${(casesEnd / maxCases) * 100}%`} />
+				<div class="as-trend__point-value">{casesEnd.toLocaleString()}</div>
+				<div class="as-trend__point-label">Sep 2026</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	.as-wrap {
+		display: grid;
+		grid-template-columns: 1.6fr 1fr;
+		gap: var(--space-4);
+		align-items: stretch;
+	}
+
+	.as-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--space-3);
+	}
+
+	.as-card {
+		background: rgba(244, 255, 252, 0.6);
+		border-radius: 10px;
+		padding: var(--space-4);
+	}
+
+	.as-card__value {
+		font-size: var(--text-h3);
+		font-weight: 700;
+		line-height: 1.1;
+	}
+
+	.as-card__label {
+		margin-top: var(--space-2);
+		font-size: var(--text-label);
+		color: var(--color-text-muted);
+	}
+
+	.as-card__detail {
+		margin-top: var(--space-1);
+		font-size: var(--text-label);
+		color: var(--color-text-muted);
+		opacity: 0.75;
+	}
+
+	.as-trend {
+		background: rgba(244, 255, 252, 0.6);
+		border-radius: 10px;
+		padding: var(--space-4);
+		display: flex;
+		flex-direction: column;
+	}
+
+	.as-trend__title {
+		font-size: var(--text-label);
+		color: var(--color-text-muted);
+	}
+
+	.as-trend__bars {
+		flex-grow: 1;
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		gap: var(--space-6);
+		margin-top: var(--space-3);
+		min-height: 120px;
+	}
+
+	.as-trend__point {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-end;
+		height: 100%;
+		width: 3rem;
+	}
+
+	.as-trend__bar {
+		width: 100%;
+		background: var(--color-border);
+		border-radius: 4px 4px 0 0;
+	}
+
+	.as-trend__bar--end {
+		background: var(--color-accent);
+	}
+
+	.as-trend__point-value {
+		margin-top: var(--space-2);
+		font-weight: 700;
+	}
+
+	.as-trend__point-label {
+		margin-top: 0.2em;
+		font-size: var(--text-label);
+		color: var(--color-text-muted);
+	}
+
+	@container (max-width: 640px) {
+		.as-wrap {
+			grid-template-columns: 1fr;
+		}
+
+		.as-grid {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+</style>

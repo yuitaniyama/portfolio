@@ -1,0 +1,72 @@
+---
+// Section 05 (hubstep-foundation case study) — the three structural
+// problems with the original 3-step List Upload flow, mirroring the
+// three-item, unordered layout used for IssueSources.astro elsewhere.
+import DiagramIcon from './DiagramIcon.astro';
+
+const problems = [
+	{
+		icon: 'layers',
+		title: 'Roles of different tasks were mixed together',
+		text: 'Operation, confirmation, and optional settings collected in the same step, often forcing a decision all at once.',
+	},
+	{
+		icon: 'list',
+		title: 'Priority of information was unclear',
+		text: 'Hard to judge on-screen what to check or act on next.',
+	},
+	{
+		icon: 'help-circle',
+		title: 'Guidance was insufficient',
+		text: 'Where you were, and what to do next, was hard to understand.',
+	},
+];
+---
+
+<div class="lupc-grid">
+	{
+		problems.map((p) => (
+			<div class="lupc-item">
+				<DiagramIcon name={p.icon} />
+				<div class="lupc-item__title">{p.title}</div>
+				<p class="lupc-item__text">{p.text}</p>
+			</div>
+		))
+	}
+</div>
+
+<style>
+	.lupc-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-4);
+	}
+
+	.lupc-item {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--space-2);
+		padding: var(--space-3);
+		background: #fafafa;
+		border-radius: 10px;
+	}
+
+	.lupc-item__title {
+		font-weight: 600;
+		font-size: 0.95em;
+	}
+
+	.lupc-item__text {
+		margin: 0;
+		font-size: var(--text-label);
+		line-height: 1.5;
+		color: var(--color-text-muted);
+	}
+
+	@container (max-width: 640px) {
+		.lupc-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

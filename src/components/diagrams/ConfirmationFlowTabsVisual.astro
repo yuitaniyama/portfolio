@@ -1,0 +1,22 @@
+---
+// Section 04 (hubstep-foundation case study) — the tabbed confirmation
+// screen in two states: all tabs visible, and the data-check tab open
+// (where duplicate exclusions can be handled together).
+import EnlargeableImage from '../EnlargeableImage.astro';
+---
+
+<div class="cftv">
+	<EnlargeableImage
+		src="/hubstep-foundation/en/section-05/section05-design-02.png"
+		alt="Confirmation screen shown in two states: viewing all tabs, and viewing the data-check tab where duplicate exclusions can be handled together"
+	/>
+	<p class="cftv__caption">Left: viewing all tabs · Right: viewing the data-check tab</p>
+</div>
+
+<style>
+	.cftv__caption {
+		margin-top: var(--space-2);
+		font-size: var(--text-label);
+		color: var(--color-text-muted);
+	}
+</style>

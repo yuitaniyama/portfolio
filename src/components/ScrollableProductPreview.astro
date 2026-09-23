@@ -1,0 +1,144 @@
+---
+// Reusable "scroll to explore" product preview: a long product
+// screenshot shown inside a fixed-height, minimal device frame. The
+// image is never shrunk to fit or cropped — it renders at full width
+// and the viewport scrolls internally, same spirit as ProductWalkthrough
+// (restrained CSS-only screen chrome, no photorealistic mockup) but for
+// a tall static screenshot instead of a video.
+interface Props {
+	src: string;
+	alt: string;
+	label?: string;
+	// Fixed viewport height in px (default 420). Callers can pass a
+	// taller value where legibility needs more room (e.g. Outcome).
+	height?: number;
+}
+
+const { src, alt, label, height = 420 } = Astro.props;
+---
+
+<figure class="spp" style={`--spp-height: ${height}px;`}>
+	{label && <div class="spp__label">{label}</div>}
+
+	<div class="spp__device">
+		<div class="spp__screen">
+			<span class="spp__camera" aria-hidden="true"></span>
+			<div class="spp__viewport" tabindex="0" aria-label={`Scrollable preview: ${alt}`}>
+				<img class="spp__image" src={src} alt={alt} loading="lazy" decoding="async" />
+				<span class="spp__hint" aria-hidden="true">
+					<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M8 1.5v13M8 1.5L5.2 4.3M8 1.5l2.8 2.8M8 14.5l-2.8-2.8M8 14.5l2.8-2.8" />
+					</svg>
+					Scroll to explore
+				</span>
+			</div>
+		</div>
+		<div class="spp__hinge" aria-hidden="true"></div>
+		<div class="spp__base" aria-hidden="true"></div>
+	</div>
+</figure>
+
+<style>
+	.spp {
+		margin: 0;
+	}
+
+	.spp__label {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+		margin-bottom: var(--space-3);
+	}
+
+	/* Same restrained frame language as ProductWalkthrough: near-black
+	   bezel, no logos/branding, chrome stays secondary to the content. */
+	.spp__device {
+		width: 100%;
+	}
+
+	.spp__screen {
+		position: relative;
+		background: var(--color-text);
+		border-radius: 12px;
+		padding: 14px 14px 10px;
+		box-shadow: 0 24px 40px -28px rgba(17, 17, 17, 0.35);
+	}
+
+	.spp__camera {
+		position: absolute;
+		top: 6px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 4px;
+		height: 4px;
+		border-radius: 50%;
+		background: #4a4a4a;
+	}
+
+	.spp__viewport {
+		position: relative;
+		height: var(--spp-height, 420px);
+		border-radius: 4px;
+		overflow-y: auto;
+		overflow-x: hidden;
+		background: #000;
+		/* Deliberately NOT overscroll-behavior: contain — once the
+		   viewport hits its scroll limit, the wheel/touch gesture should
+		   chain naturally into the outer page scroll, not get trapped. */
+	}
+
+	.spp__image {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.spp__hint {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+		padding: 4px 10px;
+		border-radius: 999px;
+		background: rgba(17, 17, 17, 0.6);
+		color: #fff;
+		font-size: 0.6875rem;
+		letter-spacing: 0.02em;
+		pointer-events: none;
+	}
+
+	.spp__hint svg {
+		width: 11px;
+		height: 11px;
+		flex: none;
+	}
+
+	.spp__hinge {
+		height: 6px;
+		background: #2b2b2b;
+		border-radius: 0 0 3px 3px;
+	}
+
+	.spp__base {
+		width: 88%;
+		height: 10px;
+		margin: 0 auto;
+		background: #d6d6d6;
+		border-radius: 0 0 8px 8px;
+	}
+
+	@container (max-width: 480px) {
+		.spp__viewport {
+			height: min(var(--spp-height, 420px), 320px);
+		}
+	}
+
+	@media (prefers-contrast: more) {
+		.spp__base {
+			background: var(--color-text-muted);
+		}
+	}
+</style>

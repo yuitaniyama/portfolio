@@ -1,0 +1,62 @@
+---
+// Section 04 (hubstep case study) — the combined "two dashboard-like
+// pages, confusing navigation" visual: each before-screen paired with
+// the specific navigation path into/out of it. 2x2 grid (screen, its
+// nav path, screen, its nav path) so the pages and the paths between
+// them read as one problem rather than two separate visuals.
+import ScrollableProductPreview from '../ScrollableProductPreview.astro';
+import EnlargeableImage from '../EnlargeableImage.astro';
+---
+
+<div class="bdg">
+	<div class="bdg__cell">
+		<ScrollableProductPreview
+			src="/section-04/section04-home-before.png"
+			alt="Account Home before the redesign"
+			label="Account Home (before)"
+			height={280}
+		/>
+	</div>
+	<div class="bdg__cell">
+		<EnlargeableImage
+			src="/section-04/section04-before-account-home-navigation.png"
+			alt="Navigation path back to Account Home"
+			enlargeable={false}
+		/>
+	</div>
+	<div class="bdg__cell">
+		<ScrollableProductPreview
+			src="/section-04/section04-sales-dashboard-before.png"
+			alt="Sales Dashboard before the redesign"
+			label="Sales Dashboard (before)"
+			height={280}
+		/>
+	</div>
+	<div class="bdg__cell">
+		<EnlargeableImage
+			src="/section-04/section04-before-sales-dashboard-navigation.png"
+			alt="Side navigation path to Sales Dashboard"
+			enlargeable={false}
+		/>
+	</div>
+</div>
+
+<style>
+	.bdg {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--space-4);
+	}
+
+	.bdg__cell {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	@container (max-width: 640px) {
+		.bdg {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

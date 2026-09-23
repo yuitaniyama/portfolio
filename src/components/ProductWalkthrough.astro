@@ -1,0 +1,159 @@
+---
+// Embedded product video (not a lightbox image) — a short looping
+// clip presented as "the product in use," not a prototype. Presented
+// inside a minimal CSS/HTML laptop frame (no raster mockup image) so
+// it reads as software running on a computer rather than a standalone
+// screenshot/video asset. The frame is pure context — no logos, no
+// browser chrome, no photorealism — the walkthrough itself stays the
+// visual focus. Screen proportions follow the walkthrough's own
+// aspect ratio rather than cropping it to fit a fixed device ratio.
+interface Props {
+	src: string;
+	poster?: string;
+	label?: string;
+	// Optional release marker (e.g. "Jun–Jul 2026") shown alongside the
+	// label above the device frame — still just text, not a badge.
+	dateRange?: string;
+	alt: string;
+	width: number;
+	height: number;
+}
+
+const { src, poster, label, dateRange, alt, width, height } = Astro.props;
+---
+
+<figure class="product-walkthrough">
+	{label && (
+		<div class="product-walkthrough__marker">
+			<div class="product-walkthrough__label">{label}</div>
+			{dateRange && <div class="product-walkthrough__date">{dateRange}</div>}
+		</div>
+	)}
+
+	<div class="product-walkthrough__device">
+		<div class="product-walkthrough__screen">
+			<span class="product-walkthrough__camera" aria-hidden="true"></span>
+			<div class="product-walkthrough__display" style={`aspect-ratio: ${width} / ${height};`}>
+				<video
+					class="product-walkthrough__video"
+					src={src}
+					poster={poster}
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					aria-label={alt}
+				>
+				</video>
+			</div>
+		</div>
+		<div class="product-walkthrough__hinge" aria-hidden="true"></div>
+		<div class="product-walkthrough__base" aria-hidden="true"></div>
+	</div>
+</figure>
+
+<style>
+	.product-walkthrough {
+		margin: 0;
+	}
+
+	.product-walkthrough__marker {
+		display: flex;
+		align-items: baseline;
+		gap: var(--space-2);
+		margin-bottom: var(--space-3);
+	}
+
+	.product-walkthrough__label {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.product-walkthrough__date {
+		font-size: var(--text-label);
+		color: var(--color-text-muted);
+		opacity: 0.7;
+	}
+
+	/* Minimal laptop frame, built entirely from CSS. Reuses the site's
+	   own near-black/near-white tokens rather than introducing new
+	   colors — it's chrome around the product, not a new accent. */
+	.product-walkthrough__device {
+		width: 100%;
+	}
+
+	.product-walkthrough__screen {
+		position: relative;
+		background: var(--color-text);
+		border-radius: 12px;
+		padding: 14px 14px 10px;
+		box-shadow: 0 24px 40px -28px rgba(17, 17, 17, 0.35);
+	}
+
+	.product-walkthrough__camera {
+		position: absolute;
+		top: 6px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 4px;
+		height: 4px;
+		border-radius: 50%;
+		background: #4a4a4a;
+	}
+
+	.product-walkthrough__display {
+		border-radius: 4px;
+		overflow: hidden;
+		background: #000;
+	}
+
+	.product-walkthrough__video {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+
+	.product-walkthrough__hinge {
+		height: 6px;
+		background: #2b2b2b;
+		border-radius: 0 0 3px 3px;
+	}
+
+	.product-walkthrough__base {
+		width: 88%;
+		height: 10px;
+		margin: 0 auto;
+		background: #d6d6d6;
+		border-radius: 0 0 8px 8px;
+	}
+
+	@media (prefers-contrast: more) {
+		.product-walkthrough__base {
+			background: var(--color-text-muted);
+		}
+	}
+</style>
+
+<script>
+	// Autoplay only when the visitor hasn't asked for reduced motion;
+	// otherwise leave it paused on its poster frame with native controls
+	// so it's still watchable, just never self-starts.
+	document.querySelectorAll<HTMLVideoElement>('.product-walkthrough__video').forEach((video) => {
+		if (video.dataset.wired) return;
+		video.dataset.wired = 'true';
+
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+			video.controls = true;
+		} else {
+			video.autoplay = true;
+			video.play().catch(() => {
+				// Autoplay can still be blocked in some contexts; controls
+				// are the fallback so the video is never unreachable.
+				video.controls = true;
+			});
+		}
+	});
+</script>

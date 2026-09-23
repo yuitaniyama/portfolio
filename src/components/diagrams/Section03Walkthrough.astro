@@ -1,0 +1,18 @@
+---
+// Section 03 (hubstep case study) — the first SFA release, shown as a
+// short looping product walkthrough rather than a prototype. A thin
+// pre-configured wrapper around the reusable ProductWalkthrough so the
+// asset path/props live in one place; ProductWalkthrough itself stays
+// generic for future case-study videos.
+import ProductWalkthrough from '../ProductWalkthrough.astro';
+---
+
+<ProductWalkthrough
+	src="/section-03/section03-product-walkthrough.mp4"
+	poster="/section-03/section03-product-walkthrough-poster.jpg"
+	label="First SFA Release"
+	dateRange="Jun–Jul 2026"
+	alt="Product walkthrough of the first hubstep SFA release"
+	width={1744}
+	height={1190}
+/>

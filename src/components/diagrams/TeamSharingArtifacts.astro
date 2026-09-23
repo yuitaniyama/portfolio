@@ -1,0 +1,35 @@
+---
+// Section 04 (hubstep case study) — the two artifacts used to share
+// findings and reasoning with the team. No per-image captions invented
+// beyond what the surrounding prose already states, reusing the
+// existing click-to-expand lightbox. Uses the Reading Column's full
+// available width rather than a fixed cap — the source images have
+// different aspect ratios (one portrait, one landscape), so a slightly
+// wider left column plus each image's own natural proportions is what
+// gives the portrait one more presence, not a forced equal size.
+import EnlargeableImage from '../EnlargeableImage.astro';
+---
+
+<div class="tsa">
+	<div class="tsa__item">
+		<EnlargeableImage src="/section-04/section04-team-sharing-01.png" alt="Findings shared with the team" />
+	</div>
+	<div class="tsa__item">
+		<EnlargeableImage src="/section-04/section04-team-sharing-02.png" alt="Findings shared with the team" />
+	</div>
+</div>
+
+<style>
+	.tsa {
+		display: grid;
+		grid-template-columns: 1.15fr 1fr;
+		gap: var(--space-4);
+		align-items: start;
+	}
+
+	@container (max-width: 600px) {
+		.tsa {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

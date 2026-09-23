@@ -1,0 +1,109 @@
+---
+// Section 08 (hubstep-foundation case study) — the three provision
+// formats hubstep expanded into after release. Each card notes where
+// that format is actually covered, since the three point in different
+// directions: Lite is covered earlier on this same page (the LP work in
+// Product Communication), Regular is a separate case study entirely, and
+// Classic mode gets its own deep dive right below this grid.
+const forms = [
+	{
+		title: 'hubstep Lite',
+		detail: 'A plan centered on managing address lists, and on accumulating DM history, results, and analytics.',
+		note: { label: 'LP work covered in Product Communication, above', href: '#communicating-the-product' },
+	},
+	{
+		title: 'hubstep / Regular',
+		detail: 'Started from DM management, then expanded to include SFA functionality — the main product.',
+		note: { label: 'View the case study', href: '/work/hubstep-sfa-platform/', prominent: true },
+	},
+	{
+		title: 'hubstep Classic mode',
+		detail: "A mode for migrating to hubstep without significantly changing an existing system's operational flow.",
+		note: { label: 'Detailed further below' },
+	},
+];
+---
+
+<div class="pfc-grid">
+	{
+		forms.map((f) => (
+			<div class="pfc-card">
+				<div class="pfc-card__title">{f.title}</div>
+				<p class="pfc-card__detail">{f.detail}</p>
+				{f.note && f.note.href ? (
+					<a class:list={['pfc-card__note', f.note.prominent && 'pfc-card__note--prominent']} href={f.note.href}>
+						{f.note.label}
+						{f.note.prominent && <span aria-hidden="true">→</span>}
+					</a>
+				) : (
+					f.note && <p class="pfc-card__note">{f.note.label}</p>
+				)}
+			</div>
+		))
+	}
+</div>
+
+<style>
+	.pfc-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-3);
+	}
+
+	.pfc-card {
+		padding: var(--space-4);
+		border-radius: 10px;
+		background: #fafafa;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+	}
+
+	.pfc-card__title {
+		font-weight: 700;
+	}
+
+	.pfc-card__detail {
+		margin: 0;
+		font-size: var(--text-label);
+		line-height: 1.5;
+		color: var(--color-text-muted);
+		flex-grow: 1;
+	}
+
+	.pfc-card__note {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4em;
+		margin: var(--space-1) 0 0;
+		font-size: var(--text-label);
+		color: var(--color-text-muted);
+	}
+
+	a.pfc-card__note {
+		text-decoration: none;
+	}
+
+	a.pfc-card__note:hover,
+	a.pfc-card__note:focus-visible {
+		color: var(--color-text);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	.pfc-card__note--prominent {
+		font-weight: 600;
+		color: var(--color-accent);
+	}
+
+	.pfc-card__note--prominent:hover,
+	.pfc-card__note--prominent:focus-visible {
+		color: var(--color-accent);
+	}
+
+	@container (max-width: 640px) {
+		.pfc-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

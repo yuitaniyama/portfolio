@@ -1,0 +1,52 @@
+---
+// Section 03 (hubstep-foundation case study) — Figma board showing which
+// screens were the existing design at join time versus screens redesigned
+// in response to internal feedback. The color key is stated directly in
+// the source material, so it's reproduced here as a simple legend rather
+// than left implicit in the screenshot alone.
+import EnlargeableImage from '../EnlargeableImage.astro';
+---
+
+<div class="ffv">
+	<div class="ffv__legend">
+		<span class="ffv__legend-item"><span class="ffv__dot ffv__dot--before" />Existing design at join time</span>
+		<span class="ffv__legend-item"><span class="ffv__dot ffv__dot--after" />Redesigned after feedback</span>
+	</div>
+	<EnlargeableImage
+		src="/hubstep-foundation/en/section-04/section04-figma.png"
+		alt="Figma board of hubstep screens, marking which were the existing design at join time versus which were redesigned in response to internal feedback"
+		enlargeable={false}
+	/>
+</div>
+
+<style>
+	.ffv__legend {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-3);
+		margin-bottom: var(--space-2);
+	}
+
+	.ffv__legend-item {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		font-size: var(--text-label);
+		color: var(--color-text-muted);
+	}
+
+	.ffv__dot {
+		width: 9px;
+		height: 9px;
+		border-radius: 50%;
+		flex: none;
+	}
+
+	.ffv__dot--before {
+		background: #111111;
+	}
+
+	.ffv__dot--after {
+		background: var(--color-accent);
+	}
+</style>

@@ -1,0 +1,224 @@
+---
+// Reusable click-to-enlarge image trigger. Pair with the sitewide
+// lightbox overlay (styles in global.css under "Image lightbox", logic
+// in this component's <script>, which Astro loads once no matter how
+// many EnlargeableImage instances are on a page).
+//
+// Usage: <EnlargeableImage src="/path.png" alt="..." />
+// Pass enlargeable={false} to render the same image, sized and placed
+// identically, as a plain static <img> with no zoom icon, no
+// click-to-enlarge behavior, and no zoom cursor — for images that
+// shouldn't invite expansion (e.g. a flow diagram already at full detail).
+interface Props {
+	src: string;
+	alt: string;
+	loading?: 'lazy' | 'eager';
+	class?: string;
+	enlargeable?: boolean;
+}
+
+const { src, alt, loading = 'lazy', class: className, enlargeable = true } = Astro.props;
+---
+
+{enlargeable ? (
+	<button type="button" class:list={['enlargeable-image', className]} data-enlarge-trigger>
+		<img src={src} alt={alt} loading={loading} decoding="async" />
+		<span class="enlargeable-image__icon" aria-hidden="true">
+			<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M6 2H2v4M10 2h4v4M6 14H2v-4M10 14h4v-4" />
+			</svg>
+		</span>
+	</button>
+) : (
+	<img class:list={['enlargeable-image__static', className]} src={src} alt={alt} loading={loading} decoding="async" />
+)}
+
+<style>
+	.enlargeable-image {
+		position: relative;
+		display: block;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		border: none;
+		background: none;
+		font: inherit;
+		color: inherit;
+		text-align: inherit;
+		cursor: zoom-in;
+	}
+
+	.enlargeable-image img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	.enlargeable-image__static {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	.enlargeable-image__icon {
+		position: absolute;
+		top: 14px;
+		right: 14px;
+		width: 28px;
+		height: 28px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 4px;
+		background: rgba(255, 255, 255, 0.75);
+		color: var(--color-text);
+		opacity: 0.75;
+		transition: opacity 150ms ease;
+	}
+
+	.enlargeable-image__icon svg {
+		width: 16px;
+		height: 16px;
+	}
+
+	.enlargeable-image:hover .enlargeable-image__icon,
+	.enlargeable-image:focus-visible .enlargeable-image__icon {
+		opacity: 1;
+	}
+
+	.enlargeable-image:focus-visible {
+		outline: 2px solid var(--color-text);
+		outline-offset: 2px;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.enlargeable-image__icon {
+			transition: none;
+		}
+	}
+</style>
+
+<script>
+	// Runs once per page (Astro de-duplicates identical component
+	// scripts) and wires up every current and future .enlargeable-image
+	// trigger via event delegation, plus one shared lightbox overlay
+	// appended to <body> on first use.
+	const REDUCED_MOTION = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	let lastFocused: HTMLElement | null = null;
+	let pendingCloseTimer: ReturnType<typeof setTimeout> | undefined;
+
+	function ensureLightbox(): HTMLElement {
+		let root = document.getElementById('site-lightbox');
+		if (root) return root;
+
+		root = document.createElement('div');
+		root.id = 'site-lightbox';
+		root.className = 'site-lightbox';
+		root.hidden = true;
+		root.setAttribute('role', 'dialog');
+		root.setAttribute('aria-modal', 'true');
+		root.setAttribute('aria-label', 'Enlarged image');
+		root.innerHTML = `
+			<div class="site-lightbox__backdrop" data-lightbox-close></div>
+			<button type="button" class="site-lightbox__close" data-lightbox-close aria-label="Close enlarged image">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M6 6l12 12M18 6L6 18" />
+				</svg>
+			</button>
+			<img class="site-lightbox__img" alt="" />
+		`;
+		document.body.appendChild(root);
+		return root;
+	}
+
+	function openLightbox(src: string, alt: string) {
+		const root = ensureLightbox();
+		const img = root.querySelector('.site-lightbox__img') as HTMLImageElement;
+
+		// A close from a previous image may still have a pending finish()
+		// scheduled (transitionend / fallback timeout — see closeLightbox).
+		// If we don't cancel it, it can fire after this new open and
+		// immediately hide it / clear its src again, which looks exactly
+		// like "closing one image stops the next one from opening". The
+		// is-open check inside finish() is a second, redundant guard
+		// against the same race.
+		if (pendingCloseTimer !== undefined) {
+			clearTimeout(pendingCloseTimer);
+			pendingCloseTimer = undefined;
+		}
+
+		img.src = src;
+		img.alt = alt;
+
+		lastFocused = document.activeElement as HTMLElement | null;
+		root.hidden = false;
+		document.body.classList.add('site-lightbox-open');
+		document.addEventListener('keydown', onKeydown);
+
+		// Two rAFs so the browser paints the pre-transition state first,
+		// otherwise the fade-in can get skipped. rAF is paused entirely
+		// while the page is hidden (e.g. a background tab), so a short
+		// setTimeout backs it up — classList.add is idempotent, so
+		// whichever fires first wins and the other is a harmless no-op.
+		const activate = () => root.classList.add('is-open');
+		requestAnimationFrame(() => requestAnimationFrame(activate));
+		setTimeout(activate, 60);
+
+		(root.querySelector('.site-lightbox__close') as HTMLElement)?.focus();
+	}
+
+	function closeLightbox() {
+		const root = document.getElementById('site-lightbox');
+		if (!root || root.hidden) return;
+
+		root.classList.remove('is-open');
+		document.body.classList.remove('site-lightbox-open');
+		document.removeEventListener('keydown', onKeydown);
+
+		const finish = () => {
+			// A newer openLightbox() call already re-added 'is-open' — this
+			// finish() belongs to a close that's since been superseded, so
+			// it must not hide the now-open lightbox or clear its image.
+			if (root.classList.contains('is-open')) return;
+			root.hidden = true;
+			const img = root.querySelector('.site-lightbox__img') as HTMLImageElement;
+			// Not `img.src = ''` — that resolves to the current page's own
+			// URL and briefly requests it as an image.
+			img.removeAttribute('src');
+		};
+
+		if (REDUCED_MOTION()) {
+			finish();
+		} else {
+			// Same reasoning as the open path: transitionend may not fire
+			// promptly on a hidden page, so a timeout backs it up. The timer
+			// is cancelled in openLightbox() if a new image opens first.
+			root.addEventListener('transitionend', finish, { once: true });
+			pendingCloseTimer = setTimeout(finish, 300);
+		}
+
+		// No focus trap is kept while open, so just return focus to
+		// whatever opened the lightbox.
+		lastFocused?.focus();
+	}
+
+	function onKeydown(e: KeyboardEvent) {
+		if (e.key === 'Escape') closeLightbox();
+	}
+
+	document.addEventListener('click', (e) => {
+		const target = e.target as HTMLElement;
+
+		const trigger = target.closest('[data-enlarge-trigger]') as HTMLElement | null;
+		if (trigger) {
+			const img = trigger.querySelector('img');
+			if (img) openLightbox(img.currentSrc || img.src, img.alt);
+			return;
+		}
+
+		if (target.closest('[data-lightbox-close]')) {
+			closeLightbox();
+		}
+	});
+</script>

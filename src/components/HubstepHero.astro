@@ -1,0 +1,174 @@
+---
+// Layered, interactive hero — isolated to the hubstep case study.
+// Does not touch the shared `.case-hero` placeholder styles used by
+// other case studies; this component owns its own container/classes.
+//
+// DEFAULT POSITION / SCALE (per layer): the `layers` array below.
+// x / y / width are percentages of the composition's own box, reverse
+// engineered by pixel-matching each source layer against
+// public/hero-images/hero-image.png (the flattened reference, itself
+// 6004x2928). To fine-tune a layer's resting position or size, edit
+// its x / y / width here.
+//
+// HOVER MOVEMENT: the `@media (hover: hover) ...` block in <style>
+// below, one rule per `.hero-layer--<key>`. Edit the translate/scale
+// values there to fine-tune the hover motion.
+interface Layer {
+	key: string;
+	src: string;
+	alt: string;
+	x: number; // % of composition width, from left
+	y: number; // % of composition height, from top
+	width: number; // % of composition width
+	z: number;
+}
+
+const BASE = '/hero-images';
+
+// z: stacking order only (position/size/rotation/shadow unaffected).
+// dashboard is the base layer; the floating fragments sit above it;
+// the logo stays on top of everything.
+const layers: Layer[] = [
+	{ key: 'report-left', src: `${BASE}/hero-report-left.png`, alt: '', x: 0.07, y: 1.5, width: 27.82, z: 2 },
+	{
+		key: 'analytics-right',
+		src: `${BASE}/hero-analytics-right.png`,
+		alt: '',
+		x: 61.03,
+		y: 0,
+		width: 35.04,
+		z: 2,
+	},
+	{ key: 'history', src: `${BASE}/hero-history.png`, alt: '', x: 9.66, y: 41.53, width: 26.55, z: 2 },
+	{
+		key: 'upload-status',
+		src: `${BASE}/hero-upload-status.png`,
+		alt: '',
+		x: 79.08,
+		y: 40.85,
+		width: 20.89,
+		z: 2,
+	},
+	{
+		key: 'activity-summary',
+		src: `${BASE}/hero-activity-summary.png`,
+		alt: '',
+		x: 57.03,
+		y: 58.61,
+		width: 32.58,
+		z: 2,
+	},
+	{
+		key: 'dashboard',
+		src: `${BASE}/hero-main-dashboard.png`,
+		alt: 'hubstep sales dashboard screen',
+		x: 27.85,
+		y: 0,
+		width: 43.39,
+		z: 1,
+	},
+	{ key: 'logo', src: `${BASE}/hubstep-logo.png`, alt: '', x: 6.8, y: 45.63, width: 16.12, z: 3 },
+];
+---
+
+<div class="hero-composition">
+	{
+		layers.map((l) => (
+			<img
+				class={`hero-layer hero-layer--${l.key}`}
+				style={`--x:${l.x}%; --y:${l.y}%; --w:${l.width}%; --z:${l.z};`}
+				src={l.src}
+				alt={l.alt}
+				loading="eager"
+				decoding="async"
+			/>
+		))
+	}
+</div>
+
+<style>
+	.hero-composition {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 6004 / 2928;
+		overflow: hidden;
+		background: #eeeeee;
+		margin-top: var(--space-3);
+		margin-bottom: var(--space-6);
+	}
+
+	.hero-layer {
+		position: absolute;
+		left: var(--x);
+		top: var(--y);
+		width: var(--w);
+		height: auto;
+		z-index: var(--z);
+		display: block;
+		transition: transform 600ms cubic-bezier(0.19, 1, 0.22, 1);
+		will-change: transform;
+	}
+
+	/* Hover: fragments gently expand away from the center. Only enabled
+	   when a real hover input is available and the visitor hasn't asked
+	   for reduced motion — touch devices and reduced-motion keep the
+	   static resting composition. */
+	@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+		.hero-composition:hover .hero-layer--dashboard {
+			transform: scale(1.015);
+		}
+
+		.hero-composition:hover .hero-layer--report-left {
+			transform: translate(-6%, -5%);
+		}
+
+		.hero-composition:hover .hero-layer--analytics-right {
+			transform: translate(5%, -5%);
+		}
+
+		.hero-composition:hover .hero-layer--history {
+			transform: translate(-5%, 4%);
+		}
+
+		.hero-composition:hover .hero-layer--upload-status {
+			transform: translate(6%, 0%);
+		}
+
+		.hero-composition:hover .hero-layer--activity-summary {
+			transform: translate(4%, 5%);
+		}
+
+		.hero-composition:hover .hero-layer--logo {
+			transform: none;
+		}
+	}
+
+	/* Mobile: simplify rather than shrink everything to fit. Only the
+	   dashboard (primary) and logo remain, repositioned for a compact
+	   composition; the smaller decorative fragments are hidden. */
+	@media (max-width: 640px) {
+		.hero-composition {
+			aspect-ratio: 4 / 3;
+		}
+
+		.hero-layer--report-left,
+		.hero-layer--analytics-right,
+		.hero-layer--history,
+		.hero-layer--upload-status,
+		.hero-layer--activity-summary {
+			display: none;
+		}
+
+		.hero-layer--dashboard {
+			--x: 8%;
+			--y: 6%;
+			--w: 84%;
+		}
+
+		.hero-layer--logo {
+			--x: 6%;
+			--y: 80%;
+			--w: 30%;
+		}
+	}
+</style>

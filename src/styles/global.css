@@ -1,7 +1,17 @@
 /*
-  Structural baseline only — NOT the final Visual Design.
-  Typography scale, exact spacing, and color tokens are placeholders
-  until the Visual Design is finalized with the user.
+  Visual Direction v1 — a review draft, not final.
+  Typography scale, font choice, and exact spacing are starting points
+  meant to be compared live in the browser, not locked-in yet.
+
+  System underneath, freedom on top:
+  - Tokens below (--text-*, --space-*, grid slot classes) ARE the system:
+    keep them consistent sitewide.
+  - `--space-editorial` is the one sanctioned escape hatch for an
+    intentional rhythm break (see CaseStudy section gaps) — use it
+    deliberately, not as a substitute for the base scale.
+  - Per-project grid slot (standard/wide/tall) and in-body image width
+    are the "freedom on top": chosen per case study based on the actual
+    material, from a small fixed set of options — not arbitrary.
 */
 
 :root {
@@ -9,11 +19,44 @@
 	--color-text: #111111;
 	--color-text-muted: #6b6b6b;
 	--color-border: #e4e4e4;
+	/* hubstep's own brand teal-green (sampled from the logo asset), used
+	   nowhere else in the portfolio's own chrome — reserved specifically
+	   for marking the active Section Index item against this case study. */
+	--color-accent: #0a7e71;
 
-	--font-sans: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+	/* Set precisely by BaseLayout's header-height script; this is only
+	   the pre-JS/no-JS fallback (matches the header's typical height). */
+	--header-h: 5.5rem;
 
-	--measure: 65ch;
+	--font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+
+	/* Typography scale — starting point from the user's own sketch (64/40/32/20/12),
+	   fluid between mobile and desktop rather than a flat shrink. Open to revision
+	   after viewing in-browser. */
+	--text-h1: clamp(2.5rem, 2rem + 3vw, 4rem); /* ~40 -> 64 */
+	--text-h2: clamp(1.75rem, 1.5rem + 1.5vw, 2.5rem); /* ~28 -> 40 */
+	--text-h3: clamp(1.375rem, 1.2rem + 1vw, 2rem); /* ~22 -> 32 */
+	--text-body: 1.25rem; /* 20px desktop */
+	--text-body-mobile: 1.0625rem; /* 17px on small screens, not a naive scale-down */
+	--text-label: 0.75rem; /* 12px */
+
+	/* Spacing — 8px base scale */
+	--space-1: 0.5rem; /* 8 */
+	--space-2: 1rem; /* 16 */
+	--space-3: 1.5rem; /* 24 */
+	--space-4: 2rem; /* 32 */
+	--space-6: 3rem; /* 48 */
+	--space-8: 4rem; /* 64 */
+	--space-12: 6rem; /* 96 */
+	--space-16: 8rem; /* 128 */
+	/* Sanctioned exception for deliberate editorial pacing (e.g. between
+	   major Case Study sections) — allowed to sit outside the 8px scale. */
+	--space-editorial: clamp(5rem, 4rem + 6vw, 9rem);
+
+	--measure: 40rem; /* ~70-75ch at 20px body */
 	--page-padding: clamp(1.25rem, 4vw, 3rem);
+	--content-max-width: 1200px;
+	--grid-gap: var(--space-3);
 }
 
 * {
@@ -22,6 +65,13 @@
 
 html {
 	color-scheme: light;
+	scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
 }
 
 body {
@@ -29,9 +79,15 @@ body {
 	background: var(--color-bg);
 	color: var(--color-text);
 	font-family: var(--font-sans);
-	font-size: 1.125rem;
+	font-size: var(--text-body-mobile);
 	line-height: 1.6;
 	-webkit-font-smoothing: antialiased;
+}
+
+@media (min-width: 640px) {
+	body {
+		font-size: var(--text-body);
+	}
 }
 
 img {
@@ -43,18 +99,43 @@ a {
 	color: inherit;
 }
 
+h1, h2, h3 {
+	margin: 0;
+	font-weight: 700;
+	line-height: 1.1;
+	letter-spacing: -0.01em;
+}
+
+main h1 {
+	font-size: var(--text-h1);
+}
+
+.prose h3 {
+	font-size: var(--text-body);
+	font-weight: 600;
+	line-height: 1.3;
+	margin-top: var(--space-6);
+}
+
 .page-padding {
 	padding-left: var(--page-padding);
 	padding-right: var(--page-padding);
+}
+
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 20;
+	background: var(--color-bg);
 }
 
 .site-nav {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	gap: 1.5rem;
-	padding-top: 1.5rem;
-	padding-bottom: 1.5rem;
+	gap: var(--space-3);
+	padding-top: var(--space-3);
+	padding-bottom: var(--space-3);
 }
 
 .site-nav a {
@@ -64,19 +145,25 @@ a {
 .site-nav__links {
 	display: flex;
 	align-items: center;
-	gap: 1.5rem;
+	gap: var(--space-3);
 	color: var(--color-text-muted);
+	font-size: var(--text-label);
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
 }
 
 .site-footer {
-	margin-top: 6rem;
-	padding-top: 2rem;
-	padding-bottom: 3rem;
+	margin-top: var(--space-16);
+	padding-top: var(--space-4);
+	padding-bottom: var(--space-6);
 	border-top: 1px solid var(--color-border);
 	color: var(--color-text-muted);
 	display: flex;
-	gap: 1.5rem;
+	gap: var(--space-3);
 	flex-wrap: wrap;
+	font-size: var(--text-label);
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
 }
 
 .site-footer a {
@@ -92,8 +179,8 @@ a {
 }
 
 .prose blockquote {
-	margin: 2rem 0;
-	padding-left: 1.25rem;
+	margin: var(--space-4) 0;
+	padding-left: var(--space-3);
 	border-left: 2px solid var(--color-border);
 	color: var(--color-text-muted);
 	font-style: italic;
@@ -101,56 +188,457 @@ a {
 
 .work-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-	gap: 1.5rem;
-	margin-top: 3rem;
+	grid-template-columns: repeat(12, 1fr);
+	gap: var(--space-4);
+	margin-top: var(--space-8);
 }
 
 .work-grid__item {
 	display: block;
 	text-decoration: none;
 	color: inherit;
+	grid-column: span 6;
+}
+
+/* Grid slot system — the small fixed set of "freedom on top" choices.
+   Pick per project based on the real hero image, not arbitrarily.
+   (Same 12-column vocabulary as the Case Study content grid below.) */
+.work-grid__item--wide {
+	grid-column: span 12;
+}
+
+.work-grid__item--tall {
+	grid-column: span 4;
 }
 
 .work-grid__thumb {
 	aspect-ratio: 4 / 3;
 	background: #eeeeee;
-	border-radius: 4px;
+}
+
+.work-grid__item--wide .work-grid__thumb {
+	aspect-ratio: 16 / 7;
+}
+
+.work-grid__item--tall .work-grid__thumb {
+	aspect-ratio: 3 / 4;
 }
 
 .work-grid__title {
-	margin-top: 0.75rem;
+	margin-top: var(--space-2);
 	font-weight: 600;
 }
 
 .work-grid__summary {
 	color: var(--color-text-muted);
-	font-size: 0.95rem;
+	font-size: 0.9em;
+}
+
+@media (max-width: 640px) {
+	/* System rule for mobile: always a single reading-order column,
+	   regardless of desktop slot — not a shrunken version of the grid. */
+	.work-grid__item,
+	.work-grid__item--wide,
+	.work-grid__item--tall {
+		grid-column: 1 / -1;
+	}
+
+	.work-grid__item--tall .work-grid__thumb {
+		aspect-ratio: 4 / 3;
+	}
+}
+
+/* Case Study content grid — the System underneath the reading layout.
+   12 columns, capped width so lines never run away on huge monitors.
+   `.case-section` and `.case-body` re-declare `subgrid` down the tree so a
+   paragraph several levels deep can still be positioned against these same
+   12 tracks — that's what lets a blockquote sit in a different band than
+   the paragraph around it. */
+.content-grid {
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	column-gap: var(--grid-gap);
+	max-width: var(--content-max-width);
+	margin-inline: auto;
+}
+
+.content-grid > * {
+	grid-column: 1 / -1;
+}
+
+/* Intro text position (Hero -> Title -> Meta -> Intro area only).
+   This part of the page keeps the original centered reading band —
+   only the Section 01+ body below has moved to the Reading Column
+   system (see "Case study body: Sticky Index + Reading Column" below).
+   Editorial rhythm here is not made by shifting text position; it
+   comes from Visual size/placement, whitespace, and section spacing. */
+.case-body {
+	display: grid;
+	grid-template-columns: subgrid;
+	grid-column: 1 / -1;
+	max-width: none;
+}
+
+.case-body > * {
+	grid-column: 2 / 12;
+}
+
+@media (max-width: 640px) {
+	.case-body > * {
+		grid-column: 1 / -1;
+	}
 }
 
 .case-hero {
 	aspect-ratio: 16 / 7;
 	background: #eeeeee;
-	border-radius: 4px;
-	margin-top: 1.5rem;
+	margin-top: var(--space-3);
+	margin-bottom: var(--space-6);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--space-3);
+}
+
+/* Intro paragraphs (right after the Case Meta divider) — matches the
+   divider's own padding-bottom above it, and the Meta grid's margin-top
+   below the title, so the whitespace rhythm above and below the divider
+   reads as intentional rather than tighter on one side. */
+.case-intro {
+	margin-top: var(--space-6);
+}
+
+/* Visual placeholders — stand in for real photography / UI mockups /
+   diagrams that aren't ready yet. Deliberately obvious as placeholders
+   (dashed border), and labeled with what's actually meant to go there. */
+.visual-placeholder__label {
+	max-width: 32ch;
+	text-align: center;
+	color: var(--color-text-muted);
+	font-size: var(--text-label);
+	letter-spacing: 0.02em;
+	line-height: 1.5;
+}
+
+.visual-placeholder {
+	border: 1px dashed var(--color-border);
+	background: #fafafa;
+	color: var(--color-text-muted);
+	font-size: var(--text-label);
+	letter-spacing: 0.02em;
+	line-height: 1.5;
+	padding: var(--space-3);
+	aspect-ratio: 4 / 3;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+.case-visuals {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	gap: var(--space-3);
+	margin: var(--space-4) 0 var(--space-6);
+	/* Diagrams inside need to react to the Reading Column's actual
+	   available width, not the viewport — the two can now differ
+	   because of the Section Index lane. See @container in
+	   BeforeDiagram / AfterDiagram / RequirementsDesignSpecVisual. */
+	container-type: inline-size;
+}
+
+/* Section priority system — the editorial-weight rules from the Case
+   Study content spec. HERO gets the most space and the biggest title;
+   BRIDGE stays deliberately compact; SUPPORTING renders as short cards.
+   Sections live inside the Reading Column (see below) as plain block
+   children now, so heading and body share one left edge automatically —
+   no grid-column placement needed here any more. */
+.case-section {
+	margin-top: var(--space-editorial);
+	/* Keeps the section heading clear of the sticky header, whether
+	   reached by clicking a Section Index link or a direct #hash URL. */
+	scroll-margin-top: calc(var(--header-h) + var(--space-3));
+}
+
+.case-section > h2 {
+	font-size: var(--text-h3);
+}
+
+.case-section--hero > h2 {
+	font-size: var(--text-h2);
+}
+
+.case-section--bridge {
+	margin-top: var(--space-8);
+}
+
+.case-section--bridge > h2 {
+	font-size: var(--text-body);
+	font-weight: 600;
+}
+
+/* Section 03 ("Shipping Exposed the Real UX Problems") stays BRIDGE
+   priority for spacing/rhythm, but at the user's explicit request its
+   heading alone should read as an equivalent top-level section to
+   Section 02, not the de-emphasized bridge treatment above. Scoped to
+   this one section's id (not a change to the shared bridge style, so
+   any other bridge section keeps the compact heading). */
+#shipping-exposed-the-real-ux-problems > h2 {
+	font-size: var(--text-h3);
+	font-weight: 700;
+}
+
+.section-eyebrow {
+	font-size: var(--text-label);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--color-text-muted);
+	margin-bottom: var(--space-2);
+}
+
+.case-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: var(--space-4);
+	margin-top: var(--space-4);
+}
+
+.case-card__title {
+	font-weight: 600;
+}
+
+.case-card__body {
+	margin-top: 0.4em;
+	color: var(--color-text-muted);
+	font-size: 0.95em;
+}
+
+.visual-placeholder--card {
+	margin-top: var(--space-2);
+	aspect-ratio: 4 / 3;
 }
 
 .case-meta {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-	gap: 1.5rem;
-	margin-top: 2.5rem;
-	padding-bottom: 2rem;
+	gap: var(--space-3);
+	margin-top: var(--space-6);
+	padding-bottom: var(--space-4);
 	border-bottom: 1px solid var(--color-border);
 }
 
 .case-meta__label {
-	font-size: 0.75rem;
-	letter-spacing: 0.05em;
+	font-size: var(--text-label);
+	letter-spacing: 0.08em;
 	text-transform: uppercase;
 	color: var(--color-text-muted);
 }
 
 .case-meta__value {
 	margin-top: 0.25rem;
+}
+
+/* Case study body: Sticky Index + Reading Column.
+   From Section 01 onward (Hero / Title / Meta / Intro above are
+   unaffected), the page splits into a narrow section index on the
+   left and a Reading Column on the right. Heading and body share one
+   left edge inside the Reading Column — editorial rhythm no longer
+   comes from shifting text position; it comes from Visual size /
+   placement, whitespace, and section spacing instead.
+   Reading Column caps at --reading-w (so --index-gap can be tuned on
+   its own — widening the gap doesn't eat into the Reading Column or
+   the index) but is a `minmax(0, ...)` track, not a fixed one: between
+   the ~960px mobile fallback below and the point where Index + Gap +
+   912px actually fits, it shrinks to whatever room is left rather than
+   forcing horizontal overflow. Any leftover width beyond the cap just
+   sits quietly after the Reading Column as the right-hand margin.
+   Values are a first pass, not exact — tune after viewing in the
+   browser. */
+.case-study-body {
+	--index-w: 9rem;
+	--index-gap: 5rem;
+	--reading-w: 57rem;
+	display: grid;
+	grid-template-columns: var(--index-w) minmax(0, var(--reading-w));
+	column-gap: var(--index-gap);
+	align-items: start;
+	margin-top: var(--space-editorial);
+}
+
+.case-index {
+	position: sticky;
+	top: calc(var(--header-h) + var(--space-3));
+	max-height: calc(100vh - var(--header-h) - var(--space-6));
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+}
+
+.case-index__eyebrow {
+	font-size: var(--text-label);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--color-text-muted);
+	margin-bottom: var(--space-1);
+}
+
+.case-index ol {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+}
+
+.case-index a {
+	display: block;
+	font-size: 0.8125rem;
+	line-height: 1.4;
+	color: var(--color-text-muted);
+	text-decoration: none;
+}
+
+.case-index a:hover {
+	color: var(--color-text);
+}
+
+/* Scrollspy active state — toggled by [id].astro's IntersectionObserver
+   script. Inactive items stay muted (above); the current section reads
+   clearly via full-contrast black + weight, not an accent color. */
+.case-index a.is-active {
+	color: var(--color-text);
+	font-weight: 600;
+}
+
+.case-sections {
+	min-width: 0;
+}
+
+.case-sections .case-section:first-child {
+	margin-top: 0;
+}
+
+/* The Reading Column no longer relies on `.prose`'s own measure cap —
+   its width is now set by the grid track above. */
+.case-sections .prose {
+	max-width: none;
+}
+
+@media (max-width: 960px) {
+	/* Below ~tablet width there isn't room for a side lane without
+	   crowding the Reading Column. Fold the index back into normal
+	   flow as a plain, non-sticky overview sitting above Section 01 —
+	   same information, a simpler shape. */
+	.case-study-body {
+		grid-template-columns: 1fr;
+		row-gap: var(--space-8);
+	}
+
+	.case-index {
+		position: static;
+		padding-bottom: var(--space-6);
+		border-bottom: 1px solid var(--color-border);
+	}
+}
+
+/* Image lightbox — sitewide, reusable overlay for EnlargeableImage
+   (src/components/EnlargeableImage.astro). Lives here rather than in
+   that component's scoped styles because the overlay element is
+   created by JS and appended to <body>, outside any one component's
+   scoping. One overlay is shared by every enlargeable image on the
+   page. Kept deliberately plain: dark backdrop, centered image, one
+   close control — no new accent colors, no decorative chrome. */
+.site-lightbox {
+	position: fixed;
+	inset: 0;
+	z-index: 100;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* An author-origin `display` rule on the same element always beats the
+   UA stylesheet's `[hidden] { display: none }`, regardless of
+   selector specificity — so without this, the "hidden" lightbox stays
+   display:flex, sits at z-index 100 over the whole viewport, and
+   silently swallows every click on the page behind it (this is why a
+   second image previously looked like it didn't respond at all after
+   closing the first). */
+.site-lightbox[hidden] {
+	display: none;
+}
+
+.site-lightbox__backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(17, 17, 17, 0.85);
+	opacity: 0;
+	transition: opacity 200ms ease;
+}
+
+.site-lightbox.is-open .site-lightbox__backdrop {
+	opacity: 1;
+}
+
+.site-lightbox__img {
+	position: relative;
+	max-width: 90vw;
+	max-height: 90vh;
+	width: auto;
+	height: auto;
+	display: block;
+	opacity: 0;
+	transform: scale(0.97);
+	transition:
+		opacity 200ms ease,
+		transform 200ms ease;
+}
+
+.site-lightbox.is-open .site-lightbox__img {
+	opacity: 1;
+	transform: scale(1);
+}
+
+.site-lightbox__close {
+	position: absolute;
+	top: var(--space-3);
+	right: var(--space-3);
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	border-radius: 4px;
+	background: rgba(255, 255, 255, 0.1);
+	color: #ffffff;
+	cursor: pointer;
+	transition: background 150ms ease;
+}
+
+.site-lightbox__close:hover {
+	background: rgba(255, 255, 255, 0.18);
+}
+
+.site-lightbox__close:focus-visible {
+	outline: 2px solid #ffffff;
+	outline-offset: 2px;
+}
+
+.site-lightbox__close svg {
+	width: 20px;
+	height: 20px;
+}
+
+body.site-lightbox-open {
+	overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.site-lightbox__backdrop,
+	.site-lightbox__img {
+		transition: none;
+	}
 }

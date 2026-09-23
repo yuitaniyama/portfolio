@@ -1,0 +1,58 @@
+---
+// Section 07 (hubstep-foundation case study) — the designer's specific
+// contributions to hubstep's LP and sales collateral, as a grid of
+// short icon + label items (matches the source material's own layout:
+// a flat list of contributions, not a process).
+import DiagramIcon from './DiagramIcon.astro';
+
+const items = [
+	{ icon: 'search', text: 'Researching competitor and similar-service LPs' },
+	{ icon: 'list', text: 'Organizing information priority' },
+	{ icon: 'grid', text: 'Section structure' },
+	{ icon: 'edit', text: 'Refining copy' },
+	{ icon: 'palette', text: 'Visual direction' },
+	{ icon: 'image', text: 'Selecting product screens and diagrams' },
+	{ icon: 'target', text: 'Final design' },
+];
+---
+
+<div class="cg-grid">
+	{
+		items.map((item) => (
+			<div class="cg-item">
+				<DiagramIcon name={item.icon} />
+				<span class="cg-item__text">{item.text}</span>
+			</div>
+		))
+	}
+</div>
+
+<style>
+	.cg-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: var(--space-3);
+	}
+
+	.cg-item {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--space-2);
+		padding: var(--space-3);
+		background: #fafafa;
+		border-radius: 10px;
+	}
+
+	.cg-item__text {
+		font-size: var(--text-label);
+		line-height: 1.4;
+		font-weight: 600;
+	}
+
+	@container (max-width: 640px) {
+		.cg-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+</style>

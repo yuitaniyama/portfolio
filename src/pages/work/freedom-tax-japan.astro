@@ -1,0 +1,634 @@
+---
+// Freedom Tax Japan — Supporting Case Study (Project 03), WIREFRAME.
+// A standalone page (not in the `work` content collection) so the two
+// hubstep case studies and the shared [id].astro template stay untouched.
+// It reuses the shared case-study layout classes from global.css
+// (content-grid, case-meta, case-study-body, case-index, case-section).
+// Every visual is a neutral gray Placeholder: swap a <Ph> for an <img>
+// (or a real component) when the final visual is ready.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseHeader from '../../components/CaseHeader.astro';
+import Ph from '../../components/Placeholder.astro';
+
+const sections = [
+	{ id: 'outcome', title: 'What the project produced' },
+	{ id: 'research', title: 'Understanding the market before designing' },
+	{ id: 'design-exploration', title: 'Turning research into design directions' },
+	{ id: 'usability-testing', title: 'Testing the experience with users' },
+	{ id: 'learning', title: 'What I took forward' },
+];
+
+const outcomes = [
+	{ value: '11', label: 'Competitors analyzed' },
+	{ value: '4', label: 'Moderated usability testing sessions' },
+	{ value: 'Multiple UI ideas', label: 'Incorporated into the redesign' },
+	{ value: 'New landing page', label: 'Launched before the 2025 tax season' },
+];
+
+const findings = ['Finding 01', 'Finding 02', 'Finding 03'];
+
+const comparisons = [
+	{ proposal: 'Tax season notification — proposal', final: 'Tax season notification — final' },
+	{ proposal: 'FAQ / content layout — proposal', final: 'FAQ / content layout — final implementation' },
+	{ proposal: 'UI proposal', final: 'Final direction' },
+];
+
+const setup = ['4 participants', '30–60 min / session', 'Moderated sessions', 'Prototype walkthrough', 'Comments + behavior documented'];
+
+const participants = [
+	{
+		name: 'Lynn',
+		context: 'Long-term resident in Japan, already working with an accountant.',
+		reacted:
+			'She was interested in the promise of making tax filing easier over time, but felt unclear about what the free consultation included and whether the service was meant for someone in her situation.',
+		revealed: 'The overall value proposition was appealing, but the service fit and first step were not always obvious.',
+		visual: 'Lynn — tested screen / notes',
+	},
+	{
+		name: 'Neil',
+		context: 'User familiar with tax filing in both Japan and the US.',
+		reacted:
+			'He found parts of the experience easy to understand, but some labels and sections felt ambiguous. He also questioned the difference between certain CTAs and wanted more direct wording in a few places.',
+		revealed: 'A stronger information hierarchy and clearer action labels were needed to reduce interpretation effort.',
+		visual: 'Neil — tested screen / notes',
+	},
+	{
+		name: 'Joshua',
+		context: 'Freelancer with prior tax-filing experience and an existing accountant.',
+		reacted:
+			'He saw the service as trustworthy, responded positively to the visuals and quantitative proof, and felt the overall flow was clear. At the same time, price remained the most important factor in whether he would consider switching.',
+		revealed: 'Trust signals were effective, but pricing clarity remained central to decision-making.',
+		visual: 'Joshua — tested screen / notes',
+	},
+	{
+		name: 'Victor',
+		context: 'User reviewing the portal and input flow in more detail.',
+		reacted:
+			'He hesitated around field formats, naming conventions, and income categories, and would have benefited from clearer examples, helper text, and more guided input patterns.',
+		revealed:
+			'The portal experience needed more support at moments where users had to map real-life situations into the product’s structure.',
+		visual: 'Victor — portal testing / notes',
+	},
+];
+
+const learnings = [
+	{
+		title: 'Research before solutions',
+		body: 'Competitive research gave the team a shared starting point before discussing solutions.',
+	},
+	{
+		title: 'Testing reveals what reviews miss',
+		body: 'Usability testing exposed confusion that was difficult to notice through internal design reviews alone.',
+	},
+	{
+		title: 'Design is collaborative',
+		body: 'Working with a senior designer taught me how to contribute ideas without treating product design as an individual exercise.',
+	},
+];
+---
+
+<BaseLayout title="Freedom Tax Japan — Yui Taniyama">
+	<article class="content-grid">
+		<CaseHeader
+			eyebrow="Supporting Case Study"
+			title="Freedom Tax Japan"
+			description="Using research and usability testing to contribute to a B2C redesign"
+			meta={[
+				{ label: 'Role', value: 'UI/UX Design Intern' },
+				{ label: 'Environment', value: 'English-speaking startup' },
+				{ label: 'Collaboration', value: 'Senior UI/UX Designer, Founder' },
+				{ label: 'Focus', value: 'Competitive Research · UI Exploration · Usability Testing' },
+			]}
+			intro={[
+				'Freedom Tax Japan helps English-speaking residents in Japan navigate tax filing. As a UI/UX design intern, I worked alongside a senior designer and the founder, contributing research, design exploration, and usability testing to the redesign.',
+			]}
+		/>
+
+		<div class="ftj-hero">
+			<Ph label="Final FTJ experience / Landing page visual" ratio="16 / 8" />
+		</div>
+
+		<div class="case-study-body">
+			<nav class="case-index" aria-label="Case study sections">
+				<div class="case-index__eyebrow">In this case study</div>
+				<ol>
+					{
+						sections.map((s) => (
+							<li>
+								<a href={`#${s.id}`}>{s.title}</a>
+							</li>
+						))
+					}
+				</ol>
+			</nav>
+
+			<div class="case-sections">
+				<!-- 01 OUTCOME -->
+				<section id="outcome" class="case-section">
+					<div class="section-eyebrow">01 — Outcome</div>
+					<h2>What the project produced</h2>
+
+					<dl class="ftj-stats">
+						{
+							outcomes.map((o) => (
+								<div class="ftj-stat">
+									<dt class="ftj-stat__value">{o.value}</dt>
+									<dd class="ftj-stat__label">{o.label}</dd>
+								</div>
+							))
+						}
+					</dl>
+
+					<div class="prose">
+						<p>
+							The redesign combined competitive research, collaborative design exploration, and usability testing. Several of
+							the UI ideas I proposed were incorporated into the final direction, while user testing helped uncover issues
+							that were difficult to identify through internal design reviews alone.
+						</p>
+					</div>
+
+					<Ph label="Final landing page / outcome visual" ratio="16 / 9" />
+				</section>
+
+				<!-- 02 RESEARCH -->
+				<section id="research" class="case-section">
+					<div class="section-eyebrow">02 — Research</div>
+					<h2>Understanding the market before designing</h2>
+
+					<div class="prose">
+						<p>
+							I reviewed 11 competing services and mapped their user flows to understand how tax-related services communicated
+							value, built trust, and guided users toward the next step.
+						</p>
+						<p>I shared the findings with the team and used them as input for our redesign discussions.</p>
+					</div>
+
+					<Ph label="Competitive audit — 11 services" ratio="16 / 9" />
+
+					<div class="ftj-split">
+						<Ph label="User flow comparison" ratio="4 / 3" />
+						<ol class="ftj-findings">
+							{
+								findings.map((f, i) => (
+									<li>
+										<div class="ftj-findings__num">{String(i + 1).padStart(2, '0')}</div>
+										<div class="ftj-findings__title">{f}</div>
+										<div class="ftj-findings__body">Key finding — text TBD</div>
+									</li>
+								))
+							}
+						</ol>
+					</div>
+				</section>
+
+				<!-- 03 DESIGN EXPLORATION -->
+				<section id="design-exploration" class="case-section">
+					<div class="section-eyebrow">03 — Design exploration</div>
+					<h2>Turning research into design directions</h2>
+
+					<div class="prose">
+						<p>
+							I worked with a senior designer to explore multiple wireframe and UI directions. My role was not to own the
+							entire redesign, but to contribute alternative approaches and bring research findings into the design
+							discussion.
+						</p>
+						<p>Several of my proposals were incorporated into the final design.</p>
+					</div>
+
+					<div class="ftj-compare-list">
+						{
+							comparisons.map((c, i) => (
+								<div class="ftj-compare">
+									<div class="ftj-compare__head">Example {String(i + 1).padStart(2, '0')}</div>
+									<div class="ftj-compare__pair">
+										<figure>
+											<div class="ftj-compare__tag">My proposal</div>
+											<Ph label={c.proposal} ratio="4 / 3" />
+										</figure>
+										<span class="ftj-compare__arrow" aria-hidden="true">→</span>
+										<figure>
+											<div class="ftj-compare__tag">Final direction</div>
+											<Ph label={c.final} ratio="4 / 3" />
+										</figure>
+									</div>
+								</div>
+							))
+						}
+					</div>
+				</section>
+
+				<!-- 04 USABILITY TESTING (strongest section) -->
+				<section id="usability-testing" class="case-section ftj-testing">
+					<div class="section-eyebrow">04 — Usability testing</div>
+					<h2>Testing the experience with users</h2>
+
+					<div class="prose">
+						<p>
+							I planned and conducted four moderated usability testing sessions with participants I recruited, with input from
+							my boss on the discussion guide.
+						</p>
+						<p>
+							Each session lasted approximately 30–60 minutes and included a prototype walkthrough, follow-up questions, and
+							discussion around trust, service understanding, and next actions.
+						</p>
+						<p>
+							I documented participants’ comments alongside the exact screens they were reacting to, which made it easier to
+							identify where the experience was clear and where confusion remained.
+						</p>
+						<p>
+							I then reviewed the findings with the senior designer and the team. Rather than deciding on design changes
+							independently, we identified issues together and explored possible responses collaboratively.
+						</p>
+					</div>
+
+					<Ph label="Usability testing documentation" ratio="16 / 9" />
+
+					<div class="ftj-setup">
+						<div class="ftj-setup__label">Test setup</div>
+						<ul>
+							{setup.map((s) => <li>{s}</li>)}
+						</ul>
+					</div>
+
+					<div class="ftj-insights-head">4 participant insights</div>
+					<div class="ftj-insights">
+						{
+							participants.map((p) => (
+								<article class="ftj-insight">
+									<Ph label={p.visual} ratio="4 / 3" />
+									<h3 class="ftj-insight__name">{p.name}</h3>
+									<dl>
+										<dt>Context</dt>
+										<dd>{p.context}</dd>
+										<dt>What they reacted to</dt>
+										<dd>{p.reacted}</dd>
+										<dt>What it revealed</dt>
+										<dd class="ftj-insight__revealed">{p.revealed}</dd>
+									</dl>
+								</article>
+							))
+						}
+					</div>
+				</section>
+
+				<!-- 05 LEARNING -->
+				<section id="learning" class="case-section">
+					<div class="section-eyebrow">05 — Learning</div>
+					<h2>What I took forward</h2>
+
+					<ol class="ftj-learnings">
+						{
+							learnings.map((l, i) => (
+								<li>
+									<div class="ftj-learnings__num">{String(i + 1).padStart(2, '0')}</div>
+									<div class="ftj-learnings__title">{l.title}</div>
+									<p class="ftj-learnings__body">{l.body}</p>
+								</li>
+							))
+						}
+					</ol>
+				</section>
+			</div>
+		</div>
+
+		<nav class="ftj-pager" aria-label="Case study navigation">
+			<a href="/work/hubstep-foundation/">
+				<span class="ftj-pager__label">Previous case study</span>
+				<span class="ftj-pager__title">Keeping hubstep Coherent While It Grew</span>
+			</a>
+			<a href="/" class="ftj-pager__next">
+				<span class="ftj-pager__label">Back to</span>
+				<span class="ftj-pager__title">All work →</span>
+			</a>
+		</nav>
+	</article>
+</BaseLayout>
+
+<style>
+	.ftj-hero {
+		margin-top: var(--space-6);
+	}
+
+	/* Vertical rhythm inside a section: heading, then blocks spaced evenly. */
+	.case-section > :global(* + *) {
+		margin-top: var(--space-4);
+	}
+
+	.case-section > h2 + :global(*) {
+		margin-top: var(--space-4);
+	}
+
+	/* Outcome stats — 2×2, hairline separators instead of cards. */
+	.ftj-stats {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		margin-bottom: 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.ftj-stat {
+		padding: var(--space-3) var(--space-3) var(--space-3) 0;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.ftj-stat__value {
+		font-size: var(--text-h2);
+		font-weight: 700;
+		line-height: 1.1;
+		letter-spacing: -0.01em;
+	}
+
+	.ftj-stat__label {
+		margin: var(--space-1) 0 0;
+		color: var(--color-text-muted);
+		font-size: 0.9em;
+	}
+
+	/* Research: flow-comparison visual beside the three findings. */
+	.ftj-split {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-4);
+		align-items: start;
+	}
+
+	.ftj-findings {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.ftj-findings li {
+		padding: var(--space-2) 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.ftj-findings li:first-child {
+		padding-top: 0;
+		border-top: none;
+	}
+
+	.ftj-findings__num,
+	.ftj-learnings__num {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		color: var(--color-text-muted);
+	}
+
+	.ftj-findings__title {
+		font-weight: 600;
+	}
+
+	.ftj-findings__body {
+		font-size: 0.9em;
+		color: var(--color-text-muted);
+	}
+
+	/* Design exploration: proposal → final pairs. */
+	.ftj-compare-list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-6);
+	}
+
+	.ftj-compare__head,
+	.ftj-insights-head,
+	.ftj-setup__label {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.ftj-compare__pair {
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+		gap: var(--space-2);
+		align-items: center;
+		margin-top: var(--space-2);
+	}
+
+	.ftj-compare__pair figure {
+		margin: 0;
+	}
+
+	.ftj-compare__tag {
+		margin-bottom: var(--space-1);
+		font-size: 0.9em;
+		font-weight: 600;
+	}
+
+	.ftj-compare__arrow {
+		color: var(--color-text-muted);
+		align-self: center;
+		padding-top: var(--space-3);
+	}
+
+	/* Usability testing: the heaviest section — bigger heading, more air,
+	   a tinted band for the setup summary, larger participant blocks. */
+	.ftj-testing {
+		margin-top: calc(var(--space-editorial) * 1.15);
+	}
+
+	.case-section.ftj-testing > h2 {
+		font-size: var(--text-h2);
+	}
+
+	.ftj-setup {
+		padding: var(--space-3) 0;
+		border-top: 1px solid var(--color-text);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.ftj-setup ul {
+		list-style: none;
+		margin: var(--space-2) 0 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-1) var(--space-4);
+		font-weight: 600;
+		font-size: 0.9em;
+	}
+
+	.ftj-insights-head {
+		margin-top: var(--space-8);
+	}
+
+	.ftj-insights {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-8) var(--space-4);
+	}
+
+	.case-section > .ftj-insights {
+		margin-top: var(--space-3);
+	}
+
+	.ftj-insight__name {
+		margin-top: var(--space-3);
+		font-size: var(--text-h3);
+	}
+
+	.ftj-insight dl {
+		margin: var(--space-2) 0 0;
+	}
+
+	.ftj-insight dt {
+		margin-top: var(--space-2);
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.ftj-insight dd {
+		margin: 0.25rem 0 0;
+		font-size: 0.9em;
+		line-height: 1.55;
+	}
+
+	.ftj-insight__revealed {
+		font-weight: 600;
+	}
+
+	/* Learning: three short rows. */
+	.ftj-learnings {
+		list-style: none;
+		margin: var(--space-4) 0 0;
+		padding: 0;
+	}
+
+	.ftj-learnings li {
+		display: grid;
+		grid-template-columns: 3rem 1fr;
+		column-gap: var(--space-2);
+		padding: var(--space-3) 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.ftj-learnings li:last-child {
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.ftj-learnings__title {
+		font-size: var(--text-h3);
+		font-weight: 700;
+		line-height: 1.2;
+	}
+
+	.ftj-learnings__body {
+		grid-column: 2;
+		margin: var(--space-1) 0 0;
+		max-width: var(--measure);
+		color: var(--color-text-muted);
+		font-size: 0.9em;
+	}
+
+	/* Footer navigation: Previous / Back to all work. */
+	.ftj-pager {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-4);
+		margin-top: var(--space-16);
+		padding: var(--space-6) 0 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.ftj-pager a {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
+		text-decoration: none;
+		transition: opacity 150ms ease;
+	}
+
+	.ftj-pager a:hover,
+	.ftj-pager a:focus-visible {
+		opacity: 0.7;
+	}
+
+	.ftj-pager__next {
+		text-align: right;
+		align-items: flex-end;
+	}
+
+	.ftj-pager__label {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.ftj-pager__title {
+		font-size: var(--text-h3);
+		font-weight: 700;
+		line-height: 1.2;
+	}
+
+	@media (max-width: 640px) {
+		.ftj-stats,
+		.ftj-split,
+		.ftj-insights,
+		.ftj-pager {
+			grid-template-columns: 1fr;
+		}
+
+		.ftj-compare__pair {
+			grid-template-columns: 1fr;
+		}
+
+		.ftj-compare__arrow {
+			transform: rotate(90deg);
+			padding-top: 0;
+			justify-self: start;
+		}
+
+		.ftj-pager__next {
+			text-align: left;
+			align-items: flex-start;
+		}
+	}
+</style>
+
+<script>
+	// Section Index scrollspy (same behavior as the shared case-study
+	// template): the section nearest the top of the reading band is "current".
+	const sections = document.querySelectorAll<HTMLElement>('.case-sections .case-section[id]');
+	const links = document.querySelectorAll<HTMLAnchorElement>('.case-index a[href^="#"]');
+	if (sections.length && links.length) {
+		const setActive = (id: string) => {
+			links.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === `#${id}`));
+		};
+		const headerH = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0;
+		let observer: IntersectionObserver | undefined;
+		const visible = new Set<string>();
+
+		const build = () => {
+			observer?.disconnect();
+			visible.clear();
+			observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((e) => (e.isIntersecting ? visible.add(e.target.id) : visible.delete(e.target.id)));
+					let current: string | undefined;
+					let bestTop = Infinity;
+					visible.forEach((id) => {
+						const top = document.getElementById(id)!.getBoundingClientRect().top;
+						if (top < bestTop) {
+							bestTop = top;
+							current = id;
+						}
+					});
+					if (current) setActive(current);
+				},
+				{ rootMargin: `-${headerH() + 8}px 0px -70% 0px`, threshold: 0 }
+			);
+			sections.forEach((s) => observer!.observe(s));
+		};
+
+		build();
+		window.addEventListener('resize', build);
+	}
+</script>

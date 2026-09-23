@@ -1,0 +1,24 @@
+---
+// Section 04 (hubstep case study) — the login → Home → key pages flow
+// map, standalone under "Examining the path to Home" (visualizing the
+// EXISTING navigation, distinct from the later role-based journeys).
+// Full Reading Column width so its structure stays legible.
+import EnlargeableImage from '../EnlargeableImage.astro';
+---
+
+<div class="lhf">
+	<EnlargeableImage
+		src="/section-04/section04-login-home-flow.png"
+		alt="Flow map from login through Home to key pages"
+		enlargeable={false}
+	/>
+	<p class="lhf__caption">Login → Home → Key pages</p>
+</div>
+
+<style>
+	.lhf__caption {
+		margin: var(--space-2) 0 0;
+		font-size: var(--text-label);
+		color: var(--color-text-muted);
+	}
+</style>

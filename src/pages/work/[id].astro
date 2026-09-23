@@ -1,55 +1,405 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import HubstepHero from '../../components/HubstepHero.astro';
+import FoundationHero from '../../components/FoundationHero.astro';
+import CaseHeader from '../../components/CaseHeader.astro';
+import NextCaseStudy from '../../components/NextCaseStudy.astro';
+import BeforeDiagram from '../../components/diagrams/BeforeDiagram.astro';
+import AfterDiagram from '../../components/diagrams/AfterDiagram.astro';
+import RequirementsDesignSpecVisual from '../../components/diagrams/RequirementsDesignSpecVisual.astro';
+import EarlySystemFlowVisual from '../../components/diagrams/EarlySystemFlowVisual.astro';
+import Section03Walkthrough from '../../components/diagrams/Section03Walkthrough.astro';
+import IssueSources from '../../components/diagrams/IssueSources.astro';
+import ChallengeShift from '../../components/diagrams/ChallengeShift.astro';
+import BeforeDashboardsGrid from '../../components/diagrams/BeforeDashboardsGrid.astro';
+import LoginHomeFlowVisual from '../../components/diagrams/LoginHomeFlowVisual.astro';
+import UserJourneyVisual from '../../components/diagrams/UserJourneyVisual.astro';
+import TeamSharingArtifacts from '../../components/diagrams/TeamSharingArtifacts.astro';
+import OutcomeHomeSplit from '../../components/diagrams/OutcomeHomeSplit.astro';
+import OutcomeSalesSplit from '../../components/diagrams/OutcomeSalesSplit.astro';
+import AfterNavigationVisual from '../../components/diagrams/AfterNavigationVisual.astro';
+import FinalNavigationFlow from '../../components/diagrams/FinalNavigationFlow.astro';
+import BeforeListUploadFlowVisual from '../../components/diagrams/BeforeListUploadFlowVisual.astro';
+import MappingValidationGapVisual from '../../components/diagrams/MappingValidationGapVisual.astro';
+import ErrorRecoveryGapVisual from '../../components/diagrams/ErrorRecoveryGapVisual.astro';
+import MappingRuleLearningVisual from '../../components/diagrams/MappingRuleLearningVisual.astro';
+import SeparateWorkflowVisual from '../../components/diagrams/SeparateWorkflowVisual.astro';
+import IntegratedHomeDirectionVisual from '../../components/diagrams/IntegratedHomeDirectionVisual.astro';
+import StagedTransitionVisual from '../../components/diagrams/StagedTransitionVisual.astro';
+import CurrentSalesWorkflowVisual from '../../components/diagrams/CurrentSalesWorkflowVisual.astro';
+import AiHumanBoundaryVisual from '../../components/diagrams/AiHumanBoundaryVisual.astro';
+import VoiceToCrmExplorationVisual from '../../components/diagrams/VoiceToCrmExplorationVisual.astro';
+import DesignRoleEvolutionVisual from '../../components/diagrams/DesignRoleEvolutionVisual.astro';
+import ImpactContent from '../../components/diagrams/ImpactContent.astro';
+import FoundationBeforeAfterVisual from '../../components/diagrams/FoundationBeforeAfterVisual.astro';
+import FoundationFeedbackVisual from '../../components/diagrams/FoundationFeedbackVisual.astro';
+import FoundationFigmaVisual from '../../components/diagrams/FoundationFigmaVisual.astro';
+import ConfirmationFlowProblemVisual from '../../components/diagrams/ConfirmationFlowProblemVisual.astro';
+import ConfirmationFlowDesignVisual from '../../components/diagrams/ConfirmationFlowDesignVisual.astro';
+import ConfirmationFlowTabsVisual from '../../components/diagrams/ConfirmationFlowTabsVisual.astro';
+import ConfirmationFlowFinalFlowVisual from '../../components/diagrams/ConfirmationFlowFinalFlowVisual.astro';
+import ConfirmationFlowInteractionVisual from '../../components/diagrams/ConfirmationFlowInteractionVisual.astro';
+import ListUploadProblemCards from '../../components/diagrams/ListUploadProblemCards.astro';
+import ListUploadApproachPrinciples from '../../components/diagrams/ListUploadApproachPrinciples.astro';
+import ListUploadBeforeStepsVisual from '../../components/diagrams/ListUploadBeforeStepsVisual.astro';
+import ListUploadAfterStepsVisual from '../../components/diagrams/ListUploadAfterStepsVisual.astro';
+import ListUploadRecapGrid from '../../components/diagrams/ListUploadRecapGrid.astro';
+import DesignSystemExtendedVisual from '../../components/diagrams/DesignSystemExtendedVisual.astro';
+import DesignSystemNewComponentsVisual from '../../components/diagrams/DesignSystemNewComponentsVisual.astro';
+import DesignSystemRulesVisual from '../../components/diagrams/DesignSystemRulesVisual.astro';
+import ContributionGrid from '../../components/diagrams/ContributionGrid.astro';
+import ProductCommunicationFlowVisual from '../../components/diagrams/ProductCommunicationFlowVisual.astro';
+import ProductCommunicationPaperVisual from '../../components/diagrams/ProductCommunicationPaperVisual.astro';
+import ProductFormsCards from '../../components/diagrams/ProductFormsCards.astro';
+import ClassicBeforeAfterVisual from '../../components/diagrams/ClassicBeforeAfterVisual.astro';
+import ClassicFigmaVisual from '../../components/diagrams/ClassicFigmaVisual.astro';
+import PreservedImprovedCards from '../../components/diagrams/PreservedImprovedCards.astro';
+import AdoptionStats from '../../components/diagrams/AdoptionStats.astro';
+import HubstepLiteLpPreview from '../../components/diagrams/HubstepLiteLpPreview.astro';
 import { getCollection, render } from 'astro:content';
 
+// Sections that render a custom visual in place of a plain placeholder.
+// Keyed by full section id. The component always replaces only the
+// FIRST entry in that section's `visuals` list — any additional
+// entries still render as plain placeholders below it.
+// (Applies to "flat" sections only — see workSections below.)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const SECTION_DIAGRAMS: Record<string, any> = {};
+
+// Small eyebrow label shown above a section's <h2>, keyed by the
+// section's exact title (stable across which content system — flat or
+// block — a given section happens to use). Text stays normal-case here;
+// `.section-eyebrow`'s CSS applies the visual uppercase transform, same
+// as the original Impact-only eyebrow this generalizes.
+const SECTION_EYEBROWS: Record<string, string> = {
+	'From a DM Tool to a Sales Platform': 'Context',
+	'Making an Ambiguous Product Tangible': 'Process',
+	'Shipping Exposed the Real UX Problems': 'After launch',
+	'Redefining Home & Sales Report': 'Core UX challenge',
+	'Rethinking List Upload': 'Workflow improvement',
+	'Evolving the Product Across the Sales Workflow': 'Product evolution',
+	'Future Exploration — AI-assisted Sales Workflow': 'Future exploration',
+	'What I Learned Designing an Evolving Product': 'Learnings',
+	Impact: 'Impact',
+	Background: 'Background',
+	'Joining an Existing Product': 'Context',
+	'From Initial Design to Real-World Requirements': 'Real-world feedback',
+	'Redesigning the Address-Label Confirmation Flow': 'Selected design work',
+	'Redesigning the List Upload Flow': 'Selected design work',
+	'Extending the Design System': 'Design System',
+	'Communicating the Product': 'Product Communication',
+	'Product Expansion & Adoption': 'Expansion & Adoption',
+	'What I Learned': 'Learnings',
+};
+
+// Visual placement is editorial, not automatic: a "block" section is
+// split into an ordered sequence of prose chunks and explicit visual
+// markers (see src/content.config.ts) so a visual can sit at a
+// specific point in the narrative instead of always right after the
+// heading. This map resolves a block's `ref` to a component, keyed by
+// "<section folder id>/<ref>".
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const BLOCK_VISUALS: Record<string, any> = {
+	'hubstep-sfa-platform/sections/01-product-transformation/before': BeforeDiagram,
+	'hubstep-sfa-platform/sections/01-product-transformation/after': AfterDiagram,
+	'hubstep-sfa-platform/sections/02-making-tangible/requirements-design-spec': RequirementsDesignSpecVisual,
+	'hubstep-sfa-platform/sections/02-making-tangible/early-system-flow': EarlySystemFlowVisual,
+	'hubstep-sfa-platform/sections/03-shipping-exposed/walkthrough': Section03Walkthrough,
+	'hubstep-sfa-platform/sections/03-shipping-exposed/issue-sources': IssueSources,
+	'hubstep-sfa-platform/sections/03-shipping-exposed/challenge-shift': ChallengeShift,
+	'hubstep-sfa-platform/sections/04-home-sales-report/before-dashboards-grid': BeforeDashboardsGrid,
+	'hubstep-sfa-platform/sections/04-home-sales-report/login-home-flow': LoginHomeFlowVisual,
+	'hubstep-sfa-platform/sections/04-home-sales-report/user-journey': UserJourneyVisual,
+	'hubstep-sfa-platform/sections/04-home-sales-report/team-sharing': TeamSharingArtifacts,
+	'hubstep-sfa-platform/sections/04-home-sales-report/outcome-home': OutcomeHomeSplit,
+	'hubstep-sfa-platform/sections/04-home-sales-report/outcome-sales': OutcomeSalesSplit,
+	'hubstep-sfa-platform/sections/04-home-sales-report/after-navigation': AfterNavigationVisual,
+	'hubstep-sfa-platform/sections/04-home-sales-report/final-navigation-flow': FinalNavigationFlow,
+	'hubstep-sfa-platform/sections/05-list-upload/before-upload-flow': BeforeListUploadFlowVisual,
+	'hubstep-sfa-platform/sections/05-list-upload/mapping-validation-gap': MappingValidationGapVisual,
+	'hubstep-sfa-platform/sections/05-list-upload/error-recovery-gap': ErrorRecoveryGapVisual,
+	'hubstep-sfa-platform/sections/05-list-upload/mapping-rule-learning': MappingRuleLearningVisual,
+	'hubstep-sfa-platform/sections/06-continuous-evolution/separate-workflow': SeparateWorkflowVisual,
+	'hubstep-sfa-platform/sections/06-continuous-evolution/integrated-home-direction': IntegratedHomeDirectionVisual,
+	'hubstep-sfa-platform/sections/06-continuous-evolution/staged-transition': StagedTransitionVisual,
+	'hubstep-sfa-platform/sections/07-ai-workflow/current-sales-workflow': CurrentSalesWorkflowVisual,
+	'hubstep-sfa-platform/sections/07-ai-workflow/ai-human-boundary': AiHumanBoundaryVisual,
+	'hubstep-sfa-platform/sections/07-ai-workflow/voice-to-crm-exploration': VoiceToCrmExplorationVisual,
+	'hubstep-sfa-platform/sections/08-status-reflection/design-role-evolution': DesignRoleEvolutionVisual,
+	'hubstep-sfa-platform/sections/09-impact/impact-content': ImpactContent,
+	'hubstep-foundation/sections/01-background/before-after': FoundationBeforeAfterVisual,
+	'hubstep-foundation/sections/03-real-world-requirements/feedback': FoundationFeedbackVisual,
+	'hubstep-foundation/sections/03-real-world-requirements/figma': FoundationFigmaVisual,
+	'hubstep-foundation/sections/04-confirmation-flow/problem-screen': ConfirmationFlowProblemVisual,
+	'hubstep-foundation/sections/04-confirmation-flow/design-01': ConfirmationFlowDesignVisual,
+	'hubstep-foundation/sections/04-confirmation-flow/tabs': ConfirmationFlowTabsVisual,
+	'hubstep-foundation/sections/04-confirmation-flow/final-flow': ConfirmationFlowFinalFlowVisual,
+	'hubstep-foundation/sections/04-confirmation-flow/interaction': ConfirmationFlowInteractionVisual,
+	'hubstep-foundation/sections/05-list-upload/problem-cards': ListUploadProblemCards,
+	'hubstep-foundation/sections/05-list-upload/approach-principles': ListUploadApproachPrinciples,
+	'hubstep-foundation/sections/05-list-upload/before-steps': ListUploadBeforeStepsVisual,
+	'hubstep-foundation/sections/05-list-upload/after-steps': ListUploadAfterStepsVisual,
+	'hubstep-foundation/sections/05-list-upload/recap': ListUploadRecapGrid,
+	'hubstep-foundation/sections/06-design-system/extended': DesignSystemExtendedVisual,
+	'hubstep-foundation/sections/06-design-system/new': DesignSystemNewComponentsVisual,
+	'hubstep-foundation/sections/06-design-system/rules': DesignSystemRulesVisual,
+	'hubstep-foundation/sections/07-product-communication/contribution': ContributionGrid,
+	'hubstep-foundation/sections/07-product-communication/lp-preview': HubstepLiteLpPreview,
+	'hubstep-foundation/sections/07-product-communication/designflow': ProductCommunicationFlowVisual,
+	'hubstep-foundation/sections/07-product-communication/paper': ProductCommunicationPaperVisual,
+	'hubstep-foundation/sections/08-expansion-adoption/forms': ProductFormsCards,
+	'hubstep-foundation/sections/08-expansion-adoption/classic-beforeafter': ClassicBeforeAfterVisual,
+	'hubstep-foundation/sections/08-expansion-adoption/classic-figma': ClassicFigmaVisual,
+	'hubstep-foundation/sections/08-expansion-adoption/preserved-improved': PreservedImprovedCards,
+	'hubstep-foundation/sections/08-expansion-adoption/adoption': AdoptionStats,
+};
+
 export async function getStaticPaths() {
-	const work = await getCollection('work', ({ data }) => !data.draft);
-	return work.map((project) => ({
-		params: { id: project.id },
-		props: { project },
-	}));
+	const projects = await getCollection('work', ({ data }) => !data.draft);
+	const allSections = await getCollection('workSections');
+	const allSectionMeta = await getCollection('workSectionMeta');
+	const allBlocks = await getCollection('workBlocks');
+
+	return projects.map((project) => {
+		const slug = project.id.replace(/\/_meta$/, '');
+		const sections = allSections
+			.filter((s) => s.id.startsWith(`${slug}/sections/`))
+			.sort((a, b) => a.id.localeCompare(b.id));
+		const sectionMeta = allSectionMeta
+			.filter((s) => s.id.startsWith(`${slug}/sections/`))
+			.sort((a, b) => a.id.localeCompare(b.id));
+		const blocks = allBlocks.filter((b) => b.id.startsWith(`${slug}/sections/`));
+		return {
+			params: { id: slug },
+			props: { project, sections, sectionMeta, blocks },
+		};
+	});
 }
 
-const { project } = Astro.props;
+const { project, sections, sectionMeta, blocks } = Astro.props;
 const { data } = project;
-const { Content } = await render(project);
+const slug = project.id.replace(/\/_meta$/, '');
+const introParagraphs = data.intro.trim().split(/\n\s*\n/);
+
+const sortKey = (id: string) => id.split('/sections/')[1];
+const slugify = (title: string) =>
+	title
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, '-')
+		.replace(/(^-|-$)/g, '');
+
+// Every section — "flat" (one flowing body) or "block" (an ordered,
+// explicitly-placed sequence) — is normalized to the same shape here:
+// { sortKey, title, priority, blocks }. The template below then has a
+// single rendering path, regardless of which kind a section is.
+const flatSections = await Promise.all(
+	sections.map(async (section) => {
+		const { Content } = await render(section);
+		const Diagram = SECTION_DIAGRAMS[section.id] ?? null;
+		const remainingVisuals = Diagram ? (section.data.visuals ?? []).slice(1) : (section.data.visuals ?? []);
+
+		const sectionBlocks = [];
+		if (Diagram) sectionBlocks.push({ type: 'visual', Component: Diagram });
+		if (remainingVisuals.length > 0) sectionBlocks.push({ type: 'placeholder-list', items: remainingVisuals });
+		sectionBlocks.push({ type: 'prose', Content });
+		if (section.data.cards && section.data.cards.length > 0) {
+			sectionBlocks.push({ type: 'cards', cards: section.data.cards });
+		}
+
+		return {
+			sortKey: sortKey(section.id),
+			title: section.data.title,
+			priority: section.data.priority,
+			blocks: sectionBlocks,
+		};
+	})
+);
+
+const blockSections = await Promise.all(
+	sectionMeta.map(async (meta) => {
+		const folderId = meta.id.replace(/\/_meta$/, '');
+		const ownBlocks = blocks
+			.filter((b) => b.id.startsWith(`${folderId}/blocks/`))
+			.sort((a, b) => a.id.localeCompare(b.id));
+
+		const sectionBlocks = await Promise.all(
+			ownBlocks.map(async (block) => {
+				if (block.data.type === 'visual') {
+					const Component = BLOCK_VISUALS[`${folderId}/${block.data.ref}`] ?? null;
+					return { type: 'visual', Component };
+				}
+				if (block.data.type === 'placeholder-list') {
+					return { type: 'placeholder-list', items: block.data.items ?? [] };
+				}
+				const { Content } = await render(block);
+				return { type: 'prose', Content };
+			})
+		);
+
+		return {
+			sortKey: sortKey(folderId),
+			title: meta.data.title,
+			priority: meta.data.priority,
+			blocks: sectionBlocks,
+		};
+	})
+);
+
+const renderedSections = [...flatSections, ...blockSections]
+	.sort((a, b) => a.sortKey.localeCompare(b.sortKey))
+	.map((section) => ({ ...section, slug: slugify(section.title) }));
 ---
 
 <BaseLayout title={`${data.title} — [Name Placeholder]`}>
-	<article>
-		<div class="case-hero" />
+	<article class="content-grid">
+		{
+			slug === 'hubstep-sfa-platform' ? (
+				<HubstepHero />
+			) : slug === 'hubstep-foundation' ? (
+				<FoundationHero />
+			) : (
+				<div class="case-hero">
+					{data.heroVisual && <p class="visual-placeholder__label">{data.heroVisual}</p>}
+				</div>
+			)
+		}
 
-		<h1>{data.title}</h1>
+		<CaseHeader
+			eyebrow={data.eyebrow}
+			title={data.title}
+			titleNote={slug === 'hubstep-foundation' ? 'Working title — not yet finalized' : undefined}
+			meta={data.meta}
+			intro={introParagraphs}
+		/>
 
-		<div class="case-meta">
-			{data.projectType && (
-				<div>
-					<div class="case-meta__label">Project Type</div>
-					<div class="case-meta__value">{data.projectType}</div>
-				</div>
-			)}
-			{data.role && (
-				<div>
-					<div class="case-meta__label">My Role</div>
-					<div class="case-meta__value">{data.role}</div>
-				</div>
-			)}
-			{data.timeline && (
-				<div>
-					<div class="case-meta__label">Timeline</div>
-					<div class="case-meta__value">{data.timeline}</div>
-				</div>
-			)}
-			{data.team && (
-				<div>
-					<div class="case-meta__label">Team</div>
-					<div class="case-meta__value">{data.team}</div>
-				</div>
-			)}
+		<div class="case-study-body">
+			<nav class="case-index" aria-label="Case study sections">
+				<div class="case-index__eyebrow">In this case study</div>
+				<ol>
+					{
+						renderedSections.map((section) => (
+							<li>
+								<a href={`#${section.slug}`}>{section.title}</a>
+							</li>
+						))
+					}
+				</ol>
+			</nav>
+
+			<div class="case-sections">
+				{
+					renderedSections.map((section) => (
+						<section id={section.slug} class:list={['case-section', `case-section--${section.priority}`]}>
+							{SECTION_EYEBROWS[section.title] && (
+								<div class="section-eyebrow">{SECTION_EYEBROWS[section.title]}</div>
+							)}
+							<h2>{section.title}</h2>
+
+							{section.blocks.map(({ type, Content, Component, items, cards }) => (
+								type === 'visual' ? (
+									Component && (
+										<div class="case-visuals case-visuals--diagram">
+											<Component />
+										</div>
+									)
+								) : type === 'placeholder-list' ? (
+									items && items.length > 0 && (
+										<div class="case-visuals">
+											{items.map((v) => (
+												<div class="visual-placeholder">{v}</div>
+											))}
+										</div>
+									)
+								) : type === 'cards' ? (
+									cards && cards.length > 0 && (
+										<div class="case-cards">
+											{cards.map((card) => (
+												<div class="case-card">
+													<div class="case-card__title">{card.title}</div>
+													<p class="case-card__body">{card.body}</p>
+													{card.visual && (
+														<div class="visual-placeholder visual-placeholder--card">{card.visual}</div>
+													)}
+												</div>
+											))}
+										</div>
+									)
+								) : (
+									Content && (
+										<div class="prose">
+											<Content />
+										</div>
+									)
+								)
+							))}
+						</section>
+					))
+				}
+			</div>
 		</div>
 
-		<div class="prose" style="margin-top: 2.5rem;">
-			<Content />
-		</div>
+		<NextCaseStudy currentSlug={slug} />
 	</article>
 </BaseLayout>
+
+<script>
+	// Section Index scrollspy: highlights whichever `.case-section` is
+	// currently "current" as the reader scrolls, using the same
+	// header-height custom property BaseLayout's script keeps up to
+	// date, so the active section stays accurate under the sticky
+	// header rather than switching a beat early or late.
+	const sections = document.querySelectorAll<HTMLElement>('.case-sections .case-section[id]');
+	const links = document.querySelectorAll<HTMLAnchorElement>('.case-index a[href^="#"]');
+	if (sections.length && links.length) {
+		const linkFor = (id: string) => document.querySelector<HTMLAnchorElement>(`.case-index a[href="#${id}"]`);
+
+		const setActive = (id: string) => {
+			links.forEach((a) => a.classList.toggle('is-active', a === linkFor(id)));
+		};
+
+		const headerH = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0;
+
+		let observer: IntersectionObserver | undefined;
+		const observedIds = new Set<string>();
+
+		const build = () => {
+			observer?.disconnect();
+			observedIds.clear();
+
+			observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) observedIds.add(entry.target.id);
+						else observedIds.delete(entry.target.id);
+					});
+
+					// Several sections can be "intersecting" the band at once
+					// (a short section, or fast scrolling) — the one closest
+					// to the top of that band reads as current.
+					let current: string | undefined;
+					let bestTop = Infinity;
+					observedIds.forEach((id) => {
+						const el = document.getElementById(id);
+						if (!el) return;
+						const top = el.getBoundingClientRect().top;
+						if (top < bestTop) {
+							bestTop = top;
+							current = id;
+						}
+					});
+
+					if (current) setActive(current);
+				},
+				{ rootMargin: `-${headerH() + 8}px 0px -70% 0px`, threshold: 0 }
+			);
+
+			sections.forEach((s) => observer!.observe(s));
+		};
+
+		build();
+		// The header's real height can change (resize, font load) after
+		// the observer's rootMargin was computed — rebuilding on resize
+		// keeps the active-section band aligned with the actual header.
+		window.addEventListener('resize', build);
+	}
+</script>

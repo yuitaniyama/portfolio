@@ -1,0 +1,33 @@
+---
+// Neutral gray wireframe placeholder. `label` says what visual will go
+// here; `ratio` is a CSS aspect-ratio. To use a real visual later,
+// replace the <Ph> in the page with an <img> of the same width.
+interface Props {
+	label: string;
+	ratio?: string;
+}
+
+const { label, ratio = '16 / 9' } = Astro.props;
+---
+
+<div class="ph" style={`aspect-ratio: ${ratio}`} role="img" aria-label={`Placeholder: ${label}`}>
+	<span class="ph__label">[ {label} ]</span>
+</div>
+
+<style>
+	.ph {
+		width: 100%;
+		background: #e6e6e6;
+		padding: var(--space-2);
+		display: flex;
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
+
+	.ph__label {
+		font-size: var(--text-label);
+		letter-spacing: 0.02em;
+		line-height: 1.5;
+		color: #6b6b6b;
+	}
+</style>

@@ -1,0 +1,141 @@
+---
+// Impact section — a standalone, self-contained layout. Every class
+// here is scoped to this component only (Astro scopes component
+// <style> blocks automatically), so nothing touches .case-card /
+// .case-cards or any other shared section styling.
+//
+// Editorial two-part composition rather than a flat KPI row: a 2x2
+// grid of secondary metric cards on the left, balanced by one taller
+// card on the right — a factual explanation of the design-timeline
+// impact, not a testimonial/quote (class names kept as `impact-quote*`
+// to avoid an unrelated rename; the card's box styling is unchanged).
+const metrics = [
+	{
+		value: '185',
+		label: 'Pages & modal states designed',
+		detail: '91 pages · 94 modal states',
+	},
+	{
+		value: '~2 months',
+		label: 'Estimated design time saved, according to the PdM',
+	},
+	{
+		value: '21',
+		label: 'Post-launch improvement projects',
+	},
+	{
+		value: '12',
+		label: 'Additional improvement areas identified proactively',
+	},
+];
+---
+
+<div class="impact-layout">
+	<div class="impact-metrics">
+		{
+			metrics.map((m) => (
+				<div class="impact-metrics__card">
+					<div class="impact-metrics__value">{m.value}</div>
+					<div class="impact-metrics__label">{m.label}</div>
+					{m.detail && <div class="impact-metrics__detail">{m.detail}</div>}
+				</div>
+			))
+		}
+	</div>
+
+	<div class="impact-quote">
+		<p class="impact-quote__text impact-quote__text--primary">Rapid prototyping accelerated the initial design phase.</p>
+		<p class="impact-quote__text impact-quote__text--secondary">
+			Turning early workflows into editable screens with Figma Make shortened the planned design timeline by
+			<strong>~2 months</strong>, according to the PdM.
+		</p>
+	</div>
+</div>
+
+<style>
+	.impact-layout {
+		display: grid;
+		grid-template-columns: 1.3fr 1fr;
+		gap: var(--space-4);
+		align-items: stretch;
+	}
+
+	.impact-metrics {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(2, 1fr);
+		gap: var(--space-4);
+	}
+
+	.impact-metrics__card {
+		background: rgba(244, 255, 252, 0.6);
+		border-radius: 10px;
+		padding: var(--space-4);
+	}
+
+	.impact-metrics__value {
+		font-size: var(--text-h3);
+		font-weight: 700;
+		color: var(--color-text);
+		line-height: 1.1;
+	}
+
+	.impact-metrics__label {
+		margin-top: var(--space-2);
+		font-size: var(--text-label);
+		color: var(--color-text-muted);
+	}
+
+	.impact-metrics__detail {
+		margin-top: var(--space-1);
+		font-size: var(--text-label);
+		color: var(--color-text-muted);
+		opacity: 0.75;
+	}
+
+	.impact-quote {
+		margin: 0;
+		background: rgba(244, 255, 252, 0.6);
+		border-radius: 10px;
+		padding: var(--space-6) var(--space-4);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: var(--space-3);
+	}
+
+	.impact-quote__text {
+		margin: 0;
+		line-height: 1.4;
+	}
+
+	.impact-quote__text--primary {
+		font-size: var(--text-body);
+		font-weight: 600;
+		color: var(--color-text);
+	}
+
+	.impact-quote__text--secondary {
+		font-size: var(--text-body);
+		font-weight: 400;
+		color: var(--color-text-muted);
+	}
+
+	.impact-quote__text--secondary strong {
+		font-weight: 700;
+		color: var(--color-text);
+	}
+
+	@container (max-width: 600px) {
+		.impact-layout {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@container (max-width: 400px) {
+		.impact-metrics {
+			grid-template-columns: 1fr;
+			grid-template-rows: auto;
+		}
+	}
+</style>

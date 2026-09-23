@@ -1,0 +1,103 @@
+---
+// Section 03 (hubstep case study) — the "from / to" reframing of the
+// core question. Horizontal before -> after comparison on desktop: a
+// quiet "before" card and a more prominent "after" card, both rounded
+// pill-like boxes with no left accent line — the "after" card reads as
+// more important through its tinted background alone, not bold type or
+// a border, so hierarchy stays legible even at normal text weight.
+---
+
+<div class="cs">
+	<p class="cs__lead">The challenge was shifting from:</p>
+
+	<div class="cs__comparison">
+		<div class="cs__card cs__card--before">
+			<p class="cs__quote cs__quote--before">“How do we build the SFA?”</p>
+		</div>
+
+		<div class="cs__arrow" aria-hidden="true">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M5 12h14M13 6l6 6-6 6" />
+			</svg>
+		</div>
+
+		<div class="cs__card cs__card--after">
+			<p class="cs__quote cs__quote--after">
+				“How do we make the growing product work as one coherent sales experience?”
+			</p>
+		</div>
+	</div>
+</div>
+
+<style>
+	.cs {
+		max-width: none;
+	}
+
+	.cs__lead {
+		margin: 0;
+		color: var(--color-text);
+	}
+
+	.cs__comparison {
+		display: grid;
+		grid-template-columns: 1fr auto 1.2fr;
+		align-items: stretch;
+		gap: var(--space-3);
+		margin-top: var(--space-4);
+	}
+
+	.cs__card {
+		padding: var(--space-4);
+		border-radius: 40px;
+		background: #fafafa;
+		display: flex;
+		align-items: center;
+	}
+
+	.cs__quote {
+		margin: 0;
+		font-size: 1.125rem;
+	}
+
+	.cs__quote--before {
+		color: var(--color-text-muted);
+		font-style: italic;
+	}
+
+	.cs__card--after {
+		background: rgba(10, 126, 113, 0.06);
+	}
+
+	.cs__quote--after {
+		font-style: normal;
+		font-weight: 400;
+		line-height: 1.4;
+		color: var(--color-text);
+	}
+
+	.cs__arrow {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--color-text-muted);
+		flex: none;
+	}
+
+	.cs__arrow svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	@container (max-width: 640px) {
+		.cs__comparison {
+			grid-template-columns: 1fr;
+			justify-items: stretch;
+		}
+
+		.cs__arrow {
+			transform: rotate(90deg);
+			padding: var(--space-1) 0;
+		}
+	}
+</style>

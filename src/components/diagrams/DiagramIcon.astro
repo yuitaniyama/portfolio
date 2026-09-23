@@ -1,0 +1,80 @@
+---
+// Minimal line icons for conceptual diagrams — hand-authored (no icon
+// library dependency), all sharing the same viewBox/stroke treatment so
+// they read as one consistent set.
+interface Props {
+	name: string;
+}
+
+const { name } = Astro.props;
+
+const paths: Record<string, string> = {
+	clipboard:
+		'<rect x="6" y="4" width="12" height="17" rx="1.5"/><rect x="9" y="2.5" width="6" height="3" rx="1"/><line x1="9" y1="11" x2="15" y2="11"/><line x1="9" y1="15" x2="15" y2="15"/>',
+	mail: '<rect x="3" y="6" width="18" height="13" rx="1.5"/><path d="M3.5 7l8.5 6.5L20.5 7"/>',
+	phone:
+		'<path d="M6.6 4.5c-.9 0-1.7.7-1.6 1.6.4 3.2 1.7 6.3 3.9 8.8 2.3 2.5 5.2 4.1 8.3 4.6.9.2 1.7-.6 1.7-1.5v-2.1c0-.6-.4-1.1-1-1.3l-2.5-.7c-.5-.1-1 0-1.3.4l-.7.9c-1.7-.9-3.1-2.3-4-4l.9-.7c.4-.3.5-.8.4-1.3l-.7-2.5c-.1-.6-.6-1-1.2-1H6.6z"/>',
+	plus: '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',
+	briefcase:
+		'<rect x="3" y="8" width="18" height="11" rx="1.5"/><path d="M8.5 8V6.5A1.5 1.5 0 0 1 10 5h4a1.5 1.5 0 0 1 1.5 1.5V8"/><line x1="3" y1="13" x2="21" y2="13"/>',
+	check: '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12.5l2.5 2.5L16 9.5"/>',
+	activity: '<path d="M3 12h4l2-7 4 14 2-7h6"/>',
+	history: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+	analysis:
+		'<line x1="5" y1="20" x2="5" y2="12"/><line x1="12" y1="20" x2="12" y2="5"/><line x1="19" y1="20" x2="19" y2="9"/>',
+	arrow: '<line x1="4" y1="12" x2="18" y2="12"/><path d="M13 6l6 6-6 6"/>',
+	layers: '<rect x="4" y="4" width="11" height="11" rx="2"/><rect x="9" y="9" width="11" height="11" rx="2"/>',
+	list: '<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="16" y2="12"/><line x1="4" y1="18" x2="12" y2="18"/>',
+	'help-circle':
+		'<circle cx="12" cy="12" r="8.5"/><path d="M9.3 9.6a2.7 2.7 0 0 1 5.2.9c0 1.8-2.5 2.1-2.5 3.7"/><circle cx="12" cy="17.1" r="0.15" fill="currentColor"/>',
+	split: '<circle cx="6" cy="6" r="1.8"/><circle cx="18" cy="6" r="1.8"/><circle cx="12" cy="18" r="1.8"/><path d="M6 7.8v2.7a3 3 0 0 0 3 3h1.5M18 7.8v2.7a3 3 0 0 1-3 3h-1.5"/><line x1="12" y1="13.5" x2="12" y2="16.2"/>',
+	checklist:
+		'<line x1="9.5" y1="6" x2="20" y2="6"/><line x1="9.5" y1="12" x2="20" y2="12"/><line x1="9.5" y1="18" x2="20" y2="18"/><path d="M4 6l1.3 1.3L7.5 5"/><path d="M4 12l1.3 1.3L7.5 11"/><path d="M4 18l1.3 1.3L7.5 16"/>',
+	search: '<circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.3" y1="15.3" x2="20.5" y2="20.5"/>',
+	grid: '<rect x="3.5" y="3.5" width="7" height="7" rx="1"/><rect x="13.5" y="3.5" width="7" height="7" rx="1"/><rect x="3.5" y="13.5" width="7" height="7" rx="1"/><rect x="13.5" y="13.5" width="7" height="7" rx="1"/>',
+	edit: '<path d="M4 20l0.8-4 10.8-10.8 3.2 3.2L8 19.2 4 20z"/><line x1="13.6" y1="6.2" x2="17.8" y2="10.4"/>',
+	palette:
+		'<path d="M12 20.5A8.5 8.5 0 1 1 20.5 12c0 2-1.6 3-3.3 3h-1.4c-.9 0-1.5.9-1.1 1.7.2.4.3.8.3 1.2 0 1.4-1.1 2.6-2.5 2.6z"/><circle cx="8.2" cy="10.5" r="1" fill="currentColor" stroke="none"/><circle cx="11.5" cy="7.7" r="1" fill="currentColor" stroke="none"/><circle cx="15.3" cy="9.3" r="1" fill="currentColor" stroke="none"/>',
+	image:
+		'<rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M4.2 16.8l4.8-4.8 3.3 3.3 3.7-3.7 4.3 4.3"/>',
+	target: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.6" fill="currentColor" stroke="none"/>',
+};
+
+const inner = paths[name] ?? '';
+---
+
+<span class="wf-icon-badge">
+	<svg
+		class="wf-icon"
+		viewBox="0 0 24 24"
+		width="18"
+		height="18"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="1.5"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		set:html={inner}
+	/>
+</span>
+
+<style>
+	.wf-icon-badge {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		background: #f4fffc;
+		flex: none;
+	}
+
+	.wf-icon {
+		display: block;
+		width: 18px;
+		height: 18px;
+		color: var(--color-text);
+		flex: none;
+	}
+</style>
