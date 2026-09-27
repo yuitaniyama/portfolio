@@ -41,14 +41,14 @@ const projects = allWork
 	.filter((p): p is typeof p & { copy: NonNullable<(typeof p)['copy']> } => Boolean(p.copy));
 
 // Project 03 (Freedom Tax Japan) is a standalone page, not in the `work`
-// collection, so its card is added here. Copy below is temporary
-// (wireframe stage); the cover stays a gray placeholder until final.
+// collection, so its card is added here.
 projects.push({
 	slug: 'freedom-tax-japan',
 	title: 'Freedom Tax Japan',
 	copy: {
+		image: { src: '/home/selected-work/freedom-tax-japan-cover.png', width: 7032, height: 3950 },
 		meta: 'UX Research · Usability Testing · Supporting Case Study',
-		description: 'Using research and usability testing to contribute to a B2C redesign. (Temporary copy)',
+		description: 'A B2C tax-filing service for English-speaking residents in Japan.',
 		skills: ['Competitive Research', 'UI Exploration', 'Usability Testing'],
 	},
 });

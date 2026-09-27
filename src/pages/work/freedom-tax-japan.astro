@@ -9,6 +9,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CaseHeader from '../../components/CaseHeader.astro';
 import Ph from '../../components/Placeholder.astro';
+import ScrollableProductPreview from '../../components/ScrollableProductPreview.astro';
 
 const sections = [
 	{ id: 'outcome', title: 'What the project produced' },
@@ -91,8 +92,8 @@ const learnings = [
 	<article class="content-grid">
 		<CaseHeader
 			eyebrow="Supporting Case Study"
-			title="Freedom Tax Japan"
-			description="Using research and usability testing to contribute to a B2C redesign"
+			title="Bringing Research and Testing to Freedom Tax Japan's Redesign"
+			description="A B2C tax-filing service for English-speaking residents in Japan."
 			meta={[
 				{ label: 'Role', value: 'UI/UX Design Intern' },
 				{ label: 'Environment', value: 'English-speaking startup' },
@@ -105,7 +106,15 @@ const learnings = [
 		/>
 
 		<div class="ftj-hero">
-			<Ph label="Final FTJ experience / Landing page visual" ratio="16 / 8" />
+			<img
+				class="ftj-hero__img"
+				src="/freedom-tax-japan/hero/hero2.png"
+				alt="FreedomTax Japan landing page and design exploration screens"
+				width="3200"
+				height="2400"
+				loading="eager"
+				decoding="async"
+			/>
 		</div>
 
 		<div class="case-study-body">
@@ -147,7 +156,12 @@ const learnings = [
 						</p>
 					</div>
 
-					<Ph label="Final landing page / outcome visual" ratio="16 / 9" />
+					<ScrollableProductPreview
+					src="/freedom-tax-japan/outcome/final-landing-page.png"
+					alt="Final FreedomTax Japan landing page design"
+					label="Final landing page"
+					height={480}
+				/>
 				</section>
 
 				<!-- 02 RESEARCH -->
@@ -307,6 +321,20 @@ const learnings = [
 <style>
 	.ftj-hero {
 		margin-top: var(--space-6);
+	}
+
+	/* hero2.png is 4:3 (a screen-collage composite, not a 16:9 banner like
+	   the hubstep heroes). Run it full-bleed at that ratio and it reads
+	   noticeably taller/heavier than the other case studies' hero bands —
+	   capping its width (rather than cropping the image) keeps its
+	   rendered height in the same neighborhood without forcing an exact
+	   ratio match. */
+	.ftj-hero__img {
+		display: block;
+		width: 100%;
+		max-width: 44rem;
+		height: auto;
+		margin-inline: auto;
 	}
 
 	/* Vertical rhythm inside a section: heading, then blocks spaced evenly. */
