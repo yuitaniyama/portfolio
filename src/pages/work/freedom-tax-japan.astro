@@ -15,7 +15,7 @@ import EnlargeableImage from '../../components/EnlargeableImage.astro';
 const sections = [
 	{ id: 'outcome', title: 'What the project produced' },
 	{ id: 'research', title: 'Understanding the market before designing' },
-	{ id: 'design-exploration', title: 'Turning research into design directions' },
+	{ id: 'design-exploration', title: 'Turning insights into design decisions' },
 	{ id: 'usability-testing', title: 'Testing the experience with users' },
 	{ id: 'learning', title: 'What I took forward' },
 ];
@@ -27,14 +27,98 @@ const outcomes = [
 	{ value: 'New landing page', label: 'Launched before the 2025 tax season' },
 ];
 
-const comparisons = [
-	{ proposal: 'Tax season notification — proposal', final: 'Tax season notification — final' },
-	{ proposal: 'FAQ / content layout — proposal', final: 'FAQ / content layout — final implementation' },
-	{ proposal: 'UI proposal', final: 'Final direction' },
+// Each example uses whichever comparison structure best explains that
+// piece of work (3-step before/reference/implemented, 3-step
+// before/proposal/implemented, or a simpler 2-step exploration/
+// implemented) rather than being forced into one identical shape.
+const designExamples = [
+	{
+		eyebrow: '01 — Competitive research',
+		heading: 'Making tax-season timing visible',
+		body: [
+			'The team was repeatedly asked when users could file their taxes, even though the timing followed a predictable annual schedule.',
+			'During the competitive audit, I found a UK tax service using a persistent notification bar for time-sensitive filing information. I proposed applying a similar pattern to FTJ so users could see the relevant tax-season timing without needing to ask.',
+			'The idea was adopted, and during usability testing participants found the timing information clear and easy to understand.',
+		],
+		// Each step holds an `images` array rather than a single image —
+		// only Example 03's "Exploration" step actually uses more than
+		// one (two directions explored side by side before the team
+		// converged on the implemented version), but keeping the shape
+		// consistent means one render path handles every step.
+		steps: [
+			{ tag: 'Before', images: [{ label: 'Previous FTJ hero', file: 'tax-season-before', width: 3270, height: 1636 }] },
+			{
+				tag: 'Competitive reference',
+				images: [
+					{
+						label: 'Competitive reference — UK tax service notification bar',
+						file: 'tax-season-reference',
+						width: 2880,
+						height: 1408,
+					},
+				],
+				caption: 'Pattern identified during competitive research',
+			},
+			{
+				tag: 'My proposal',
+				images: [{ label: 'My wireframe for the FTJ notification bar', file: 'tax-season-proposal', width: 3840, height: 2160 }],
+			},
+			{
+				tag: 'Implemented',
+				images: [{ label: 'Implemented FTJ notification bar', file: 'tax-season-implemented', width: 2610, height: 1322 }],
+			},
+		],
+	},
+	{
+		eyebrow: '02 — User behavior',
+		heading: 'Making high-interest content easier to explore',
+		body: [
+			'Interaction data showed strong engagement with Tax Guide content, even near the bottom of the landing page.',
+			'I proposed a more scannable article layout. The direction was adopted, with the final implementation simplified to fit the no-code platform.',
+		],
+		steps: [
+			{ tag: 'Before', images: [{ label: 'Previous resource section', file: 'tax-guide-before', width: 1160, height: 461 }] },
+			{
+				tag: 'My proposal',
+				images: [{ label: 'My Tax Guide / resource UI proposal', file: 'tax-guide-proposal', width: 1160, height: 646 }],
+			},
+			{
+				tag: 'Implemented',
+				images: [{ label: 'Implemented resource section', file: 'tax-guide-implemented', width: 2360, height: 1205 }],
+				caption: 'Thumbnail and author elements were omitted due to platform constraints.',
+			},
+		],
+	},
+	{
+		eyebrow: '03 — Collaboration',
+		heading: 'Designing for feedback of different lengths',
+		body: [
+			'My mentor proposed creating a dedicated "Wall of Gratitude" to surface more customer feedback.',
+			'I explored flexible layouts for feedback of different lengths, and the adopted direction made longer responses easier to scan.',
+		],
+		steps: [
+			{
+				tag: 'Exploration',
+				images: [
+					{ label: 'Wall of Gratitude layout exploration', file: 'wall-of-gratitude-exploration', width: 1600, height: 693 },
+				],
+			},
+			{
+				tag: 'Implemented',
+				images: [{ label: 'Implemented Wall of Gratitude', file: 'wall-of-gratitude-implemented', width: 1280, height: 764 }],
+			},
+		],
+	},
 ];
 
 const setup = ['4 participants', '30–60 min / session', 'Moderated sessions', 'Prototype walkthrough', 'Comments + behavior documented'];
 
+// Participants are anonymized, so there are no real photos or screen
+// captures to show per person. Each gets a small circular "vibe" photo
+// (free-license stock, Unsplash License — no attribution required)
+// tied to an unrelated interest, purely as a lightweight, generic
+// visual identifier — not a claim that this is what the person looks
+// like.
 const participants = [
 	{
 		name: 'Lynn',
@@ -42,7 +126,7 @@ const participants = [
 		reacted:
 			'She was interested in the promise of making tax filing easier over time, but felt unclear about what the free consultation included and whether the service was meant for someone in her situation.',
 		revealed: 'The overall value proposition was appealing, but the service fit and first step were not always obvious.',
-		visual: 'Lynn — tested screen / notes',
+		photo: 'lynn-tennis',
 	},
 	{
 		name: 'Neil',
@@ -50,7 +134,7 @@ const participants = [
 		reacted:
 			'He found parts of the experience easy to understand, but some labels and sections felt ambiguous. He also questioned the difference between certain CTAs and wanted more direct wording in a few places.',
 		revealed: 'A stronger information hierarchy and clearer action labels were needed to reduce interpretation effort.',
-		visual: 'Neil — tested screen / notes',
+		photo: 'neil-glasses',
 	},
 	{
 		name: 'Joshua',
@@ -58,7 +142,7 @@ const participants = [
 		reacted:
 			'He saw the service as trustworthy, responded positively to the visuals and quantitative proof, and felt the overall flow was clear. At the same time, price remained the most important factor in whether he would consider switching.',
 		revealed: 'Trust signals were effective, but pricing clarity remained central to decision-making.',
-		visual: 'Joshua — tested screen / notes',
+		photo: 'joshua-golf',
 	},
 	{
 		name: 'Victor',
@@ -67,7 +151,7 @@ const participants = [
 			'He hesitated around field formats, naming conventions, and income categories, and would have benefited from clearer examples, helper text, and more guided input patterns.',
 		revealed:
 			'The portal experience needed more support at moments where users had to map real-life situations into the product’s structure.',
-		visual: 'Victor — portal testing / notes',
+		photo: 'victor-cat',
 	},
 ];
 
@@ -237,32 +321,56 @@ const learnings = [
 				<!-- 03 DESIGN EXPLORATION -->
 				<section id="design-exploration" class="case-section">
 					<div class="section-eyebrow">03 — Design exploration</div>
-					<h2>Turning research into design directions</h2>
+					<h2>Turning insights into design decisions</h2>
 
 					<div class="prose">
 						<p>
-							I worked with a senior designer to explore multiple wireframe and UI directions. My role was not to own the
-							entire redesign, but to contribute alternative approaches and bring research findings into the design
-							discussion.
+							Not every design direction started from the same source. Some came from competitive research, others from
+							user behavior or team discussions. The following are three proposals I contributed that were incorporated
+							into the product.
 						</p>
-						<p>Several of my proposals were incorporated into the final design.</p>
 					</div>
 
-					<div class="ftj-compare-list">
+					<div class="ftj-examples">
 						{
-							comparisons.map((c, i) => (
-								<div class="ftj-compare">
-									<div class="ftj-compare__head">Example {String(i + 1).padStart(2, '0')}</div>
-									<div class="ftj-compare__pair">
-										<figure>
-											<div class="ftj-compare__tag">My proposal</div>
-											<Ph label={c.proposal} ratio="4 / 3" />
-										</figure>
-										<span class="ftj-compare__arrow" aria-hidden="true">→</span>
-										<figure>
-											<div class="ftj-compare__tag">Final direction</div>
-											<Ph label={c.final} ratio="4 / 3" />
-										</figure>
+							designExamples.map((example) => (
+								<div class="ftj-example">
+									<div class="section-eyebrow">{example.eyebrow}</div>
+									<h3 class="ftj-example__heading">{example.heading}</h3>
+
+									<div class="prose">
+										{example.body.map((p) => (
+											<p>{p}</p>
+										))}
+									</div>
+
+									<div class="ftj-steps">
+										{example.steps.map((step, i) => (
+											<Fragment>
+												{i > 0 && (
+													<span class="ftj-steps__arrow" aria-hidden="true">
+														→
+													</span>
+												)}
+												<figure class="ftj-steps__step">
+													<div class="ftj-compare__tag">{step.tag}</div>
+													<div class="ftj-steps__images">
+														{step.images.map((image) => (
+															<img
+																class="ftj-steps__img"
+																src={`/freedom-tax-japan/design-exploration/${image.file}.png`}
+																alt={image.label}
+																width={image.width}
+																height={image.height}
+																loading="lazy"
+																decoding="async"
+															/>
+														))}
+													</div>
+													{step.caption && <figcaption class="ftj-audit__caption">{step.caption}</figcaption>}
+												</figure>
+											</Fragment>
+										))}
 									</div>
 								</div>
 							))
@@ -294,7 +402,11 @@ const learnings = [
 						</p>
 					</div>
 
-					<Ph label="Usability testing documentation" ratio="16 / 9" />
+					<EnlargeableImage
+						src="/freedom-tax-japan/usability-testing/usability-testing-documentation.png"
+						alt="Usability testing documentation board, showing screens annotated with participant comments"
+						enlargeable={false}
+					/>
 
 					<div class="ftj-setup">
 						<div class="ftj-setup__label">Test setup</div>
@@ -308,7 +420,15 @@ const learnings = [
 						{
 							participants.map((p) => (
 								<article class="ftj-insight">
-									<Ph label={p.visual} ratio="4 / 3" />
+									<img
+										class="ftj-avatar"
+										src={`/freedom-tax-japan/usability-testing/${p.photo}.jpg`}
+										alt=""
+										width="120"
+										height="120"
+										loading="lazy"
+										decoding="async"
+									/>
 									<h3 class="ftj-insight__name">{p.name}</h3>
 									<dl>
 										<dt>Context</dt>
@@ -508,14 +628,15 @@ const learnings = [
 		color: var(--color-text-muted);
 	}
 
-	/* Design exploration: proposal → final pairs. */
-	.ftj-compare-list {
+	/* Design exploration: each example gets generous room to breathe
+	   (space-editorial-ish gap) since the visuals carry the story and
+	   shouldn't feel cramped together. */
+	.ftj-examples {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-6);
+		gap: var(--space-12);
 	}
 
-	.ftj-compare__head,
 	.ftj-insights-head,
 	.ftj-setup__label {
 		font-size: var(--text-label);
@@ -524,28 +645,74 @@ const learnings = [
 		color: var(--color-text-muted);
 	}
 
-	.ftj-compare__pair {
-		display: grid;
-		grid-template-columns: 1fr auto 1fr;
-		gap: var(--space-2);
-		align-items: center;
+	.ftj-example__heading {
 		margin-top: var(--space-2);
+		font-size: var(--text-body);
+		font-weight: 600;
+		line-height: 1.3;
 	}
 
-	.ftj-compare__pair figure {
+	/* Flexbox rather than a fixed-column grid so a 2-step (exploration →
+	   implemented) and a 3-step (before → reference → implemented)
+	   example both lay out correctly without separate markup. */
+	.ftj-steps {
+		display: flex;
+		align-items: flex-start;
+		gap: var(--space-3);
+		margin-top: var(--space-4);
+	}
+
+	.ftj-steps__step {
+		flex: 1;
+		min-width: 0;
 		margin: 0;
 	}
 
-	.ftj-compare__tag {
-		margin-bottom: var(--space-1);
-		font-size: 0.9em;
-		font-weight: 600;
-	}
-
-	.ftj-compare__arrow {
+	.ftj-steps__arrow {
+		flex: none;
 		color: var(--color-text-muted);
 		align-self: center;
 		padding-top: var(--space-3);
+	}
+
+	/* Step-label badge — colors sampled directly from the real FTJ
+	   product (the notification bar tint and the logo's navy), the only
+	   place this portfolio borrows a case study's own brand color for
+	   something other than the hubstep Section Index accent. Kept to
+	   this one scannability aid, not applied anywhere else on the page. */
+	.ftj-compare__tag {
+		display: inline-flex;
+		align-items: center;
+		max-width: 100%;
+		margin-bottom: var(--space-2);
+		padding: 0.3em 0.75em;
+		border-radius: 999px;
+		background: #e6fbff;
+		color: #0a2c55;
+		font-size: 0.7em;
+		font-weight: 400;
+		white-space: nowrap;
+	}
+
+	/* Real screenshots, not a uniform placeholder box — each renders at
+	   its own natural aspect ratio (no crop/distortion), so steps in the
+	   same row can end at different heights when their source images
+	   have different proportions. */
+	.ftj-steps__img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	/* A step can hold more than one image (Example 03's "Exploration"
+	   step shows two directions explored before the team converged) —
+	   stacked in place rather than spilling into their own columns, so
+	   they still read as one step in the Before/Exploration/Implemented
+	   sequence rather than a whole extra step. */
+	.ftj-steps__images {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
 	}
 
 	/* Usability testing: the heaviest section — bigger heading, more air,
@@ -589,27 +756,42 @@ const learnings = [
 		margin-top: var(--space-3);
 	}
 
+	/* Anonymized-participant avatar — a generic themed photo, not a
+	   portrait of the actual person, cropped to a small circle so it
+	   reads as a lightweight identifier rather than a "final" image. */
+	.ftj-avatar {
+		display: block;
+		width: 64px;
+		height: 64px;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
 	.ftj-insight__name {
 		margin-top: var(--space-3);
 		font-size: var(--text-h3);
 	}
 
 	.ftj-insight dl {
-		margin: var(--space-2) 0 0;
+		margin: var(--space-3) 0 0;
 	}
 
 	.ftj-insight dt {
-		margin-top: var(--space-2);
+		margin-top: var(--space-4);
 		font-size: var(--text-label);
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
 		color: var(--color-text-muted);
 	}
 
+	.ftj-insight dt:first-child {
+		margin-top: 0;
+	}
+
 	.ftj-insight dd {
-		margin: 0.25rem 0 0;
+		margin: var(--space-1) 0 0;
 		font-size: 0.9em;
-		line-height: 1.55;
+		line-height: 1.6;
 	}
 
 	.ftj-insight__revealed {
@@ -715,14 +897,14 @@ const learnings = [
 			max-width: 100%;
 		}
 
-		.ftj-compare__pair {
-			grid-template-columns: 1fr;
+		.ftj-steps {
+			flex-direction: column;
 		}
 
-		.ftj-compare__arrow {
+		.ftj-steps__arrow {
 			transform: rotate(90deg);
 			padding-top: 0;
-			justify-self: start;
+			align-self: flex-start;
 		}
 
 		.ftj-pager__next {
