@@ -10,6 +10,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CaseHeader from '../../components/CaseHeader.astro';
 import Ph from '../../components/Placeholder.astro';
 import ScrollableProductPreview from '../../components/ScrollableProductPreview.astro';
+import EnlargeableImage from '../../components/EnlargeableImage.astro';
 
 const sections = [
 	{ id: 'outcome', title: 'What the project produced' },
@@ -20,13 +21,11 @@ const sections = [
 ];
 
 const outcomes = [
-	{ value: '11', label: 'Competitors analyzed' },
+	{ value: '15', label: 'Competitors analyzed' },
 	{ value: '4', label: 'Moderated usability testing sessions' },
 	{ value: 'Multiple UI ideas', label: 'Incorporated into the redesign' },
 	{ value: 'New landing page', label: 'Launched before the 2025 tax season' },
 ];
-
-const findings = ['Finding 01', 'Finding 02', 'Finding 03'];
 
 const comparisons = [
 	{ proposal: 'Tax season notification — proposal', final: 'Tax season notification — final' },
@@ -171,27 +170,67 @@ const learnings = [
 
 					<div class="prose">
 						<p>
-							I reviewed 11 competing services and mapped their user flows to understand how tax-related services communicated
+							I reviewed 15 competing services and mapped their user flows to understand how tax-related services communicated
 							value, built trust, and guided users toward the next step.
 						</p>
 						<p>I shared the findings with the team and used them as input for our redesign discussions.</p>
 					</div>
 
-					<Ph label="Competitive audit — 11 services" ratio="16 / 9" />
+					<figure class="ftj-audit">
+						<EnlargeableImage
+							src="/freedom-tax-japan/research/competitive-audit.png"
+							alt="Competitive analysis mapping the user flows of 15 tax-filing services"
+							enlargeable={false}
+						/>
+						<figcaption class="ftj-audit__caption">Competitive analysis (Desktop)</figcaption>
+					</figure>
 
-					<div class="ftj-split">
-						<Ph label="User flow comparison" ratio="4 / 3" />
-						<ol class="ftj-findings">
-							{
-								findings.map((f, i) => (
-									<li>
-										<div class="ftj-findings__num">{String(i + 1).padStart(2, '0')}</div>
-										<div class="ftj-findings__title">{f}</div>
-										<div class="ftj-findings__body">Key finding — text TBD</div>
-									</li>
-								))
-							}
-						</ol>
+					<figure class="ftj-audit ftj-audit--secondary">
+						<EnlargeableImage
+							src="/freedom-tax-japan/research/app-competitive-audit.png"
+							alt="Competitive audit of app-based tax-filing experiences"
+							enlargeable={false}
+						/>
+						<figcaption class="ftj-audit__caption">Competitive analysis (App)</figcaption>
+					</figure>
+
+					<div class="ftj-synthesis">
+						<div class="section-eyebrow">Research synthesis</div>
+						<h3 class="ftj-synthesis__heading">Two characteristics that shaped the redesign</h3>
+						<div class="prose">
+							<p>
+								The competitive audit helped us narrow the discussion to two characteristics that became central to the
+								redesign: trust and convenience.
+							</p>
+						</div>
+
+						<div class="ftj-synthesis__grid">
+							<div class="ftj-synthesis__item">
+								<div class="ftj-synthesis__tag">
+									<span class="ftj-synthesis__num">01</span>
+									<span class="ftj-synthesis__label">Trust</span>
+								</div>
+								<h4 class="ftj-synthesis__item-heading">Trust needed to be visible, not assumed</h4>
+								<p class="ftj-synthesis__body">
+									Users needed clear evidence that a tax service was credible — through expertise, customer experiences,
+									social proof, and transparent information about the company.
+								</p>
+								<p class="ftj-synthesis__keywords">Expertise · Social proof · Customer experience · Transparency</p>
+							</div>
+
+							<div class="ftj-synthesis__item">
+								<div class="ftj-synthesis__tag">
+									<span class="ftj-synthesis__num">02</span>
+									<span class="ftj-synthesis__label">Convenience</span>
+								</div>
+								<h4 class="ftj-synthesis__item-heading">Convenience was about reducing uncertainty, not just steps</h4>
+								<p class="ftj-synthesis__body">
+									A convenient experience meant knowing what to do next, understanding complex terms, seeing progress,
+									and knowing the expected time and cost — while still being able to get support when needed.
+								</p>
+								<p class="ftj-synthesis__keywords">Clear actions · Progress · Plain language · Price &amp; time transparency</p>
+							</div>
+						</div>
 					</div>
 				</section>
 
@@ -372,45 +411,100 @@ const learnings = [
 		font-size: 0.9em;
 	}
 
-	/* Research: flow-comparison visual beside the three findings. */
-	.ftj-split {
+	/* Research: the competitive-audit visual, enlargeable since its value
+	   is in showing the breadth of the audit, not being legible inline
+	   at full width (per EnlargeableImage's existing lightbox pattern). */
+	.ftj-audit__caption {
+		margin: var(--space-2) 0 0;
+		font-size: var(--text-label);
+		color: var(--color-text-muted);
+	}
+
+	/* Secondary research visual (app-based audit) — narrower and set
+	   apart with extra top space so it reads as supporting evidence,
+	   not a second hero image competing with the primary audit above. */
+	.ftj-audit--secondary {
+		max-width: 78%;
+		margin-inline: auto;
+		margin-top: var(--space-8);
+	}
+
+	/* Research synthesis — two findings the audit narrowed the redesign
+	   to. Deliberately plain (hairline + numbering, no card chrome) to
+	   stay editorial rather than reading as a UI component. */
+	.ftj-synthesis {
+		margin-top: var(--space-8);
+	}
+
+	.ftj-synthesis__heading {
+		font-size: var(--text-body);
+		font-weight: 600;
+		line-height: 1.3;
+	}
+
+	/* Card grid: rows are shared via subgrid, so each row (tag / heading /
+	   body / keywords) takes the height of whichever card needs more —
+	   the shorter card's cells stretch to match, which is what keeps the
+	   heading block and the keywords line aligned across both cards
+	   regardless of copy length, without hardcoding any heights. */
+	.ftj-synthesis__grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: var(--space-4);
-		align-items: start;
+		grid-template-rows: auto auto auto auto;
+		column-gap: var(--space-6);
+		margin-top: var(--space-4);
 	}
 
-	.ftj-findings {
-		list-style: none;
-		margin: 0;
-		padding: 0;
+	.ftj-synthesis__item {
+		display: grid;
+		grid-template-rows: subgrid;
+		grid-row: 1 / -1;
+		padding: var(--space-4);
+		border: 1px solid var(--color-border);
+		border-radius: 20px;
+		box-shadow: 0 4px 16px -8px rgba(17, 17, 17, 0.12);
+	}
+
+	.ftj-synthesis__tag {
 		display: flex;
-		flex-direction: column;
+		align-items: baseline;
+		gap: var(--space-2);
 	}
 
-	.ftj-findings li {
-		padding: var(--space-2) 0;
-		border-top: 1px solid var(--color-border);
-	}
-
-	.ftj-findings li:first-child {
-		padding-top: 0;
-		border-top: none;
-	}
-
-	.ftj-findings__num,
+	.ftj-synthesis__num,
 	.ftj-learnings__num {
 		font-size: var(--text-label);
 		letter-spacing: 0.08em;
 		color: var(--color-text-muted);
 	}
 
-	.ftj-findings__title {
-		font-weight: 600;
+	.ftj-synthesis__label {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		font-weight: 700;
 	}
 
-	.ftj-findings__body {
+	.ftj-synthesis__item-heading {
+		/* h4 isn't covered by global.css's h1/h2/h3 margin reset, so its
+		   UA default margin-bottom (~1em) was adding extra space here on
+		   top of the next element's own margin-top — reset it explicitly. */
+		margin: var(--space-2) 0 0;
+		font-size: var(--text-body);
+		font-weight: 600;
+		line-height: 1.3;
+	}
+
+	.ftj-synthesis__body {
+		margin-top: var(--space-2);
+		color: var(--color-text-muted);
 		font-size: 0.9em;
+	}
+
+	.ftj-synthesis__keywords {
+		margin-top: var(--space-2);
+		font-size: var(--text-label);
+		letter-spacing: 0.02em;
 		color: var(--color-text-muted);
 	}
 
@@ -598,10 +692,27 @@ const learnings = [
 
 	@media (max-width: 640px) {
 		.ftj-stats,
-		.ftj-split,
+		.ftj-synthesis__grid,
 		.ftj-insights,
 		.ftj-pager {
 			grid-template-columns: 1fr;
+		}
+
+		/* Single column now, so the two cards no longer share rows —
+		   each falls back to sizing its own content normally instead of
+		   trying to occupy the same subgrid row range. */
+		.ftj-synthesis__grid {
+			grid-template-rows: none;
+			row-gap: var(--space-4);
+		}
+
+		.ftj-synthesis__item {
+			grid-template-rows: auto;
+			grid-row: auto;
+		}
+
+		.ftj-audit--secondary {
+			max-width: 100%;
 		}
 
 		.ftj-compare__pair {
