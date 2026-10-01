@@ -40,6 +40,12 @@ const designExamples = [
 			'During the competitive audit, I found a UK tax service using a persistent notification bar for time-sensitive filing information. I proposed applying a similar pattern to FTJ so users could see the relevant tax-season timing without needing to ask.',
 			'The idea was adopted, and during usability testing participants found the timing information clear and easy to understand.',
 		],
+		// This example gets a 2x2 editorial grid instead of the default
+		// single-row/arrow treatment — four screens is one too many to
+		// read comfortably in a row, and the 4-step sequence (before →
+		// reference → proposal → implemented) is clear enough from
+		// numbering alone without arrows spelling it out.
+		gridLayout: true,
 		// Each step holds an `images` array rather than a single image —
 		// only Example 03's "Exploration" step actually uses more than
 		// one (two directions explored side by side before the team
@@ -76,6 +82,10 @@ const designExamples = [
 			'Interaction data showed strong engagement with Tax Guide content, even near the bottom of the landing page.',
 			'I proposed a more scannable article layout. The direction was adopted, with the final implementation simplified to fit the no-code platform.',
 		],
+		// 2-row grid like Example 01 — 3 items wrap naturally into a
+		// 2-up top row (Before, My proposal) and a single-item bottom
+		// row (Implemented), same editorial tone across both examples.
+		gridLayout: true,
 		steps: [
 			{ tag: 'Before', images: [{ label: 'Previous resource section', file: 'tax-guide-before', width: 1160, height: 461 }] },
 			{
@@ -252,14 +262,6 @@ const learnings = [
 					<div class="section-eyebrow">02 — Research</div>
 					<h2>Understanding the market before designing</h2>
 
-					<div class="prose">
-						<p>
-							I reviewed 15 competing services and mapped their user flows to understand how tax-related services communicated
-							value, built trust, and guided users toward the next step.
-						</p>
-						<p>I shared the findings with the team and used them as input for our redesign discussions.</p>
-					</div>
-
 					<figure class="ftj-audit">
 						<EnlargeableImage
 							src="/freedom-tax-japan/research/competitive-audit.png"
@@ -269,14 +271,23 @@ const learnings = [
 						<figcaption class="ftj-audit__caption">Competitive analysis (Desktop)</figcaption>
 					</figure>
 
-					<figure class="ftj-audit ftj-audit--secondary">
-						<EnlargeableImage
-							src="/freedom-tax-japan/research/app-competitive-audit.png"
-							alt="Competitive audit of app-based tax-filing experiences"
-							enlargeable={false}
-						/>
-						<figcaption class="ftj-audit__caption">Competitive analysis (App)</figcaption>
-					</figure>
+					<div class="ftj-research-row">
+						<figure class="ftj-research-row__visual">
+							<EnlargeableImage
+								src="/freedom-tax-japan/research/app-competitive-audit.png"
+								alt="Competitive audit of app-based tax-filing experiences"
+								enlargeable={false}
+							/>
+							<figcaption class="ftj-audit__caption">Competitive analysis (App)</figcaption>
+						</figure>
+						<div class="prose ftj-research-row__text">
+							<p>
+								I reviewed 15 competing services and mapped their user flows to understand how tax-related services
+								communicated value, built trust, and guided users toward the next step.
+							</p>
+							<p>I shared the findings with the team and used them as input for our redesign discussions.</p>
+						</div>
+					</div>
 
 					<div class="ftj-synthesis">
 						<div class="section-eyebrow">Research synthesis</div>
@@ -344,16 +355,18 @@ const learnings = [
 										))}
 									</div>
 
-									<div class="ftj-steps">
-										{example.steps.map((step, i) => (
-											<Fragment>
-												{i > 0 && (
-													<span class="ftj-steps__arrow" aria-hidden="true">
-														→
-													</span>
-												)}
-												<figure class="ftj-steps__step">
-													<div class="ftj-compare__tag">{step.tag}</div>
+									{example.gridLayout ? (
+										<div class="ftj-steps-grid">
+											{example.steps.map((step, i) => (
+												<figure
+											class:list={[
+												'ftj-steps-grid__item',
+												i === example.steps.length - 1 && example.steps.length % 2 !== 0 && 'ftj-steps-grid__item--full',
+											]}
+										>
+													<div class="section-eyebrow">
+														{String(i + 1).padStart(2, '0')} — {step.tag}
+													</div>
 													<div class="ftj-steps__images">
 														{step.images.map((image) => (
 															<img
@@ -369,9 +382,33 @@ const learnings = [
 													</div>
 													{step.caption && <figcaption class="ftj-audit__caption">{step.caption}</figcaption>}
 												</figure>
-											</Fragment>
-										))}
-									</div>
+											))}
+										</div>
+									) : (
+										<div class="ftj-steps">
+											{example.steps.map((step, i) => (
+												<figure class="ftj-steps__step">
+													<div class="section-eyebrow">
+														{String(i + 1).padStart(2, '0')} — {step.tag}
+													</div>
+													<div class="ftj-steps__images">
+														{step.images.map((image) => (
+															<img
+																class="ftj-steps__img"
+																src={`/freedom-tax-japan/design-exploration/${image.file}.png`}
+																alt={image.label}
+																width={image.width}
+															height={image.height}
+															loading="lazy"
+															decoding="async"
+														/>
+													))}
+														</div>
+														{step.caption && <figcaption class="ftj-audit__caption">{step.caption}</figcaption>}
+													</figure>
+											))}
+										</div>
+									)}
 								</div>
 							))
 						}
@@ -478,6 +515,15 @@ const learnings = [
 </BaseLayout>
 
 <style>
+	/* FTJ's own reserved accent (sampled from the product's brand blue,
+	   same reasoning as the hubstep teal via --color-accent in
+	   global.css) for the active Section Index item — kept local to
+	   this page rather than promoted to a shared token, since it's a
+	   per-case-study brand color, not a sitewide one. */
+	.case-index a.is-active {
+		color: #0496ce;
+	}
+
 	.ftj-hero {
 		margin-top: var(--space-6);
 	}
@@ -528,7 +574,9 @@ const learnings = [
 	.ftj-stat__label {
 		margin: var(--space-1) 0 0;
 		color: var(--color-text-muted);
+		font-family: var(--font-body);
 		font-size: 0.9em;
+		line-height: 1.75;
 	}
 
 	/* Research: the competitive-audit visual, enlargeable since its value
@@ -540,13 +588,25 @@ const learnings = [
 		color: var(--color-text-muted);
 	}
 
-	/* Secondary research visual (app-based audit) — narrower and set
-	   apart with extra top space so it reads as supporting evidence,
-	   not a second hero image competing with the primary audit above. */
-	.ftj-audit--secondary {
-		max-width: 78%;
-		margin-inline: auto;
+	/* App audit sits beside its own explanation rather than stacking as
+	   a second full-width hero image — reads as an extension of the
+	   research (smaller, paired with text) rather than competing with
+	   the Desktop audit above. ~52/48 split, with a wide gap standing
+	   in for "generous whitespace between them". */
+	.ftj-research-row {
+		display: grid;
+		grid-template-columns: 1.1fr 1fr;
+		gap: var(--space-8);
+		align-items: center;
 		margin-top: var(--space-8);
+	}
+
+	.ftj-research-row__visual {
+		margin: 0;
+	}
+
+	.ftj-research-row__text {
+		max-width: none;
 	}
 
 	/* Research synthesis — two findings the audit narrowed the redesign
@@ -618,7 +678,9 @@ const learnings = [
 	.ftj-synthesis__body {
 		margin-top: var(--space-2);
 		color: var(--color-text-muted);
+		font-family: var(--font-body);
 		font-size: 0.9em;
+		line-height: 1.75;
 	}
 
 	.ftj-synthesis__keywords {
@@ -668,30 +730,8 @@ const learnings = [
 		margin: 0;
 	}
 
-	.ftj-steps__arrow {
-		flex: none;
-		color: var(--color-text-muted);
-		align-self: center;
-		padding-top: var(--space-3);
-	}
-
-	/* Step-label badge — colors sampled directly from the real FTJ
-	   product (the notification bar tint and the logo's navy), the only
-	   place this portfolio borrows a case study's own brand color for
-	   something other than the hubstep Section Index accent. Kept to
-	   this one scannability aid, not applied anywhere else on the page. */
-	.ftj-compare__tag {
-		display: inline-flex;
-		align-items: center;
-		max-width: 100%;
+	.ftj-steps__step .section-eyebrow {
 		margin-bottom: var(--space-2);
-		padding: 0.3em 0.75em;
-		border-radius: 999px;
-		background: #e6fbff;
-		color: #0a2c55;
-		font-size: 0.7em;
-		font-weight: 400;
-		white-space: nowrap;
 	}
 
 	/* Real screenshots, not a uniform placeholder box — each renders at
@@ -713,6 +753,38 @@ const learnings = [
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-2);
+	}
+
+	/* Example 01 only: 2x2 editorial grid instead of a single row, so
+	   four screens can run much larger. No arrows — numbering + the
+	   existing eyebrow label style (reused as-is, not a new type style)
+	   carry the sequence instead of a process-diagram feel. */
+	.ftj-steps-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		column-gap: var(--space-6);
+		row-gap: var(--space-8);
+		margin-top: var(--space-4);
+	}
+
+	.ftj-steps-grid__item {
+		margin: 0;
+	}
+
+	/* A lone item in the last row (odd step count, e.g. Example 02's
+	   3-step Before/My proposal/Implemented) spans both columns instead
+	   of sitting half-width with an empty cell beside it — reads as the
+	   result the other two lead up to, not a leftover. */
+	.ftj-steps-grid__item--full {
+		grid-column: 1 / -1;
+	}
+
+	.ftj-steps-grid__item--full .ftj-steps__images {
+		max-width: 60%;
+	}
+
+	.ftj-steps-grid__item .section-eyebrow {
+		margin-bottom: var(--space-2);
 	}
 
 	/* Usability testing: the heaviest section — bigger heading, more air,
@@ -790,11 +862,19 @@ const learnings = [
 
 	.ftj-insight dd {
 		margin: var(--space-1) 0 0;
+		color: var(--color-text-muted);
+		font-family: var(--font-body);
 		font-size: 0.9em;
-		line-height: 1.6;
+		line-height: 1.75;
 	}
 
-	.ftj-insight__revealed {
+	/* Specificity needs to beat ".ftj-insight dd" above (which now sets
+	   the muted/Montserrat body treatment) so this stays the emphasized,
+	   near-black takeaway line rather than blending into the rest of
+	   the card. */
+	.ftj-insight dd.ftj-insight__revealed {
+		color: var(--color-text);
+		font-family: var(--font-sans);
 		font-weight: 600;
 	}
 
@@ -828,7 +908,9 @@ const learnings = [
 		margin: var(--space-1) 0 0;
 		max-width: var(--measure);
 		color: var(--color-text-muted);
+		font-family: var(--font-body);
 		font-size: 0.9em;
+		line-height: 1.75;
 	}
 
 	/* Footer navigation: Previous / Back to all work. */
@@ -893,18 +975,17 @@ const learnings = [
 			grid-row: auto;
 		}
 
-		.ftj-audit--secondary {
-			max-width: 100%;
+		.ftj-research-row {
+			grid-template-columns: 1fr;
 		}
 
 		.ftj-steps {
 			flex-direction: column;
 		}
 
-		.ftj-steps__arrow {
-			transform: rotate(90deg);
-			padding-top: 0;
-			align-self: flex-start;
+		.ftj-steps-grid {
+			grid-template-columns: 1fr;
+			row-gap: var(--space-6);
 		}
 
 		.ftj-pager__next {
