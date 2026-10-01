@@ -39,12 +39,12 @@
 	   --color-text-muted above and the line-height on .prose below). */
 	--font-body: "Montserrat", var(--font-sans);
 	/* One deliberate editorial accent, used only for the homepage hero
-	   headline (.hero__headline) — a warmer, more characterful grotesque
-	   than Inter, for impact on the single most prominent line on the
-	   site. A serif (Fraunces) was tried first but read as a mismatch
-	   against the product screenshot directly below the hero. Not used
-	   anywhere else, so it stays a moment, not a second system. */
-	--font-display: "Bricolage Grotesque", var(--font-sans);
+	   headline (.hero__headline) — a confident geometric grotesque for
+	   impact on the single most prominent line on the site. A serif
+	   (Fraunces) was tried first but read as a mismatch against the
+	   product screenshot directly below the hero. Not used anywhere
+	   else, so it stays a moment, not a second system. */
+	--font-display: "Space Grotesk", var(--font-sans);
 
 	/* Typography scale — starting point from the user's own sketch (64/40/32/20/12),
 	   fluid between mobile and desktop rather than a flat shrink. Open to revision
