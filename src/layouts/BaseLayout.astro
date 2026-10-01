@@ -17,19 +17,18 @@ const { title } = Astro.props;
 		<title>{title}</title>
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<!-- Inter: headings and UI chrome (nav, labels, tags, meta).
+		<!-- Inter: headings and UI chrome (nav, labels, tags, meta), and
+		     now the homepage hero headline too (see .hero__headline) —
+		     Fraunces, Bricolage Grotesque, and Space Grotesk were each
+		     tried there in turn, but a dedicated display font for a
+		     single headline wasn't worth the mismatch it created with
+		     the rest of the site's typography, so the hero stays on
+		     Inter at a larger size instead.
 		     Montserrat: body/reading copy (--font-body in global.css) —
 		     adopted sitewide after testing it on the Freedom Tax Japan
-		     page against zouk.mx's body-text treatment.
-		     Space Grotesk: one deliberate editorial accent — the
-		     homepage hero headline only (--font-display in global.css),
-		     not used anywhere else. Picked after comparing it live
-		     against Bricolage Grotesque, Instrument Sans, and plain
-		     Inter — a confident geometric grotesque for impact, without
-		     a serif's classical tone mismatching the product screenshot
-		     right below it. -->
+		     page against zouk.mx's body-text treatment. -->
 		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;600&display=swap"
 			rel="stylesheet"
 		/>
 	</head>

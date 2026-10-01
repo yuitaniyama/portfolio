@@ -125,10 +125,12 @@ projects.push({
 
 	/* One-off editorial treatment for the single most prominent line on
 	   the site — bigger than the shared --text-h1 scale (deliberately
-	   not touching that token, so case study titles are unaffected) and
-	   set in --font-display (Bricolage Grotesque) instead of Inter. */
+	   not touching that token, so case study titles are unaffected).
+	   Stays on --font-sans (Inter), same as every other heading — a
+	   dedicated display font was tried here (Fraunces, Bricolage
+	   Grotesque, Space Grotesk) but read as a mismatch against the rest
+	   of the site, so size alone carries the impact. */
 	.hero__headline {
-		font-family: var(--font-display);
 		font-size: clamp(3rem, 2.1rem + 5vw, 5.5rem);
 		font-weight: 700;
 		line-height: 1.08;
