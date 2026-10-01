@@ -66,6 +66,16 @@
 	--page-padding: clamp(1.25rem, 4vw, 3rem);
 	--content-max-width: 1200px;
 	--grid-gap: var(--space-3);
+
+	/* Case study two-column grid (Section Index / Project Info + Reading
+	   Column). Hoisted to :root so the Project Intro block (CaseHeader)
+	   and the Sticky Index + Reading Column below it (.case-study-body)
+	   share one grid definition — that's what keeps PROJECT INFO aligned
+	   with the Section Index, and the intro copy aligned with the main
+	   reading column, instead of each guessing the same numbers twice. */
+	--index-w: 9rem;
+	--index-gap: 5rem;
+	--reading-w: 57rem;
 }
 
 * {
@@ -313,29 +323,6 @@ main h1 {
 	grid-column: 1 / -1;
 }
 
-/* Intro text position (Hero -> Title -> Meta -> Intro area only).
-   This part of the page keeps the original centered reading band —
-   only the Section 01+ body below has moved to the Reading Column
-   system (see "Case study body: Sticky Index + Reading Column" below).
-   Editorial rhythm here is not made by shifting text position; it
-   comes from Visual size/placement, whitespace, and section spacing. */
-.case-body {
-	display: grid;
-	grid-template-columns: subgrid;
-	grid-column: 1 / -1;
-	max-width: none;
-}
-
-.case-body > * {
-	grid-column: 2 / 12;
-}
-
-@media (max-width: 640px) {
-	.case-body > * {
-		grid-column: 1 / -1;
-	}
-}
-
 .case-hero {
 	aspect-ratio: 16 / 7;
 	background: #eeeeee;
@@ -347,12 +334,85 @@ main h1 {
 	padding: var(--space-3);
 }
 
-/* Intro paragraphs (right after the Case Meta divider) — matches the
-   divider's own padding-bottom above it, and the Meta grid's margin-top
-   below the title, so the whitespace rhythm above and below the divider
-   reads as intentional rather than tighter on one side. */
+/* Project Intro block — sits between the H1 and the first case-study
+   section, and deliberately reuses the Section Index + Reading Column
+   grid (--index-w / --index-gap / --reading-w, defined on :root) so
+   PROJECT INFO lines up with the Section Index below it, and the intro
+   copy lines up with the main reading column below it. This is what
+   establishes the page's reading grid before Section 01 begins, rather
+   than the intro floating at some other width of its own. */
+.case-intro-grid {
+	display: grid;
+	grid-template-columns: var(--index-w) minmax(0, var(--reading-w));
+	column-gap: var(--index-gap);
+	align-items: start;
+	margin-top: var(--space-8);
+}
+
+.case-project-info {
+	grid-column: 1;
+}
+
+.case-project-info__heading {
+	font-size: var(--text-label);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--color-text-muted);
+	margin-bottom: var(--space-2);
+}
+
+.case-project-info__list {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+}
+
+.case-project-info__item {
+	margin: 0;
+}
+
+.case-project-info__label {
+	font-size: var(--text-label);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--color-text-muted);
+}
+
+/* Deliberately smaller than the project intro (--text-body) so metadata
+   reads as scannable and secondary — it shouldn't compete with the intro
+   copy for attention. Multi-item values (e.g. Focus) render as several
+   .case-project-info__value lines, not a single run-on sentence. */
+.case-project-info__value {
+	margin: 0.2em 0 0;
+	font-size: 1rem;
+	line-height: 1.4;
+}
+
+.case-project-info__value + .case-project-info__value {
+	margin-top: 0;
+}
+
+/* Intro copy sits in the Reading Column track — same left edge and
+   width as the Reading Column (.case-sections) below it. Kept
+   noticeably larger than body copy so it still reads as a lead
+   paragraph, not another section of body text. */
 .case-intro {
-	margin-top: var(--space-6);
+	grid-column: 2;
+	font-size: 1.375rem;
+	line-height: 1.6;
+}
+
+@media (max-width: 960px) {
+	.case-intro-grid {
+		grid-template-columns: 1fr;
+		row-gap: var(--space-6);
+	}
+
+	.case-project-info,
+	.case-intro {
+		grid-column: 1;
+	}
 }
 
 /* Visual placeholders — stand in for real photography / UI mockups /
@@ -467,26 +527,6 @@ main h1 {
 	aspect-ratio: 4 / 3;
 }
 
-.case-meta {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-	gap: var(--space-3);
-	margin-top: var(--space-6);
-	padding-bottom: var(--space-4);
-	border-bottom: 1px solid var(--color-border);
-}
-
-.case-meta__label {
-	font-size: var(--text-label);
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
-	color: var(--color-text-muted);
-}
-
-.case-meta__value {
-	margin-top: 0.25rem;
-}
-
 /* Case study body: Sticky Index + Reading Column.
    From Section 01 onward (Hero / Title / Meta / Intro above are
    unaffected), the page splits into a narrow section index on the
@@ -504,9 +544,6 @@ main h1 {
    Values are a first pass, not exact — tune after viewing in the
    browser. */
 .case-study-body {
-	--index-w: 9rem;
-	--index-gap: 5rem;
-	--reading-w: 57rem;
 	display: grid;
 	grid-template-columns: var(--index-w) minmax(0, var(--reading-w));
 	column-gap: var(--index-gap);
