@@ -39,11 +39,12 @@
 	   --color-text-muted above and the line-height on .prose below). */
 	--font-body: "Montserrat", var(--font-sans);
 	/* One deliberate editorial accent, used only for the homepage hero
-	   headline (.hero__headline) — a serif moment against an otherwise
-	   all-sans system, for impact on the single most prominent line on
-	   the site. Not used anywhere else, so it stays a moment, not a
-	   second system. */
-	--font-display: "Fraunces", serif;
+	   headline (.hero__headline) — a warmer, more characterful grotesque
+	   than Inter, for impact on the single most prominent line on the
+	   site. A serif (Fraunces) was tried first but read as a mismatch
+	   against the product screenshot directly below the hero. Not used
+	   anywhere else, so it stays a moment, not a second system. */
+	--font-display: "Bricolage Grotesque", var(--font-sans);
 
 	/* Typography scale — starting point from the user's own sketch (64/40/32/20/12),
 	   fluid between mobile and desktop rather than a flat shrink. Open to revision
@@ -139,12 +140,16 @@ main h1 {
 .prose h3 {
 	/* A structural sub-heading inside flowing copy — stays on --font-sans
 	   (Inter) even though .prose itself now defaults to --font-body, so
-	   it still reads as a heading rather than another paragraph. */
+	   it still reads as a heading rather than another paragraph. Color is
+	   set explicitly because .prose itself is muted — without this, a
+	   heading inherits that muted gray instead of reading as full-contrast
+	   like every other heading on the site (e.g. FTJ's h3s). */
 	font-family: var(--font-sans);
 	font-size: var(--text-body);
 	font-weight: 600;
 	line-height: 1.3;
 	margin-top: var(--space-6);
+	color: var(--color-text);
 }
 
 .page-padding {
@@ -212,11 +217,19 @@ main h1 {
 }
 
 /* Emphasized phrases should read as the skimmable summary of a case
-   study — full-contrast against the muted body color, not just bold-
-   on-muted, so they're legible at a glance without reading every line. */
+   study — bolder than the surrounding copy, but staying the same muted
+   gray as regular body text so it doesn't read as a heading. */
 .prose strong {
 	font-weight: 600;
-	color: var(--color-text);
+}
+
+/* hubstep-sfa-platform's pull-quotes wrap their full sentence in
+   **bold** — this is the one place bold text is meant to pop in an
+   accent color rather than just gaining weight. Scoped to `strong`
+   (not the whole blockquote) so it has no effect on hubstep-foundation's
+   plain customer-feedback quotes, which don't use bold. */
+.prose blockquote strong {
+	color: #007e70;
 }
 
 .prose blockquote {
