@@ -7,4 +7,4 @@ type: prose
 
 One option discussed was documenting the possible combinations in an FAQ.
 
-I questioned whether users should need to learn the product's data rules in order to complete the task at all.
+I questioned whether **users should need to learn the product's data rules in order to complete the task at all.**

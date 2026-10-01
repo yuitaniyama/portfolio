@@ -123,8 +123,16 @@ projects.push({
 		margin-top: var(--space-8);
 	}
 
+	/* One-off editorial treatment for the single most prominent line on
+	   the site — bigger than the shared --text-h1 scale (deliberately
+	   not touching that token, so case study titles are unaffected) and
+	   set in --font-display (Fraunces) instead of Inter. */
 	.hero__headline {
-		line-height: 1.15;
+		font-family: var(--font-display);
+		font-size: clamp(3rem, 2.1rem + 5vw, 5.5rem);
+		font-weight: 560;
+		line-height: 1.08;
+		letter-spacing: -0.01em;
 	}
 
 	.hero__line {

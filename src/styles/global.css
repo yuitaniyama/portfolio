@@ -38,6 +38,12 @@
 	   --font-sans. Matched to zouk.mx's body-text treatment (see
 	   --color-text-muted above and the line-height on .prose below). */
 	--font-body: "Montserrat", var(--font-sans);
+	/* One deliberate editorial accent, used only for the homepage hero
+	   headline (.hero__headline) — a serif moment against an otherwise
+	   all-sans system, for impact on the single most prominent line on
+	   the site. Not used anywhere else, so it stays a moment, not a
+	   second system. */
+	--font-display: "Fraunces", serif;
 
 	/* Typography scale — starting point from the user's own sketch (64/40/32/20/12),
 	   fluid between mobile and desktop rather than a flat shrink. Open to revision
@@ -203,6 +209,14 @@ main h1 {
 
 .prose > * + * {
 	margin-top: 1.25em;
+}
+
+/* Emphasized phrases should read as the skimmable summary of a case
+   study — full-contrast against the muted body color, not just bold-
+   on-muted, so they're legible at a glance without reading every line. */
+.prose strong {
+	font-weight: 600;
+	color: var(--color-text);
 }
 
 .prose blockquote {

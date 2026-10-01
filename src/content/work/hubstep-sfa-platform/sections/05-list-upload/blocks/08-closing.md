@@ -1,7 +1,7 @@
 ---
 type: prose
 ---
-Instead, I began exploring how the system could identify required conditions earlier, surface problems closer to where they occur, and guide the user through what is actually needed.
+Instead, I began exploring how **the system could identify required conditions earlier, surface problems closer to where they occur, and guide the user through what is actually needed.**
 
 That also led to a more fundamental question:
 
