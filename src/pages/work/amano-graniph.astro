@@ -40,7 +40,15 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 	<article class="content-grid">
 		<!-- VISUAL 00 — amano-collection-hero (large, dominant; no title/meta overlay) -->
 		<div class="amano-hero">
-			<Ph label="amano-collection-hero — Final collection collage" ratio="16 / 10" />
+			<img
+				class="amano-img"
+				src="/amano-graniph/hero/amano-collection-hero.png"
+				alt="The finished Amano × Graniph collection: garments from the lineup shown on models in a collage"
+				width="2400"
+				height="1254"
+				loading="eager"
+				decoding="async"
+			/>
 		</div>
 
 		<CaseHeader
@@ -147,7 +155,15 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 					<!-- VISUAL 03 — existing-apparel-review (kept compact — supporting evidence, not the focus) -->
 					<div class="amano-compact-row">
 						<figure class="amano-compact-row__visual">
-							<Ph label="existing-apparel-review — Existing apparel using Amano's artwork" ratio="4 / 3" />
+							<img
+								class="amano-img"
+								src="/amano-graniph/challenge/existing-apparel-review.png"
+								alt="Review of existing apparel that uses Yoshitaka Amano's artwork"
+								width="2400"
+								height="2093"
+								loading="lazy"
+								decoding="async"
+							/>
 						</figure>
 						<div class="amano-notes">
 							<div class="amano-notes__heading">What I noticed</div>
@@ -190,7 +206,15 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 
 					<!-- VISUAL 04 — collection-exploration (large — communicates the volume of work explored) -->
 					<figure class="amano-exploration-visual">
-						<Ph label="collection-exploration — Large set of garment design explorations" ratio="4 / 3" />
+						<img
+							class="amano-img"
+							src="/amano-graniph/exploration/collection-exploration.png"
+							alt="A large sheet of garment design explorations: T-shirts, shirts, dresses, and skirts"
+							width="1800"
+							height="2591"
+							loading="lazy"
+							decoding="async"
+						/>
 					</figure>
 
 					<div class="amano-flow">
@@ -248,12 +272,28 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 						</figure>
 						<span class="amano-bet-sequence__arrow" aria-hidden="true">→</span>
 						<figure class="amano-bet-sequence__step">
-							<Ph label="red-dress-design-decision — Artwork adaptation" ratio="3 / 4" />
+							<img
+								class="amano-img"
+								src="/amano-graniph/creative-bet/red-dress-2-artwork-adaptation.png"
+								alt="The red dress design with the adapted artwork placed on the hem, front and back"
+								width="1000"
+								height="858"
+								loading="lazy"
+								decoding="async"
+							/>
 							<figcaption class="section-eyebrow">Artwork adaptation</figcaption>
 						</figure>
 						<span class="amano-bet-sequence__arrow" aria-hidden="true">→</span>
 						<figure class="amano-bet-sequence__step">
-							<Ph label="red-dress-design-decision — Final product (modeled red dress)" ratio="3 / 4" />
+							<img
+								class="amano-img"
+								src="/amano-graniph/creative-bet/red-dress-3-final-product.png"
+								alt="The finished red sleeveless dress worn by a model"
+								width="610"
+								height="855"
+								loading="lazy"
+								decoding="async"
+							/>
 							<figcaption class="section-eyebrow">Final product</figcaption>
 							<p class="amano-bet-sequence__metric">
 								<strong>54.2%</strong> first-week sell-through
@@ -304,7 +344,15 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 					<!-- VISUAL 07 — print-material-testing (main visual in this section) -->
 					<div class="amano-compact-row amano-compact-row--wide">
 						<figure class="amano-compact-row__visual">
-							<Ph label="print-material-testing — Blue printed fabric samples" ratio="4 / 3" />
+							<img
+								class="amano-img"
+								src="/amano-graniph/making-it-physical/print-material-testing.png"
+								alt="Blue printed fabric test samples of Amano's artwork, pinned up for comparison"
+								width="1160"
+								height="1523"
+								loading="lazy"
+								decoding="async"
+							/>
 						</figure>
 						<div class="amano-notes">
 							<div class="amano-notes__heading">What I checked</div>
@@ -328,7 +376,15 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 							</p>
 						</div>
 						<div class="amano-supporting__visual">
-							<Ph label="Styling / model direction reference (small, supporting)" ratio="4 / 3" />
+							<img
+								class="amano-img"
+								src="/amano-graniph/making-it-physical/styling-direction.png"
+								alt="Styling and model direction reference shared with the photography team"
+								width="2400"
+								height="2523"
+								loading="lazy"
+								decoding="async"
+							/>
 						</div>
 					</div>
 				</section>
@@ -425,6 +481,14 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 	.amano-hero {
 		margin-top: var(--space-6);
 		margin-bottom: var(--space-6);
+	}
+
+	/* Real photos/screens render at their own aspect ratio — no crop,
+	   no border, no zoom affordance. */
+	.amano-img {
+		display: block;
+		width: 100%;
+		height: auto;
 	}
 
 	.amano-subheading {
@@ -528,6 +592,9 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 	   communicate volume, not to show individual designs in detail. */
 	.amano-exploration-visual {
 		margin: 0;
+		/* The sheet is a tall portrait; at full column width it would run
+		   well over a screen and a half, so cap it. */
+		max-width: 44rem;
 	}
 
 	/* Explore → Compare → Eliminate → Refine, and the production flow —
