@@ -389,13 +389,12 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 							<div class="prose amano-learnings__body">
 								<p>This project reinforced a habit that still influences how I design today:</p>
 							</div>
+							<p class="amano-learnings__takeaway">
+								Ideas need to become tangible before they can really be judged. Making them visible, comparing
+								alternatives, and observing what happens in the real world helps me challenge my own assumptions.
+							</p>
 						</li>
 					</ol>
-
-					<p class="amano-final-statement">
-						Make the idea tangible early. Compare alternatives. Observe what happens after launch. Then use the result
-						to challenge your assumptions.
-					</p>
 				</section>
 			</div>
 		</div>
@@ -643,17 +642,16 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 		max-width: var(--measure);
 	}
 
-	/* The case study's closing line — the single largest piece of body-
-	   adjacent typography outside the KPIs, so it reads as the visual
-	   conclusion rather than another paragraph. Plain text, no border or
-	   quote treatment: the brief asks for the page to end quietly. */
-	.amano-final-statement {
-		margin-top: var(--space-8);
-		max-width: 48rem;
-		font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+	/* Concluding thought of Learning 03 — part of the same list item as
+	   its heading and body (no divider, small gap), set larger and
+	   stronger than body text but smaller than the learning heading, in
+	   the same column width as the body above it. */
+	.amano-learnings__takeaway {
+		margin: var(--space-3) 0 0;
+		max-width: var(--measure);
+		font-size: clamp(1.1875rem, 1.1rem + 0.5vw, 1.5rem);
 		font-weight: 600;
-		line-height: 1.35;
-		letter-spacing: -0.01em;
+		line-height: 1.4;
 	}
 
 	/* Footer navigation: Previous / Back to all work (same pattern as
