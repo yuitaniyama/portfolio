@@ -393,14 +393,30 @@ main h1 {
 	margin-top: 0;
 }
 
-/* Intro copy sits in the Reading Column track — same left edge and
-   width as the Reading Column (.case-sections) below it. Kept
-   noticeably larger than body copy so it still reads as a lead
+/* Intro copy sits in the Reading Column track — same left edge AND
+   width as the Reading Column (.case-sections) below it, so this reads
+   as the start of that same column rather than a narrower, independently
+   centered block floating inside it (.prose's own --measure cap is
+   overridden here for that reason, same as .case-sections .prose does).
+   Kept noticeably larger than body copy so it still reads as a lead
    paragraph, not another section of body text. */
 .case-intro {
 	grid-column: 2;
+	max-width: none;
 	font-size: 1.375rem;
 	line-height: 1.6;
+}
+
+/* .prose's children only get spacing from `.prose > * + *` (intended to
+   apply to every sibling after the first); an unreset paragraph still
+   carries the browser's own default top margin though, which pushes just
+   the FIRST paragraph down inside its box. That's invisible in a normal
+   block flow (it collapses into whatever margin-top the .prose block
+   itself already has), but .case-intro is a grid item, where parent/child
+   margin collapsing doesn't happen — so without this, its first line
+   starts visibly lower than PROJECT INFO's first line beside it. */
+.case-intro > p:first-child {
+	margin-top: 0;
 }
 
 @media (max-width: 960px) {
