@@ -464,6 +464,13 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 </BaseLayout>
 
 <style>
+	/* This case study's own accent for the active Section Index item —
+	   kept local to the page, same approach as FTJ's blue and hubstep's
+	   teal (--color-accent). */
+	.case-index a.is-active {
+		color: #d43a3d;
+	}
+
 	/* Vertical rhythm inside a section: heading, then blocks spaced evenly
 	   (same two rules as freedom-tax-japan.astro — each standalone case
 	   study page defines its own copy of this rather than it living in
