@@ -40,8 +40,8 @@ const projects = allWork
 	})
 	.filter((p): p is typeof p & { copy: NonNullable<(typeof p)['copy']> } => Boolean(p.copy));
 
-// Project 03 (Freedom Tax Japan) is a standalone page, not in the `work`
-// collection, so its card is added here.
+// Projects 03 and 04 (Freedom Tax Japan, Amano × Graniph) are standalone
+// pages, not in the `work` collection, so their cards are added here.
 projects.push({
 	slug: 'freedom-tax-japan',
 	title: 'Freedom Tax Japan',
@@ -50,6 +50,19 @@ projects.push({
 		meta: 'UX Research · Usability Testing · Supporting Case Study',
 		description: 'A B2C tax-filing service for English-speaking residents in Japan.',
 		skills: ['Competitive Research', 'UI Exploration', 'Usability Testing'],
+	},
+});
+
+// No cover image exists yet — the card falls back to the same
+// placeholder treatment as a case study's own in-page hero.
+projects.push({
+	slug: 'amano-graniph',
+	title: "Translating Yoshitaka Amano's World into Wearable Products",
+	copy: {
+		meta: 'Fashion Design · Licensed Collaboration',
+		description:
+			"Designing a fashion collection that preserves the delicacy and atmosphere of Yoshitaka Amano's artwork as clothing.",
+		skills: ['Concept Development', 'Garment Design', 'Artwork Adaptation'],
 	},
 });
 ---

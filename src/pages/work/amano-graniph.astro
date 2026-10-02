@@ -1,0 +1,647 @@
+---
+// Yoshitaka Amano × Graniph — Fashion Design case study (Project 04).
+// A standalone page (same pattern as freedom-tax-japan.astro), not in
+// the `work` content collection, so the hubstep [id].astro template and
+// its collections stay untouched. Reuses the shared case-study layout
+// classes from global.css (content-grid, case-study-body, case-index,
+// case-section, section-eyebrow, .prose) and the same CaseHeader /
+// EnlargeableImage / Placeholder components as the other case studies.
+//
+// No final image assets exist for this project yet — every photographic
+// visual below is a <Ph> (Placeholder) labeled with the asset name from
+// the content brief (e.g. "amano-collection-hero"), so a real <img> can
+// be dropped in later without touching layout or copy. The three visuals
+// the brief calls out as HTML/typography rather than images (first-week
+// performance, customer reactions, the two process flows) are built as
+// real markup, not placeholders.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseHeader from '../../components/CaseHeader.astro';
+import Ph from '../../components/Placeholder.astro';
+
+const sections = [
+	{ id: 'outcome', title: 'A collection that sold fast — and created genuine excitement' },
+	{ id: 'the-challenge', title: "The challenge wasn't reproduction. It was translation." },
+	{ id: 'exploration', title: 'I needed to see the ideas before I could judge them.' },
+	{ id: 'creative-bet', title: 'Not every commercial decision has to be the safest one.' },
+	{ id: 'making-it-physical', title: 'A strong graphic was not enough. It had to survive becoming fabric.' },
+];
+
+const kpis = [
+	{ value: '70%', label: 'of my designs sold through more than 50% of their inventory in the first week' },
+	{ value: '96.2%', label: 'first-week sell-through for the best-performing item' },
+];
+
+const explorationFlow = ['Explore', 'Compare', 'Eliminate', 'Refine'];
+const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refinement', 'Production'];
+---
+
+<BaseLayout title="Translating Yoshitaka Amano's World into Wearable Products — Yui Taniyama" lang="en">
+	<article class="content-grid">
+		<!-- VISUAL 00 — amano-collection-hero (large, dominant; no title/meta overlay) -->
+		<div class="amano-hero">
+			<Ph label="amano-collection-hero — Final collection collage" ratio="16 / 10" />
+		</div>
+
+		<CaseHeader
+			eyebrow="Fashion Design · Licensed Collaboration"
+			title="Translating Yoshitaka Amano's World into Wearable Products"
+			meta={[
+				{ label: 'Role', value: 'Fashion Designer' },
+				{
+					label: 'Scope',
+					value: 'Concept Development · Garment Design · Artwork Selection & Adaptation · Material & Print Review · Styling Direction',
+				},
+				{ label: 'Collaborators', value: 'IP Sales · Graphic Design · Production · Manager' },
+				{ label: 'Period', value: 'May 2022 – May 2023' },
+			]}
+			intro={[
+				"I designed a fashion collection that aimed to preserve the delicacy, intensity, and atmosphere of Yoshitaka Amano's artwork while making it work as clothing — across silhouette, material, print, and production.",
+			]}
+		/>
+
+		<div class="case-study-body">
+			<nav class="case-index" aria-label="Case study sections">
+				<div class="case-index__eyebrow">In this case study</div>
+				<ol>
+					{
+						sections.map((s) => (
+							<li>
+								<a href={`#${s.id}`}>{s.title}</a>
+							</li>
+						))
+					}
+				</ol>
+			</nav>
+
+			<div class="case-sections">
+				<!-- 01 OUTCOME -->
+				<section id="outcome" class="case-section">
+					<div class="section-eyebrow">After launch</div>
+					<h2>A collection that sold fast — and created genuine excitement</h2>
+
+					<div class="prose">
+						<p>The collection performed strongly from its first week on sale.</p>
+					</div>
+
+					<!-- VISUAL 01 — first-week-performance [HTML typography, not an image] -->
+					<div class="amano-kpis">
+						{
+							kpis.map((kpi) => (
+								<div class="amano-kpi">
+									<div class="amano-kpi__value">{kpi.value}</div>
+									<div class="amano-kpi__label">{kpi.label}</div>
+								</div>
+							))
+						}
+					</div>
+
+					<div class="amano-outcome-reactions">
+						<div class="section-eyebrow">Customer reactions</div>
+						<h3 class="amano-subheading">The numbers were only part of the story.</h3>
+
+						<!-- VISUAL 02 — customer-reactions [HTML quote treatment, not an image] -->
+						<div class="amano-quote">
+							<p class="amano-quote__text">"I want everything from this collaboration…"</p>
+							<p class="amano-quote__attribution">Customer post on X · translated from Japanese</p>
+						</div>
+						<div class="amano-quote">
+							<p class="amano-quote__text">"If I saw this walking past the store, there's no way I wouldn't buy it."</p>
+							<p class="amano-quote__attribution">Customer post on X · translated from Japanese</p>
+						</div>
+
+						<div class="prose">
+							<p>
+								The response suggested that the collection was doing more than translating a well-known IP into
+								clothing — <strong>the products themselves were creating enough visual and emotional pull to drive
+								both purchase and conversation.</strong>
+							</p>
+						</div>
+					</div>
+				</section>
+
+				<!-- 02 THE CHALLENGE -->
+				<section id="the-challenge" class="case-section">
+					<div class="section-eyebrow">Preserving the feeling, not just the image</div>
+					<h2>The challenge wasn't reproduction. It was translation.</h2>
+
+					<div class="prose">
+						<p>
+							Yoshitaka Amano's work can feel incredibly delicate — almost fragile — while still carrying{' '}
+							<strong>a distinct sense of tension, darkness, and strength.</strong>
+						</p>
+						<p>
+							When I reviewed existing apparel using his artwork, I often felt that this balance was being lost.
+							Heavy-looking prints, glossy finishes, or coarse fabrics could reproduce the image while changing the
+							feeling of the original work.
+						</p>
+					</div>
+
+					<div class="amano-quote">
+						<p class="amano-quote__text">
+							How could the clothes preserve the feeling of entering Amano's world, rather than simply placing his
+							artwork onto a garment?
+						</p>
+					</div>
+
+					<!-- VISUAL 03 — existing-apparel-review (kept compact — supporting evidence, not the focus) -->
+					<div class="amano-compact-row">
+						<figure class="amano-compact-row__visual">
+							<Ph label="existing-apparel-review — Existing apparel using Amano's artwork" ratio="4 / 3" />
+						</figure>
+						<div class="amano-notes">
+							<div class="amano-notes__heading">What I noticed</div>
+							<ul class="amano-notes__list">
+								<li>Materials sometimes fought against the delicacy of the artwork</li>
+								<li>Some print finishes changed the character of the original image</li>
+								<li>Reproducing the artwork alone did not necessarily preserve its atmosphere</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+
+				<!-- 03 EXPLORATION -->
+				<section id="exploration" class="case-section">
+					<div class="section-eyebrow">From artwork to garment</div>
+					<h2>I needed to see the ideas before I could judge them.</h2>
+
+					<div class="prose">
+						<p>
+							One thing I had learned through fashion design was that an idea that sounds right in conversation does
+							not always work once it becomes visual.
+						</p>
+						<p>
+							Sometimes an artwork that seemed like an obvious choice fell flat when placed on a garment. At other
+							times, <strong>an unexpected combination immediately felt right.</strong>
+						</p>
+						<p>
+							So I explored broadly before narrowing the collection — testing different relationships between
+							artwork, silhouette, placement, material, and print.
+						</p>
+						<p>
+							For this collection, I was also thinking about two overlapping audiences: people drawn through familiar
+							fantasy imagery, and people who were deeply interested in Amano's artwork itself.
+						</p>
+						<p>
+							The aim was not to design separately for each group, but to{' '}
+							<strong>build a lineup that could satisfy both.</strong>
+						</p>
+					</div>
+
+					<!-- VISUAL 04 — collection-exploration (large — communicates the volume of work explored) -->
+					<figure class="amano-exploration-visual">
+						<Ph label="collection-exploration — Large set of garment design explorations" ratio="4 / 3" />
+					</figure>
+
+					<div class="amano-flow">
+						{
+							explorationFlow.map((step, i) => (
+								<Fragment>
+									<span class="amano-flow__step">{step}</span>
+									{i < explorationFlow.length - 1 && (
+										<span class="amano-flow__arrow" aria-hidden="true">
+											→
+										</span>
+									)}
+								</Fragment>
+							))
+						}
+					</div>
+				</section>
+
+				<!-- 04 A CREATIVE BET -->
+				<section id="creative-bet" class="case-section">
+					<div class="section-eyebrow">Design decision</div>
+					<h2>Not every commercial decision has to be the safest one.</h2>
+
+					<div class="prose">
+						<p>One of the more debated pieces in the lineup was a vivid red sleeveless dress.</p>
+						<p>
+							Bright red and the silhouette were considered a more challenging choice for the expected customer, but{' '}
+							<strong>I felt the combination of the artwork, color, and composition created something unusually
+							strong.</strong>
+						</p>
+						<p>
+							Rather than using the original artwork literally, I extended its visual world through color and
+							composition to create a garment with its own presence.
+						</p>
+					</div>
+
+					<div class="amano-quote">
+						<p class="amano-quote__text">I advocated for keeping it in the lineup.</p>
+					</div>
+
+					<div class="prose">
+						<p>The dress went on to sell through 54.2% of its inventory in the first week.</p>
+						<p>
+							The result reinforced something I already suspected:{' '}
+							<strong>commercial thinking and creative instinct do not always have to pull in opposite
+							directions.</strong>
+						</p>
+					</div>
+
+					<!-- VISUAL 05 — red-dress-design-decision (strongest visual after the Hero) -->
+					<div class="amano-bet-sequence">
+						<div class="amano-bet-sequence__row">
+							<figure class="amano-bet-sequence__step">
+								<Ph label="red-dress-design-decision — Original artwork" ratio="3 / 4" />
+								<figcaption class="section-eyebrow">Original artwork</figcaption>
+							</figure>
+							<figure class="amano-bet-sequence__step">
+								<Ph label="red-dress-design-decision — Artwork adaptation" ratio="3 / 4" />
+								<figcaption class="section-eyebrow">Artwork adaptation</figcaption>
+							</figure>
+							<figure class="amano-bet-sequence__step">
+								<Ph label="red-dress-design-decision — Garment design" ratio="3 / 4" />
+								<figcaption class="section-eyebrow">Garment design</figcaption>
+							</figure>
+						</div>
+						<figure class="amano-bet-sequence__final">
+							<Ph label="red-dress-design-decision — Final product (modeled red dress)" ratio="3 / 4" />
+							<figcaption class="section-eyebrow">Final product</figcaption>
+						</figure>
+						<div class="amano-kpi amano-kpi--inline">
+							<div class="amano-kpi__value">54.2%</div>
+							<div class="amano-kpi__label">first-week sell-through</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- 05 MAKING IT PHYSICAL -->
+				<section id="making-it-physical" class="case-section">
+					<div class="section-eyebrow">From visual idea to product</div>
+					<h2>A strong graphic was not enough. It had to survive becoming fabric.</h2>
+
+					<div class="prose">
+						<p>Once the lineup was selected, the concepts had to become manufacturable products.</p>
+						<p>
+							The process moved from design specifications into material selection, print methods, sampling, and
+							refinement.
+						</p>
+						<p>
+							For printed pieces, the factory typically prepared multiple test versions. I compared them against the
+							original artwork, looking at color reproduction, fine detail, print quality, and how the result
+							behaved on the chosen fabric.
+						</p>
+						<p>The goal was not simply to find the most accurate print.</p>
+						<p>
+							It was to find the combination of <strong>artwork × material × print technique</strong> that preserved
+							the character of the original work as closely as possible.
+						</p>
+					</div>
+
+					<!-- VISUAL 06 — design-to-production-flow [HTML flow, not an image] -->
+					<div class="amano-flow">
+						{
+							productionFlow.map((step, i) => (
+								<Fragment>
+									<span class="amano-flow__step">{step}</span>
+									{i < productionFlow.length - 1 && (
+										<span class="amano-flow__arrow" aria-hidden="true">
+											→
+										</span>
+									)}
+								</Fragment>
+							))
+						}
+					</div>
+
+					<!-- VISUAL 07 — print-material-testing (main visual in this section) -->
+					<div class="amano-compact-row amano-compact-row--wide">
+						<figure class="amano-compact-row__visual">
+							<Ph label="print-material-testing — Blue printed fabric samples" ratio="4 / 3" />
+						</figure>
+						<div class="amano-notes">
+							<div class="amano-notes__heading">What I checked</div>
+							<ul class="amano-notes__list">
+								<li>Color reproduction</li>
+								<li>Fine artwork detail</li>
+								<li>Print quality</li>
+								<li>Material compatibility</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- Small supporting moment, not a major section -->
+					<div class="amano-supporting">
+						<h3 class="amano-supporting__heading">Extending the direction beyond the garment</h3>
+						<div class="prose">
+							<p>
+								I also shared styling and model direction with the photography team — including the overall mood,
+								coordination, and accessory references — to help the final imagery stay consistent with the
+								collection.
+							</p>
+						</div>
+						<div class="amano-supporting__visual">
+							<Ph label="Styling / model direction reference (small, supporting)" ratio="4 / 3" />
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<nav class="amano-pager" aria-label="Case study navigation">
+			<a href="/work/freedom-tax-japan/">
+				<span class="amano-pager__label">Previous case study</span>
+				<span class="amano-pager__title">Bringing Research and Testing to Freedom Tax Japan's Redesign</span>
+			</a>
+			<a href="/" class="amano-pager__next">
+				<span class="amano-pager__label">Back to</span>
+				<span class="amano-pager__title">All work →</span>
+			</a>
+		</nav>
+	</article>
+</BaseLayout>
+
+<style>
+	/* Vertical rhythm inside a section: heading, then blocks spaced evenly
+	   (same two rules as freedom-tax-japan.astro — each standalone case
+	   study page defines its own copy of this rather than it living in
+	   global.css, since it's specific to how .case-section is used here). */
+	.case-section > :global(* + *) {
+		margin-top: var(--space-4);
+	}
+
+	.case-section > h2 + :global(*) {
+		margin-top: var(--space-4);
+	}
+
+	/* Hero — large and dominant, full content-grid width (not capped like
+	   FTJ's narrower hero), with nothing overlaid on top of it. */
+	.amano-hero {
+		margin-top: var(--space-6);
+		margin-bottom: var(--space-6);
+	}
+
+	.amano-subheading {
+		font-size: var(--text-body);
+		font-weight: 600;
+		line-height: 1.3;
+	}
+
+	/* KPI statements — editorial, not dashboard cards: no borders, no
+	   background, just scale and whitespace. Side by side on desktop,
+	   stacked on mobile. */
+	.amano-kpis {
+		display: flex;
+		gap: var(--space-8);
+		flex-wrap: wrap;
+	}
+
+	.amano-kpi {
+		flex: 1 1 14rem;
+	}
+
+	.amano-kpi__value {
+		font-size: clamp(3rem, 2.2rem + 3.5vw, 4.5rem);
+		font-weight: 700;
+		line-height: 1;
+		letter-spacing: -0.01em;
+	}
+
+	.amano-kpi__label {
+		margin-top: var(--space-2);
+		max-width: 28rem;
+		color: var(--color-text-muted);
+		font-family: var(--font-body);
+		line-height: 1.6;
+	}
+
+	/* A single inline KPI (the red dress result) reuses the same type
+	   treatment at a smaller scale — a secondary result, not the section's
+	   headline numbers. */
+	.amano-kpi--inline {
+		margin-top: var(--space-4);
+	}
+
+	.amano-kpi--inline .amano-kpi__value {
+		font-size: var(--text-h2);
+	}
+
+	.amano-outcome-reactions {
+		margin-top: var(--space-8);
+	}
+
+	/* Pull quotes / emphasized statements — reused for the customer quotes,
+	   the core design question, and the "I advocated..." moment, so the
+	   page has one quote vocabulary rather than three different ones. */
+	.amano-quote {
+		margin-top: var(--space-4);
+		padding-left: var(--space-3);
+		border-left: 2px solid var(--color-border);
+	}
+
+	.amano-quote__text {
+		font-size: var(--text-body);
+		font-weight: 600;
+		line-height: 1.4;
+	}
+
+	.amano-quote__attribution {
+		margin-top: var(--space-1);
+		font-size: var(--text-label);
+		color: var(--color-text-muted);
+	}
+
+	/* Compact supporting visual + short notes list, side by side — used
+	   for the existing-apparel review and (in its --wide variant) the
+	   print/material testing photo. */
+	.amano-compact-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-6);
+		align-items: start;
+	}
+
+	.amano-compact-row--wide {
+		grid-template-columns: 1.6fr 1fr;
+		align-items: center;
+	}
+
+	.amano-compact-row__visual {
+		margin: 0;
+	}
+
+	.amano-notes__heading {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.amano-notes__list {
+		margin: var(--space-2) 0 0;
+		padding-left: 1.1em;
+		color: var(--color-text-muted);
+		font-family: var(--font-body);
+		line-height: 1.75;
+	}
+
+	.amano-notes__list li + li {
+		margin-top: var(--space-1);
+	}
+
+	/* The exploration visual is deliberately large — the point is to
+	   communicate volume, not to show individual designs in detail. */
+	.amano-exploration-visual {
+		margin: 0;
+	}
+
+	/* Explore → Compare → Eliminate → Refine, and the production flow —
+	   one lightweight flow component for both. Plain text + arrows, no
+	   boxes or diagram chrome, so it stays editorial rather than reading
+	   as a process diagram. */
+	.amano-flow {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: var(--space-2);
+		font-weight: 600;
+	}
+
+	.amano-flow__arrow {
+		color: var(--color-text-muted);
+	}
+
+	/* The red-dress sequence: three smaller steps leading into one larger
+	   final product, so the final garment visibly receives the most
+	   emphasis rather than all four images competing equally. */
+	.amano-bet-sequence__row {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-3);
+	}
+
+	.amano-bet-sequence__step,
+	.amano-bet-sequence__final {
+		margin: 0;
+	}
+
+	.amano-bet-sequence__step figcaption,
+	.amano-bet-sequence__final figcaption {
+		margin-top: var(--space-2);
+	}
+
+	.amano-bet-sequence__final {
+		margin-top: var(--space-6);
+		max-width: 28rem;
+		margin-inline: auto;
+	}
+
+	/* Small closing moment — styling/photo-shoot direction. Deliberately
+	   narrower than the rest of the section so it reads as a brief,
+	   supporting aside rather than another full section. */
+	.amano-supporting {
+		margin-top: var(--space-8);
+		max-width: 28rem;
+	}
+
+	.amano-supporting__heading {
+		font-size: var(--text-body);
+		font-weight: 600;
+		line-height: 1.3;
+	}
+
+	.amano-supporting__visual {
+		margin-top: var(--space-3);
+	}
+
+	/* Footer navigation: Previous / Back to all work (same pattern as
+	   freedom-tax-japan.astro's .ftj-pager). */
+	.amano-pager {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-4);
+		margin-top: var(--space-16);
+		padding: var(--space-6) 0 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.amano-pager a {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
+		text-decoration: none;
+		transition: opacity 150ms ease;
+	}
+
+	.amano-pager a:hover,
+	.amano-pager a:focus-visible {
+		opacity: 0.7;
+	}
+
+	.amano-pager__next {
+		text-align: right;
+		align-items: flex-end;
+	}
+
+	.amano-pager__label {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.amano-pager__title {
+		font-size: var(--text-h3);
+		font-weight: 700;
+		line-height: 1.2;
+	}
+
+	@media (max-width: 640px) {
+		.amano-compact-row,
+		.amano-compact-row--wide,
+		.amano-bet-sequence__row,
+		.amano-pager {
+			grid-template-columns: 1fr;
+		}
+
+		.amano-bet-sequence__final {
+			max-width: none;
+		}
+
+		.amano-pager__next {
+			text-align: left;
+			align-items: flex-start;
+		}
+	}
+</style>
+
+<script>
+	// Section Index scrollspy — identical behavior to the other case
+	// study pages (see freedom-tax-japan.astro / [id].astro).
+	const sections = document.querySelectorAll<HTMLElement>('.case-sections .case-section[id]');
+	const links = document.querySelectorAll<HTMLAnchorElement>('.case-index a[href^="#"]');
+	if (sections.length && links.length) {
+		const setActive = (id: string) => {
+			links.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === `#${id}`));
+		};
+		const headerH = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0;
+		let observer: IntersectionObserver | undefined;
+		const visible = new Set<string>();
+
+		const build = () => {
+			observer?.disconnect();
+			visible.clear();
+			observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((e) => (e.isIntersecting ? visible.add(e.target.id) : visible.delete(e.target.id)));
+					let current: string | undefined;
+					let bestTop = Infinity;
+					visible.forEach((id) => {
+						const top = document.getElementById(id)!.getBoundingClientRect().top;
+						if (top < bestTop) {
+							bestTop = top;
+							current = id;
+						}
+					});
+					if (current) setActive(current);
+				},
+				{ rootMargin: `-${headerH() + 8}px 0px -70% 0px`, threshold: 0 }
+			);
+			sections.forEach((s) => observer!.observe(s));
+		};
+
+		build();
+		window.addEventListener('resize', build);
+	}
+</script>
