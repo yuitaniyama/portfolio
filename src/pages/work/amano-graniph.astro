@@ -242,28 +242,23 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 
 					<!-- VISUAL 05 — red-dress-design-decision (strongest visual after the Hero) -->
 					<div class="amano-bet-sequence">
-						<div class="amano-bet-sequence__row">
-							<figure class="amano-bet-sequence__step">
-								<Ph label="red-dress-design-decision — Original artwork" ratio="3 / 4" />
-								<figcaption class="section-eyebrow">Original artwork</figcaption>
-							</figure>
-							<figure class="amano-bet-sequence__step">
-								<Ph label="red-dress-design-decision — Artwork adaptation" ratio="3 / 4" />
-								<figcaption class="section-eyebrow">Artwork adaptation</figcaption>
-							</figure>
-							<figure class="amano-bet-sequence__step">
-								<Ph label="red-dress-design-decision — Garment design" ratio="3 / 4" />
-								<figcaption class="section-eyebrow">Garment design</figcaption>
-							</figure>
-						</div>
-						<figure class="amano-bet-sequence__final">
+						<figure class="amano-bet-sequence__step">
+							<Ph label="red-dress-design-decision — Original artwork" ratio="3 / 4" />
+							<figcaption class="section-eyebrow">Original artwork</figcaption>
+						</figure>
+						<span class="amano-bet-sequence__arrow" aria-hidden="true">→</span>
+						<figure class="amano-bet-sequence__step">
+							<Ph label="red-dress-design-decision — Artwork adaptation" ratio="3 / 4" />
+							<figcaption class="section-eyebrow">Artwork adaptation</figcaption>
+						</figure>
+						<span class="amano-bet-sequence__arrow" aria-hidden="true">→</span>
+						<figure class="amano-bet-sequence__step">
 							<Ph label="red-dress-design-decision — Final product (modeled red dress)" ratio="3 / 4" />
 							<figcaption class="section-eyebrow">Final product</figcaption>
+							<p class="amano-bet-sequence__metric">
+								<strong>54.2%</strong> first-week sell-through
+							</p>
 						</figure>
-						<div class="amano-kpi amano-kpi--inline">
-							<div class="amano-kpi__value">54.2%</div>
-							<div class="amano-kpi__label">first-week sell-through</div>
-						</div>
 					</div>
 				</section>
 
@@ -466,17 +461,6 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 		line-height: 1.6;
 	}
 
-	/* A single inline KPI (the red dress result) reuses the same type
-	   treatment at a smaller scale — a secondary result, not the section's
-	   headline numbers. */
-	.amano-kpi--inline {
-		margin-top: var(--space-4);
-	}
-
-	.amano-kpi--inline .amano-kpi__value {
-		font-size: var(--text-h2);
-	}
-
 	.amano-outcome-reactions {
 		margin-top: var(--space-8);
 	}
@@ -562,29 +546,40 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 		color: var(--color-text-muted);
 	}
 
-	/* The red-dress sequence: three smaller steps leading into one larger
-	   final product, so the final garment visibly receives the most
-	   emphasis rather than all four images competing equally. */
-	.amano-bet-sequence__row {
+	/* The red-dress sequence: original artwork → adaptation → final
+	   product, in one compact horizontal row with small arrows between
+	   steps; the sell-through result sits under the final product as a
+	   small supporting metric, not its own block. */
+	.amano-bet-sequence {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: var(--space-3);
+		grid-template-columns: 1fr auto 1fr auto 1fr;
+		column-gap: var(--space-2);
+		align-items: start;
 	}
 
-	.amano-bet-sequence__step,
-	.amano-bet-sequence__final {
+	.amano-bet-sequence__step {
 		margin: 0;
 	}
 
-	.amano-bet-sequence__step figcaption,
-	.amano-bet-sequence__final figcaption {
+	.amano-bet-sequence__step figcaption {
 		margin-top: var(--space-2);
 	}
 
-	.amano-bet-sequence__final {
-		margin-top: var(--space-6);
-		max-width: 28rem;
-		margin-inline: auto;
+	.amano-bet-sequence__arrow {
+		align-self: center;
+		color: var(--color-text-muted);
+	}
+
+	.amano-bet-sequence__metric {
+		margin-top: var(--space-1);
+		font-size: var(--text-label);
+		color: var(--color-text-muted);
+	}
+
+	.amano-bet-sequence__metric strong {
+		font-size: var(--text-body);
+		font-weight: 700;
+		color: var(--color-text);
 	}
 
 	/* Small closing moment — styling/photo-shoot direction. Deliberately
@@ -699,13 +694,20 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 	@media (max-width: 640px) {
 		.amano-compact-row,
 		.amano-compact-row--wide,
-		.amano-bet-sequence__row,
 		.amano-pager {
 			grid-template-columns: 1fr;
 		}
 
-		.amano-bet-sequence__final {
-			max-width: none;
+		/* Three narrow columns would be too small to read on a phone —
+		   stack the steps, with the arrow turned to point down. */
+		.amano-bet-sequence {
+			grid-template-columns: 1fr;
+			row-gap: var(--space-2);
+		}
+
+		.amano-bet-sequence__arrow {
+			transform: rotate(90deg);
+			justify-self: start;
 		}
 
 		.amano-pager__next {
