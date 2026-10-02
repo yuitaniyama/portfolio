@@ -24,6 +24,7 @@ const sections = [
 	{ id: 'exploration', title: 'I needed to see the ideas before I could judge them.' },
 	{ id: 'creative-bet', title: 'Not every commercial decision has to be the safest one.' },
 	{ id: 'making-it-physical', title: 'A strong graphic was not enough. It had to survive becoming fabric.' },
+	{ id: 'what-i-learned', title: 'Good translation is not literal translation.' },
 ];
 
 const kpis = [
@@ -336,6 +337,66 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 						</div>
 					</div>
 				</section>
+
+				<!-- 06 WHAT I LEARNED -->
+				<section id="what-i-learned" class="case-section">
+					<div class="section-eyebrow">What stayed with me</div>
+					<h2>Good translation is not literal translation.</h2>
+
+					<div class="prose">
+						<p>
+							After launch, I reviewed sales performance, visited stores, and spoke with sales staff to understand how
+							customers were actually responding.
+						</p>
+						<p>
+							Comparing those observations with our expectations helped me see which assumptions held up — and which
+							did not.
+						</p>
+					</div>
+
+					<ol class="amano-learnings">
+						<li>
+							<div class="amano-learnings__index">01</div>
+							<h3 class="amano-learnings__heading">Design the whole product, not just the artwork.</h3>
+							<div class="prose amano-learnings__body">
+								<p>
+									The strongest products were not simply the ones that reproduced Amano's artwork most faithfully.
+								</p>
+								<p>
+									They were the ones where the <strong>artwork, material, silhouette, and print technique</strong> worked
+									together as one product.
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="amano-learnings__index">02</div>
+							<h3 class="amano-learnings__heading">Creative instinct and commercial thinking can coexist.</h3>
+							<div class="prose amano-learnings__body">
+								<p>
+									The red dress was a risk from a conventional merchandising perspective, but I believed the artwork
+									and color could create a stronger emotional connection.
+								</p>
+								<p>
+									Its performance reinforced{' '}
+									<strong>the value of making informed creative bets rather than optimizing every decision for
+									familiarity.</strong>
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="amano-learnings__index">03</div>
+							<h3 class="amano-learnings__heading">Make ideas tangible before trusting your assumptions.</h3>
+							<div class="prose amano-learnings__body">
+								<p>This project reinforced a habit that still influences how I design today:</p>
+							</div>
+						</li>
+					</ol>
+
+					<p class="amano-final-statement">
+						Make the idea tangible early. Compare alternatives. Observe what happens after launch. Then use the result
+						to challenge your assumptions.
+					</p>
+				</section>
 			</div>
 		</div>
 
@@ -543,6 +604,56 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 
 	.amano-supporting__visual {
 		margin-top: var(--space-3);
+	}
+
+	/* Learnings — a plain numbered list, not cards: small index, heading,
+	   short body, separated by a hairline rather than any container.
+	   Deliberately the same vocabulary as freedom-tax-japan.astro's
+	   .ftj-learnings section rather than a new pattern. */
+	.amano-learnings {
+		list-style: none;
+		margin: var(--space-8) 0 0;
+		padding: 0;
+	}
+
+	.amano-learnings li {
+		padding: var(--space-6) 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.amano-learnings li:last-child {
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.amano-learnings__index {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		color: var(--color-text-muted);
+	}
+
+	.amano-learnings__heading {
+		margin-top: var(--space-2);
+		font-size: var(--text-h3);
+		font-weight: 700;
+		line-height: 1.2;
+	}
+
+	.amano-learnings__body {
+		margin-top: var(--space-2);
+		max-width: var(--measure);
+	}
+
+	/* The case study's closing line — the single largest piece of body-
+	   adjacent typography outside the KPIs, so it reads as the visual
+	   conclusion rather than another paragraph. Plain text, no border or
+	   quote treatment: the brief asks for the page to end quietly. */
+	.amano-final-statement {
+		margin-top: var(--space-8);
+		max-width: 48rem;
+		font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+		font-weight: 600;
+		line-height: 1.35;
+		letter-spacing: -0.01em;
 	}
 
 	/* Footer navigation: Previous / Back to all work (same pattern as
