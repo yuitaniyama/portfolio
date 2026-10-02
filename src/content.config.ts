@@ -74,4 +74,53 @@ const workBlocks = defineCollection({
 	}),
 });
 
-export const collections = { work, workSections, workSectionMeta, workBlocks };
+// Japanese translations — currently covering only hubstep-sfa-platform —
+// live in a parallel content tree (src/content/work-ja/) with the exact
+// same folder/file shape and schemas as their English counterparts,
+// rather than a `lang` field on the collections above. That keeps the
+// English site's content, routes, and build output completely untouched;
+// src/pages/ja/work/[id].astro reads from these instead. Only the
+// collection shapes actually used by a block-based case study are
+// defined (no `workSectionsJa` — nothing in Japanese uses the flat
+// section shape yet); add it if a future Japanese case study needs it.
+const workJa = defineCollection({
+	loader: glob({ pattern: '*/_meta.md', base: './src/content/work-ja' }),
+	schema: z.object({
+		title: z.string(),
+		summary: z.string(),
+		intro: z.string(),
+		heroVisual: z.string().optional(),
+		eyebrow: z.string(),
+		meta: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
+		gridSize: z.enum(['standard', 'wide', 'tall']).optional().default('standard'),
+		draft: z.boolean().optional().default(false),
+		order: z.number().optional().default(0),
+	}),
+});
+
+const workSectionMetaJa = defineCollection({
+	loader: glob({ pattern: '*/sections/*/_meta.md', base: './src/content/work-ja' }),
+	schema: z.object({
+		title: z.string(),
+		priority: z.enum(['hero', 'core', 'bridge', 'supporting']),
+	}),
+});
+
+const workBlocksJa = defineCollection({
+	loader: glob({ pattern: '*/sections/*/blocks/*.md', base: './src/content/work-ja' }),
+	schema: z.object({
+		type: z.enum(['prose', 'visual', 'placeholder-list']).default('prose'),
+		ref: z.string().optional(),
+		items: z.array(z.string()).optional(),
+	}),
+});
+
+export const collections = {
+	work,
+	workSections,
+	workSectionMeta,
+	workBlocks,
+	workJa,
+	workSectionMetaJa,
+	workBlocksJa,
+};

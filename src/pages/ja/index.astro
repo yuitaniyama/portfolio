@@ -1,12 +1,12 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-// Homepage card copy (meta tag / description / skills) is hand-authored
-// per project, same as the rest of the site's editorial content — not
-// derived from the `work` collection's own fields, which serve the case
-// study page itself. Keyed by slug; a project without an entry here
-// simply doesn't render a card yet.
+// Japanese homepage — a translated duplicate of src/pages/index.astro.
+// Card copy is hand-authored per project, same as the English version;
+// only hubstep-sfa-platform has a Japanese case study page so far, so
+// the other two cards link out to their English pages rather than a
+// Japanese page that doesn't exist yet.
 const CARD_COPY: Record<
 	string,
 	{
@@ -14,20 +14,23 @@ const CARD_COPY: Record<
 		meta: string;
 		description: string;
 		skills: string[];
+		href: string;
 	}
 > = {
 	'hubstep-sfa-platform': {
 		image: { src: '/home/selected-work/hubstep-sfa-cover.png', width: 7032, height: 3950 },
-		meta: 'Product Design · SFA / CRM',
-		description: 'Designing through a product transition from direct mail operations to a broader sales workflow.',
-		skills: ['Workflow Design', 'Information Architecture', 'Prototyping'],
+		meta: 'プロダクトデザイン・SFA / CRM',
+		description: 'ダイレクトメール業務から、より広い営業ワークフローへ——プロダクトの転換をデザインする。',
+		skills: ['ワークフロー設計', '情報設計', 'プロトタイピング'],
+		href: '/ja/work/hubstep-sfa-platform/',
 	},
 	'hubstep-foundation': {
 		image: { src: '/home/selected-work/hubstep-foundation-cover.png', width: 7032, height: 3950 },
-		meta: 'Product Design · UI/UX & Design Systems',
+		meta: 'プロダクトデザイン・UI/UX & デザインシステム',
 		description:
-			'Joining hubstep mid-development, then shaping its UI/UX, Design System, and product communication through continuous, real-world-driven improvement.',
-		skills: ['UI/UX Design', 'Design Systems', 'Product Communication'],
+			'開発途中からhubstepに参加し、実際の利用から得た知見をもとに、UI/UX、デザインシステム、プロダクトコミュニケーションを継続的に改善してきた。',
+		skills: ['UI/UXデザイン', 'デザインシステム', 'プロダクトコミュニケーション'],
+		href: '/work/hubstep-foundation/',
 	},
 };
 
@@ -47,39 +50,39 @@ projects.push({
 	title: 'Freedom Tax Japan',
 	copy: {
 		image: { src: '/home/selected-work/freedom-tax-japan-cover.png', width: 7032, height: 3950 },
-		meta: 'UX Research · Usability Testing · Supporting Case Study',
-		description: 'A B2C tax-filing service for English-speaking residents in Japan.',
-		skills: ['Competitive Research', 'UI Exploration', 'Usability Testing'],
+		meta: 'UXリサーチ・ユーザビリティテスト・サブケーススタディ',
+		description: '日本在住の英語話者向けのB2C確定申告サービス。',
+		skills: ['競合調査', 'UI探索', 'ユーザビリティテスト'],
+		href: '/work/freedom-tax-japan/',
 	},
 });
 ---
 
-<BaseLayout title="Yui Taniyama — Product Designer" lang="en" translationHref="/ja/">
+<BaseLayout title="Yui Taniyama — プロダクトデザイナー" lang="ja" translationHref="/">
 	<section class="content-grid hero">
 		<h1 class="hero__headline">
-			<span class="hero__line">I’ve always liked making the things</span>{' '}
-			<span class="hero__line">people use every day</span>{' '}
-			<span class="hero__line">a little easier to live with.</span>
+			<span class="hero__line">昔から、人が毎日使うものを</span>{' '}
+			<span class="hero__line">少しでも心地よくすることが</span>{' '}
+			<span class="hero__line">好きだった。</span>
 		</h1>
 
 		<div class="prose hero__supporting">
 			<p>
-				I started in fashion, where I spent 10 years designing and bringing 1,200+ products to
-				market. Now I design digital products.
+				ファッション業界でキャリアをスタートし、10年間で1,200点以上の商品の企画・デザインに携わった。現在はデジタルプロダクトのデザインをしている。
 			</p>
-			<p><strong>Different materials, similar process:</strong> research, sketch, prototype, refine, repeat.</p>
+			<p><strong>素材は違っても、プロセスは同じだ：</strong>リサーチ、スケッチ、プロトタイピング、改善、そして繰り返す。</p>
 		</div>
 	</section>
 
 	{
 		projects.length > 0 && (
 			<section class="content-grid selected-work">
-				<div class="selected-work__label">Selected Work</div>
+				<div class="selected-work__label">主な実績</div>
 
 				<div class="work-list">
 					{
 						projects.map((project, i) => (
-							<a class="work-card" href={`/work/${project.slug}/`}>
+							<a class="work-card" href={project.copy.href}>
 								<span class="work-card__image-wrap">
 									{project.copy.image ? (
 										<img
@@ -91,7 +94,7 @@ projects.push({
 											loading={i === 0 ? 'eager' : 'lazy'}
 										/>
 									) : (
-										<span class="work-card__placeholder">Hero visual — TBD</span>
+										<span class="work-card__placeholder">ヒーロービジュアル — 準備中</span>
 									)}
 								</span>
 								<div class="work-card__info">
@@ -101,7 +104,7 @@ projects.push({
 									</div>
 
 									<div class="work-card__skills">
-										<div class="work-card__skills-label">Top Skills</div>
+										<div class="work-card__skills-label">主なスキル</div>
 										<ul class="work-card__skills-list">
 											{project.copy.skills.map((skill) => (
 												<li>{skill}</li>
@@ -192,9 +195,6 @@ projects.push({
 		outline-offset: 4px;
 	}
 
-	/* Placeholder stands in for a case study's cover image while it isn't
-	   ready yet — same visual language as `.case-hero` on the case study
-	   page itself: an obviously-a-placeholder gray box, not a fake image. */
 	.work-card__placeholder {
 		aspect-ratio: 16 / 9;
 		background: #eeeeee;

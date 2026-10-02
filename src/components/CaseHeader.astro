@@ -12,9 +12,11 @@ interface Props {
 	titleNote?: string;
 	meta: { label: string; value: string }[];
 	intro: string[];
+	lang?: 'en' | 'ja';
 }
 
-const { eyebrow, title, description, titleNote, meta, intro } = Astro.props;
+const { eyebrow, title, description, titleNote, meta, intro, lang = 'en' } = Astro.props;
+const projectInfoLabel = lang === 'ja' ? 'プロジェクト情報' : 'Project Info';
 
 // A meta value listing several items uses " · " as its delimiter (e.g.
 // Focus: "UI/UX Design · Design Systems · Product Communication") — split
@@ -32,7 +34,7 @@ const metaRows = meta.map((m) => ({ label: m.label, values: m.value.split(' · '
 	{
 		metaRows.length > 0 && (
 			<div class="case-project-info">
-				<div class="case-project-info__heading">Project Info</div>
+				<div class="case-project-info__heading">{projectInfoLabel}</div>
 				<dl class="case-project-info__list">
 					{metaRows.map((m) => (
 						<div class="case-project-info__item">

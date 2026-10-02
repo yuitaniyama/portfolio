@@ -3,12 +3,22 @@ import '../styles/global.css';
 
 interface Props {
 	title: string;
+	// Current page's language, and (if it exists) the URL of this same
+	// page in the other language — e.g. an English page passes
+	// translationHref="/ja/about/" and a Japanese page passes
+	// translationHref="/about/". Left undefined on an English page with
+	// no Japanese version yet (most case studies): the switcher then
+	// shows "日本語" as plain, non-clickable text instead of a dead link.
+	lang?: 'en' | 'ja';
+	translationHref?: string;
 }
 
-const { title } = Astro.props;
+const { title, lang = 'en', translationHref } = Astro.props;
+
+const nav = lang === 'ja' ? { about: 'プロフィール', email: 'メール' } : { about: 'About', email: 'Email' };
 ---
 
-<html lang="ja">
+<html lang={lang}>
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -35,9 +45,9 @@ const { title } = Astro.props;
 	<body>
 		<header class="page-padding site-header">
 			<nav class="site-nav">
-				<a href="/">YUI TANIYAMA</a>
+				<a href={lang === 'ja' ? '/ja/' : '/'}>YUI TANIYAMA</a>
 				<div class="site-nav__links">
-					<a href="/about">About</a>
+					<a href={lang === 'ja' ? '/ja/about/' : '/about'}>{nav.about}</a>
 					{
 						/* Resume link hidden until the actual PDF is in place at
 						   public/resume.pdf — pointing it at a file that 404s
@@ -45,8 +55,29 @@ const { title } = Astro.props;
 						   two links below (here and in the footer) once the file
 						   exists. */
 					}
-					<a href="mailto:taniyama.yu65709@gmail.com">Email</a>
+					<a href="mailto:taniyama.yu65709@gmail.com">{nav.email}</a>
 					<a href="https://www.linkedin.com/in/yui-taniyama" target="_blank" rel="noopener">LinkedIn</a>
+					<span class="site-nav__lang">
+						{
+							lang === 'ja' ? (
+								<Fragment>
+									<a href={translationHref}>English</a>
+									<span aria-hidden="true">/</span>
+									<span class="site-nav__lang-current">日本語</span>
+								</Fragment>
+							) : (
+								<Fragment>
+									<span class="site-nav__lang-current">English</span>
+									<span aria-hidden="true">/</span>
+									{translationHref ? (
+										<a href={translationHref}>日本語</a>
+									) : (
+										<span class="site-nav__lang-current">日本語</span>
+									)}
+								</Fragment>
+							)
+						}
+					</span>
 				</div>
 			</nav>
 		</header>
@@ -72,7 +103,7 @@ const { title } = Astro.props;
 		</main>
 
 		<footer class="site-footer page-padding">
-			<a href="mailto:taniyama.yu65709@gmail.com">Email</a>
+			<a href="mailto:taniyama.yu65709@gmail.com">{nav.email}</a>
 			<a href="https://www.linkedin.com/in/yui-taniyama" target="_blank" rel="noopener">LinkedIn</a>
 		</footer>
 	</body>

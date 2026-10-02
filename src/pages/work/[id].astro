@@ -250,7 +250,11 @@ const renderedSections = [...flatSections, ...blockSections]
 	.map((section) => ({ ...section, slug: slugify(section.title) }));
 ---
 
-<BaseLayout title={`${data.title} — Yui Taniyama`}>
+<BaseLayout
+	title={`${data.title} — Yui Taniyama`}
+	lang="en"
+	translationHref={slug === 'hubstep-sfa-platform' ? '/ja/work/hubstep-sfa-platform/' : undefined}
+>
 	<article class="content-grid">
 		{
 			slug === 'hubstep-sfa-platform' ? (

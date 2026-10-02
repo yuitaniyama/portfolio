@@ -1,0 +1,4 @@
+---
+title: "インパクト"
+priority: core
+---

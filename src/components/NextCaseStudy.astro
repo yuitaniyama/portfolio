@@ -11,22 +11,33 @@ import { getCollection } from 'astro:content';
 
 interface Props {
 	currentSlug: string;
+	lang?: 'en' | 'ja';
+	// The Japanese side only has one translated case study so far, so
+	// there's no real "next" page to link to in Japanese — forcing the
+	// honest "more work in progress" state avoids sending a Japanese
+	// page's reader to an English "next" page with no warning.
+	forceEmpty?: boolean;
 }
 
-const { currentSlug } = Astro.props;
+const { currentSlug, lang = 'en', forceEmpty = false } = Astro.props;
 
 const allWork = await getCollection('work', ({ data }) => !data.draft);
 const ordered = allWork.sort((a, b) => a.data.order - b.data.order);
 const currentIndex = ordered.findIndex((p) => p.id.replace(/\/_meta$/, '') === currentSlug);
 const next =
-	ordered.length > 1 ? ordered[(currentIndex + 1) % ordered.length] : undefined;
+	!forceEmpty && ordered.length > 1 ? ordered[(currentIndex + 1) % ordered.length] : undefined;
+
+const copy =
+	lang === 'ja'
+		? { nextLabel: '次のケーススタディ', moreLabel: 'ほかの実績', moreTitle: 'ほかのケーススタディは準備中です', backLink: 'すべての実績に戻る', backHref: '/ja/' }
+		: { nextLabel: 'Next case study', moreLabel: 'More work', moreTitle: 'More case studies are on the way', backLink: 'Back to all projects', backHref: '/' };
 ---
 
 {
 	next ? (
 		<a class="next-case-study" href={`/work/${next.id.replace(/\/_meta$/, '')}/`}>
 			<div class="next-case-study__text">
-				<div class="next-case-study__label">Next case study</div>
+				<div class="next-case-study__label">{copy.nextLabel}</div>
 				<div class="next-case-study__title">{next.data.title}</div>
 				<div class="next-case-study__summary">{next.data.summary}</div>
 			</div>
@@ -39,11 +50,11 @@ const next =
 	) : (
 		<div class="next-case-study next-case-study--empty">
 			<div class="next-case-study__text">
-				<div class="next-case-study__label">More work</div>
-				<div class="next-case-study__title">More case studies are on the way</div>
+				<div class="next-case-study__label">{copy.moreLabel}</div>
+				<div class="next-case-study__title">{copy.moreTitle}</div>
 			</div>
-			<a class="next-case-study__link" href="/">
-				Back to all projects
+			<a class="next-case-study__link" href={copy.backHref}>
+				{copy.backLink}
 				<span aria-hidden="true">→</span>
 			</a>
 		</div>

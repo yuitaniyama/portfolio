@@ -169,7 +169,7 @@ main h1 {
 
 .site-nav {
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: space-between;
 	gap: var(--space-3);
 	padding-top: var(--space-3);
@@ -183,11 +183,36 @@ main h1 {
 .site-nav__links {
 	display: flex;
 	align-items: center;
-	gap: var(--space-3);
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	gap: var(--space-2) var(--space-3);
 	color: var(--color-text-muted);
 	font-size: var(--text-label);
 	letter-spacing: 0.04em;
 	text-transform: uppercase;
+}
+
+.site-nav__links a,
+.site-nav__lang {
+	white-space: nowrap;
+}
+
+/* Language switcher — same label treatment as the other nav links
+   (uppercase isn't applied to "日本語" since text-transform: uppercase
+   has no effect on it anyway). The current language is bolded instead
+   of recolored, so there's no new color in the nav chrome; the other
+   language is a plain link, or — on an English page with no Japanese
+   version yet — plain muted text identical to .site-nav__lang-current,
+   signaling "not available" without a dead link or a disabled look. */
+.site-nav__lang {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-1);
+}
+
+.site-nav__lang-current {
+	font-weight: 600;
+	color: var(--color-text);
 }
 
 .site-footer {
