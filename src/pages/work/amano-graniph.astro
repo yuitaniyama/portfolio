@@ -32,7 +32,6 @@ const kpis = [
 	{ value: '96.2%', label: 'first-week sell-through for the best-performing item' },
 ];
 
-const explorationFlow = ['Explore', 'Compare', 'Eliminate', 'Refine'];
 const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refinement', 'Production'];
 ---
 
@@ -216,21 +215,6 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 							decoding="async"
 						/>
 					</figure>
-
-					<div class="amano-flow">
-						{
-							explorationFlow.map((step, i) => (
-								<Fragment>
-									<span class="amano-flow__step">{step}</span>
-									{i < explorationFlow.length - 1 && (
-										<span class="amano-flow__arrow" aria-hidden="true">
-											→
-										</span>
-									)}
-								</Fragment>
-							))
-						}
-					</div>
 				</section>
 
 				<!-- 04 A CREATIVE BET -->
@@ -276,7 +260,15 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 						</button>
 						<div class="amano-bet-sequence" data-zoom-content>
 							<div class="amano-bet-sequence__media amano-bet-sequence__c1">
-								<Ph label="red-dress-design-decision — Original artwork" ratio="3 / 4" />
+								<img
+									class="amano-bet-sequence__img amano-bet-sequence__img--left"
+									src="/amano-graniph/creative-bet/red-dress-1-original-artwork-crop.jpg"
+									alt="Yoshitaka Amano's original red artwork: a seated figure among flowers, with a striped cloth"
+									width="924"
+									height="730"
+									loading="lazy"
+									decoding="async"
+								/>
 							</div>
 							<div class="amano-bet-sequence__caption amano-bet-sequence__c1">
 								<div class="section-eyebrow">Original artwork</div>
@@ -645,22 +637,6 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 		max-width: 44rem;
 	}
 
-	/* Explore → Compare → Eliminate → Refine, and the production flow —
-	   one lightweight flow component for both. Plain text + arrows, no
-	   boxes or diagram chrome, so it stays editorial rather than reading
-	   as a process diagram. */
-	.amano-flow {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: baseline;
-		gap: var(--space-2);
-		font-weight: 600;
-	}
-
-	.amano-flow__arrow {
-		color: var(--color-text-muted);
-	}
-
 	/* The red-dress sequence: original artwork → adaptation → final
 	   product in one horizontal row. Row 1 holds equal-size frames (3:4)
 	   with the arrows centered on them; row 2 holds the captions, so the
@@ -714,6 +690,12 @@ const productionFlow = ['Design', 'Specification', 'Print Test', 'Sample', 'Refi
 	.amano-bet-sequence__img--contain {
 		object-fit: contain;
 		background: #ffffff;
+	}
+
+	/* The original painting is landscape; in the portrait frame, anchor
+	   toward the left so the figure stays in view. */
+	.amano-bet-sequence__img--left {
+		object-position: 12% 50%;
 	}
 
 	.amano-bet-sequence__arrow {
