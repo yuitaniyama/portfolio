@@ -1,165 +1,217 @@
 ---
 // Section 02 (hubstep case study) — a small "change" diagram, not another
-// process flow: abstract discussion -> tangible screens -> shared
-// reference. Same plain card tone as ChallengeShift; the last card is
-// tinted to read as the outcome. Wording is taken from the section's own
-// text. One component serves both languages (chosen from the URL).
+// process flow: abstract discussion -> tangible hi-fidelity screens ->
+// active discussion with a shared vision. Three columns: a visual on top,
+// who is involved underneath. The middle visual is the real screens wall
+// so readers can see what "hi-fidelity" meant here. One component serves
+// both languages (chosen from the URL).
 const ja = Astro.url.pathname.startsWith('/ja/');
-const steps = ja
-	? [
-			{
-				label: '抽象的な議論',
-				text: 'それぞれが異なるメンタルモデルで考えていた',
-				chips: ['PdM', 'エンジニアリング', '営業領域の知識を持つメンバー'],
+const t = ja
+	? {
+			discussion: '抽象的な議論',
+			screens: 'アイデアを\n高精度な画面へ',
+			outcome: '議論が活発化\nビジョンが一致する',
+			alt: 'hubstepのハイファイデザインの画面を並べた一覧',
+			people: {
+				stakeholders: 'ステークホルダー',
+				sales: '営業チーム',
+				cs: 'CSチーム',
+				pdm: 'PdM',
+				ux: 'UIUXデザイナー',
 			},
-			{
-				label: '具体的な画面',
-				text: '未完成のアイデアを、早い段階で精度の高い画面に落とし込む',
+		}
+	: {
+			discussion: 'Abstract discussion',
+			screens: 'Ideas into\nhi-fidelity screens',
+			outcome: 'Active discussion\nShared vision',
+			alt: 'An overview of hubstep hi-fidelity screens laid out together',
+			people: {
+				stakeholders: 'Stakeholders',
+				sales: 'Sales Team',
+				cs: 'CS Team',
+				pdm: 'PdM',
+				ux: 'UIUX Designer',
 			},
-			{
-				label: '共有されるリファレンス',
-				text: '反応し、意見をぶつけ、改善できる',
-			},
-		]
-	: [
-			{
-				label: 'Abstract discussion',
-				text: 'Different mental models',
-				chips: ['PdM', 'Engineering', 'Members with sales-domain knowledge'],
-			},
-			{
-				label: 'Tangible screens',
-				text: 'Incomplete ideas turned into high-fidelity screens, early',
-			},
-			{
-				label: 'Shared reference',
-				text: 'Something to react to, challenge, and improve',
-			},
-		];
+		};
+const p = t.people;
+const everyone = [p.stakeholders, p.sales, p.cs, p.pdm, p.ux];
 ---
 
 <div class="ms">
-	<ol class="ms__steps">
-		{
-			steps.map((step, i) => (
-				<>
-					{i > 0 && (
-						<li class="ms__arrow" aria-hidden="true">
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-								<path d="M5 12h14M13 6l6 6-6 6" />
-							</svg>
-						</li>
-					)}
-					<li class:list={['ms__card', i === steps.length - 1 && 'ms__card--last']}>
-						<p class="ms__label">{step.label}</p>
-						<p class="ms__text">{step.text}</p>
-						{step.chips && (
-							<ul class="ms__chips">
-								{step.chips.map((chip) => (
-									<li>{chip}</li>
-								))}
-							</ul>
-						)}
-					</li>
-				</>
-			))
-		}
-	</ol>
+	<div class="ms__row">
+		<div class="ms__col">
+			<div class="ms__visual ms__visual--loop">
+				<svg class="ms__loop" viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M26 40a34 26 0 0 1 34-26 34 26 0 0 1 34 26" />
+					<path d="M94 40a34 26 0 0 1-34 26 34 26 0 0 1-34-26" />
+					<path d="M56 9l5 5-5 5" />
+					<path d="M64 71l-5-5 5-5" />
+				</svg>
+				<p class="ms__label">{t.discussion}</p>
+			</div>
+			<ul class="ms__chips">
+				{[p.stakeholders, p.sales, p.cs, p.pdm].map((c) => <li>{c}</li>)}
+			</ul>
+		</div>
+
+		<div class="ms__arrow" aria-hidden="true">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M4 12h16M14 6l6 6-6 6" />
+			</svg>
+		</div>
+
+		<div class="ms__col">
+			<div class="ms__visual ms__visual--image">
+				<img src="/section-02/hifi-screens-overview.webp" alt={t.alt} width="2000" height="1138" loading="lazy" />
+				<p class="ms__label ms__label--over">{t.screens}</p>
+			</div>
+			<ul class="ms__chips">
+				<li>{p.ux}</li>
+			</ul>
+		</div>
+
+		<div class="ms__arrow" aria-hidden="true">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M4 12h16M14 6l6 6-6 6" />
+			</svg>
+		</div>
+
+		<div class="ms__col">
+			<div class="ms__visual ms__visual--outcome">
+				<p class="ms__label ms__label--outcome">{t.outcome}</p>
+			</div>
+			<ul class="ms__chips">
+				{everyone.map((c) => <li>{c}</li>)}
+			</ul>
+		</div>
+	</div>
 </div>
 
 <style>
 	.ms {
 		container-type: inline-size;
 		max-width: none;
-	}
-
-	.ms__steps {
-		list-style: none;
-		margin: 0;
 		padding: 0;
-		display: grid;
-		grid-template-columns: 1fr auto 1fr auto 1fr;
-		align-items: stretch;
-		gap: var(--space-3);
 	}
 
-	.ms__card {
-		padding: var(--space-4);
-		border-radius: 40px;
-		background: #fafafa;
+	.ms__row {
+		display: grid;
+		grid-template-columns: 1fr auto 1.35fr auto 1fr;
+		column-gap: var(--space-2);
+		align-items: start;
+	}
+
+	.ms__col {
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-2);
+		min-width: 0;
 	}
 
-	.ms__card--last {
-		background: rgba(10, 126, 113, 0.06);
+	.ms__visual {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 140px;
 	}
 
 	.ms__label {
+		position: relative;
 		margin: 0;
+		padding: 8px 12px;
+		background: #f4f4f4;
 		font-family: var(--font-heading);
-		font-size: 0.75rem;
+		font-size: 0.875rem;
 		font-weight: 500;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
+		line-height: 1.35;
+		text-align: center;
+		white-space: pre-line;
+		color: var(--color-text);
+	}
+
+	.ms__loop {
+		position: absolute;
+		inset: 0;
+		margin: auto;
+		width: 100%;
+		max-width: 150px;
+		height: 100%;
 		color: var(--color-text-muted);
 	}
 
-	.ms__card--last .ms__label {
-		color: #007e70;
+	.ms__visual--image {
+		overflow: hidden;
+		border-radius: 4px;
 	}
 
-	.ms__text {
-		margin: 0;
-		font-size: 1.0625rem;
-		line-height: 1.4;
-		color: var(--color-text);
+	.ms__visual--image img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.ms__label--over {
+		background: rgba(255, 255, 255, 0.92);
+	}
+
+	.ms__visual--outcome {
+		border: 1px solid #c9c9c9;
+		border-radius: 20px;
+	}
+
+	.ms__label--outcome {
+		background: #f4f4f4;
 	}
 
 	.ms__chips {
 		list-style: none;
-		margin: auto 0 0;
-		padding: var(--space-2) 0 0;
+		margin: 0;
+		padding: 0;
 		display: flex;
 		flex-wrap: wrap;
+		justify-content: center;
 		gap: 6px;
 	}
 
 	.ms__chips li {
 		padding: 3px 10px;
-		border: 1px solid var(--color-border);
 		border-radius: 999px;
+		background: #efefef;
+		font-family: var(--font-heading);
 		font-size: 0.8125rem;
-		line-height: 1.4;
-		color: var(--color-text-muted);
-		background: #fff;
+		line-height: 1.5;
+		color: var(--color-text);
 	}
 
 	.ms__arrow {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		height: 140px;
 		color: var(--color-text-muted);
 	}
 
 	.ms__arrow svg {
-		width: 20px;
-		height: 20px;
+		width: 22px;
+		height: 22px;
 	}
 
-	@container (max-width: 760px) {
-		.ms__steps {
+	@container (max-width: 640px) {
+		.ms__row {
 			grid-template-columns: 1fr;
+			row-gap: var(--space-2);
 		}
 
-		.ms__card {
-			border-radius: 28px;
+		.ms__visual {
+			height: 112px;
 		}
 
 		.ms__arrow {
+			height: auto;
 			transform: rotate(90deg);
-			padding: var(--space-1) 0;
 		}
 	}
 </style>
