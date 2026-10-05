@@ -78,7 +78,7 @@ const everyone = [p.stakeholders, p.sales, p.cs, p.pdm, p.ux];
 
 		<div class="ms__col">
 			<div class="ms__visual ms__visual--outcome">
-				<p class="ms__label ms__label--outcome">{t.outcome}</p>
+				<p class="ms__label">{t.outcome}</p>
 			</div>
 			<ul class="ms__chips">
 				{everyone.map((c) => <li>{c}</li>)}
@@ -120,7 +120,7 @@ const everyone = [p.stakeholders, p.sales, p.cs, p.pdm, p.ux];
 		position: relative;
 		margin: 0;
 		padding: 8px 12px;
-		background: #f4f4f4;
+		background: #fff;
 		font-family: var(--font-heading);
 		font-size: 0.875rem;
 		font-weight: 500;
@@ -160,10 +160,6 @@ const everyone = [p.stakeholders, p.sales, p.cs, p.pdm, p.ux];
 	.ms__visual--outcome {
 		border: 1px solid #c9c9c9;
 		border-radius: 20px;
-	}
-
-	.ms__label--outcome {
-		background: #f4f4f4;
 	}
 
 	.ms__chips {
