@@ -116,11 +116,6 @@ const slug = project.id.replace(/\/_meta$/, '');
 const introParagraphs = data.intro.trim().split(/\n\s*\n/);
 
 const sortKey = (id: string) => id.split('/sections/')[1];
-const slugify = (title: string) =>
-	title
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, '-')
-		.replace(/(^-|-$)/g, '');
 
 const blockSections = await Promise.all(
 	sectionMeta.map(async (meta) => {
@@ -154,7 +149,10 @@ const blockSections = await Promise.all(
 
 const renderedSections = blockSections
 	.sort((a, b) => a.sortKey.localeCompare(b.sortKey))
-	.map((section) => ({ ...section, slug: slugify(section.title) }));
+	// Section ids come from the content folder names (e.g. "02-making-tangible"),
+	// not the titles: Japanese titles contain no a-z/0-9, so a title-derived
+	// slug would be empty and every section would share an empty id.
+	.map((section) => ({ ...section, slug: section.sortKey }));
 
 // Slug-to-URL used only for the Section Index / NextCaseStudy links
 // below — same slug as the English version (so its own path is
@@ -167,7 +165,7 @@ const translationHref = `/work/${slug}/`;
 	<article class="content-grid">
 		<HubstepHero />
 
-		<CaseHeader eyebrow={data.eyebrow} title={data.title} meta={data.meta} intro={introParagraphs} lang="ja" />
+		<CaseHeader eyebrow={data.eyebrow} title={data.title} meta={data.meta} intro={introParagraphs} challenges={data.challenges} lang="ja" />
 
 		<div class="case-study-body">
 			<nav class="case-index" aria-label="Case study sections">

@@ -20,6 +20,20 @@ const work = defineCollection({
 		gridSize: z.enum(['standard', 'wide', 'tall']).optional().default('standard'),
 		draft: z.boolean().optional().default(false),
 		order: z.number().optional().default(0),
+		// Optional "box" summary of the project's core problems, shown in
+		// the intro right after its first paragraph (see CaseHeader).
+		challenges: z
+			.array(
+				z.object({
+					tag: z.string(),
+					label: z.string(),
+					heading: z.string(),
+					body: z.string(),
+					linkLabel: z.string().optional(),
+					href: z.string().optional(),
+				})
+			)
+			.optional(),
 	}),
 });
 
@@ -95,6 +109,20 @@ const workJa = defineCollection({
 		gridSize: z.enum(['standard', 'wide', 'tall']).optional().default('standard'),
 		draft: z.boolean().optional().default(false),
 		order: z.number().optional().default(0),
+		// Optional "box" summary of the project's core problems, shown in
+		// the intro right after its first paragraph (see CaseHeader).
+		challenges: z
+			.array(
+				z.object({
+					tag: z.string(),
+					label: z.string(),
+					heading: z.string(),
+					body: z.string(),
+					linkLabel: z.string().optional(),
+					href: z.string().optional(),
+				})
+			)
+			.optional(),
 	}),
 });
 
