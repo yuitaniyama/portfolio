@@ -76,16 +76,20 @@ projects.push({
 
 		<div class="prose hero__supporting">
 			<p>
-				I started in fashion, where I spent 10 years designing and bringing 1,200+ products to
+				I started in fashion, where I spent 9 years designing and bringing 1,400+ products to
 				market. Now I design digital products.
 			</p>
 			<p><strong>Different materials, similar process:</strong> research, sketch, prototype, refine, repeat.</p>
 		</div>
+		<a class="scroll-indicator" href="#work" aria-label="Scroll to selected work">
+			<span class="scroll-indicator__label">Scroll</span>
+			<span class="scroll-indicator__line" aria-hidden="true"></span>
+		</a>
 	</section>
 
 	{
 		projects.length > 0 && (
-			<section class="content-grid selected-work">
+			<section id="work" class="content-grid selected-work">
 				<div class="selected-work__label">Selected Work</div>
 
 				<div class="work-list">
@@ -131,8 +135,110 @@ projects.push({
 </BaseLayout>
 
 <style>
+	/* Home interaction (large screens only): the hero stays pinned in
+	   place while the Selected Work sheet rises from below and slides
+	   over it. The hero is sized so that, at the top of the page, it fills
+	   the screen except for a small strip where the sheet's top edge
+	   peeks in as a hint that there is more below. The sticky offset is
+	   the hero's natural position, so it never shifts — only the sheet
+	   moves. Gated on width and height because a pinned hero taller
+	   than the screen would leave its lower part unreachable: phones,
+	   tablets and short windows keep the plain scrolling layout. */
 	.hero {
 		margin-top: var(--space-8);
+	}
+
+	.scroll-indicator {
+		display: none;
+	}
+
+	@media (min-width: 1000px) and (min-height: 700px) {
+		.hero {
+			position: sticky;
+			top: calc(var(--header-h, 5.5rem) + var(--space-8));
+			align-content: start;
+			min-height: calc(100svh - var(--header-h, 5.5rem) - var(--space-8) - 5rem);
+			/* room for the scroll cue so it never sits on top of text */
+			padding-bottom: 7rem;
+		}
+
+		/* The sheet that slides over the hero: opaque and above it. Its top
+		   spacing is padding (not margin) so the sheet's own edge is what
+		   covers the hero. */
+		.selected-work {
+			position: relative;
+			z-index: 1;
+			margin-top: 0;
+			padding-top: var(--space-editorial);
+			background: var(--color-bg);
+			scroll-margin-top: var(--header-h, 5.5rem);
+		}
+
+		/* "Scroll" cue: a small label over a thin line with a short
+		   segment running down it. Fades out once scrolling starts. */
+		.scroll-indicator {
+			position: absolute;
+			left: 50%;
+			bottom: var(--space-3);
+			transform: translateX(-50%);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: var(--space-2);
+			text-decoration: none;
+			color: var(--color-text-muted);
+			transition: opacity 300ms ease;
+		}
+
+		.scroll-indicator.is-hidden {
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+
+	.scroll-indicator__label {
+		font-size: var(--text-label);
+		letter-spacing: 0.24em;
+		text-transform: uppercase;
+		/* letter-spacing adds trailing space after the last letter; offset
+		   it so the label stays visually centered over the line. */
+		margin-right: -0.24em;
+	}
+
+	.scroll-indicator__line {
+		position: relative;
+		display: block;
+		width: 1px;
+		height: 3.5rem;
+		overflow: hidden;
+		background: var(--color-border);
+	}
+
+	.scroll-indicator__line::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 40%;
+		background: var(--color-text);
+		animation: scroll-indicator-run 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+	}
+
+	@keyframes scroll-indicator-run {
+		0% {
+			transform: translateY(-100%);
+		}
+		100% {
+			transform: translateY(250%);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.scroll-indicator__line::after {
+			animation: none;
+			transform: translateY(0);
+		}
 	}
 
 	.hero__headline {
@@ -164,8 +270,9 @@ projects.push({
 	}
 
 	.selected-work__label {
-		font-size: var(--text-label);
-		letter-spacing: 0.08em;
+		text-align: center;
+		font-size: clamp(1.125rem, 1rem + 0.5vw, 1.5rem);
+		letter-spacing: 0.1em;
 		text-transform: uppercase;
 		color: var(--color-text-muted);
 	}
@@ -174,7 +281,7 @@ projects.push({
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-12);
-		margin-top: var(--space-4);
+		margin-top: var(--space-6);
 	}
 
 	.work-card {
@@ -291,3 +398,13 @@ projects.push({
 		}
 	}
 </style>
+
+<script>
+	// Hide the scroll cue once the visitor has started scrolling.
+	const scrollIndicator = document.querySelector('.scroll-indicator');
+	if (scrollIndicator) {
+		const update = () => scrollIndicator.classList.toggle('is-hidden', window.scrollY > 40);
+		update();
+		window.addEventListener('scroll', update, { passive: true });
+	}
+</script>
