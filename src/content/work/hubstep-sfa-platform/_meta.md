@@ -10,6 +10,8 @@ meta:
     value: "UI/UX / Product Designer"
   - label: Focus
     value: "Workflow Design · Information Architecture · Prototyping"
+  - label: Users
+    value: "Internal sales team · External customers"
 heroVisual: "Visual 01 — Hero composition using several strong hubstep screens. Home / Sales Report can be central elements."
 challenges:
   - tag: "01"

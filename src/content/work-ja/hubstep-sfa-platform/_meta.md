@@ -10,6 +10,8 @@ meta:
     value: "UI/UX ・ プロダクトデザイナー"
   - label: フォーカス
     value: "ワークフロー設計 · 情報設計 · プロトタイピング"
+  - label: ユーザー
+    value: "社内の営業チーム · 社外のお客様"
 heroVisual: "Visual 01 — Hero composition using several strong hubstep screens. Home / Sales Report can be central elements."
 challenges:
   - tag: "01"

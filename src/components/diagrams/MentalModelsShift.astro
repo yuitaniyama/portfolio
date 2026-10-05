@@ -1,0 +1,165 @@
+---
+// Section 02 (hubstep case study) — a small "change" diagram, not another
+// process flow: abstract discussion -> tangible screens -> shared
+// reference. Same plain card tone as ChallengeShift; the last card is
+// tinted to read as the outcome. Wording is taken from the section's own
+// text. One component serves both languages (chosen from the URL).
+const ja = Astro.url.pathname.startsWith('/ja/');
+const steps = ja
+	? [
+			{
+				label: '抽象的な議論',
+				text: 'それぞれが異なるメンタルモデルで考えていた',
+				chips: ['PdM', 'エンジニアリング', '営業領域の知識を持つメンバー'],
+			},
+			{
+				label: '具体的な画面',
+				text: '未完成のアイデアを、早い段階で精度の高い画面に落とし込む',
+			},
+			{
+				label: '共有されるリファレンス',
+				text: '反応し、意見をぶつけ、改善できる',
+			},
+		]
+	: [
+			{
+				label: 'Abstract discussion',
+				text: 'Different mental models',
+				chips: ['PdM', 'Engineering', 'Members with sales-domain knowledge'],
+			},
+			{
+				label: 'Tangible screens',
+				text: 'Incomplete ideas turned into high-fidelity screens, early',
+			},
+			{
+				label: 'Shared reference',
+				text: 'Something to react to, challenge, and improve',
+			},
+		];
+---
+
+<div class="ms">
+	<ol class="ms__steps">
+		{
+			steps.map((step, i) => (
+				<>
+					{i > 0 && (
+						<li class="ms__arrow" aria-hidden="true">
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M5 12h14M13 6l6 6-6 6" />
+							</svg>
+						</li>
+					)}
+					<li class:list={['ms__card', i === steps.length - 1 && 'ms__card--last']}>
+						<p class="ms__label">{step.label}</p>
+						<p class="ms__text">{step.text}</p>
+						{step.chips && (
+							<ul class="ms__chips">
+								{step.chips.map((chip) => (
+									<li>{chip}</li>
+								))}
+							</ul>
+						)}
+					</li>
+				</>
+			))
+		}
+	</ol>
+</div>
+
+<style>
+	.ms {
+		container-type: inline-size;
+		max-width: none;
+	}
+
+	.ms__steps {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: 1fr auto 1fr auto 1fr;
+		align-items: stretch;
+		gap: var(--space-3);
+	}
+
+	.ms__card {
+		padding: var(--space-4);
+		border-radius: 40px;
+		background: #fafafa;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+	}
+
+	.ms__card--last {
+		background: rgba(10, 126, 113, 0.06);
+	}
+
+	.ms__label {
+		margin: 0;
+		font-family: var(--font-heading);
+		font-size: 0.75rem;
+		font-weight: 500;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.ms__card--last .ms__label {
+		color: #007e70;
+	}
+
+	.ms__text {
+		margin: 0;
+		font-size: 1.0625rem;
+		line-height: 1.4;
+		color: var(--color-text);
+	}
+
+	.ms__chips {
+		list-style: none;
+		margin: auto 0 0;
+		padding: var(--space-2) 0 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+	}
+
+	.ms__chips li {
+		padding: 3px 10px;
+		border: 1px solid var(--color-border);
+		border-radius: 999px;
+		font-size: 0.8125rem;
+		line-height: 1.4;
+		color: var(--color-text-muted);
+		background: #fff;
+	}
+
+	.ms__arrow {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--color-text-muted);
+	}
+
+	.ms__arrow svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	@container (max-width: 760px) {
+		.ms__steps {
+			grid-template-columns: 1fr;
+		}
+
+		.ms__card {
+			border-radius: 28px;
+		}
+
+		.ms__arrow {
+			transform: rotate(90deg);
+			padding: var(--space-1) 0;
+		}
+	}
+</style>
