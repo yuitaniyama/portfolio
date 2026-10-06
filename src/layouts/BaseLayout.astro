@@ -17,9 +17,10 @@ const { title, lang = 'en', translationHref } = Astro.props;
 
 const nav = lang === 'ja' ? { about: 'プロフィール', email: 'メール' } : { about: 'About', email: 'Email' };
 
-// Resume PDF shown in the header and footer. One English PDF
-// (public/resume.pdf) serves both language versions of the site.
-const resume = { label: 'Resume', href: '/resume.pdf' };
+// Resume PDF shown in the header and footer: the Japanese site links the
+// Japanese 職務経歴書 (public/shokumu.pdf), the English site the English
+// Resume (public/resume.pdf).
+const resume = lang === 'ja' ? { label: '職務経歴書', href: '/shokumu.pdf' } : { label: 'Resume', href: '/resume.pdf' };
 ---
 
 <html lang={lang}>
