@@ -4,21 +4,23 @@
 // three-item, unordered layout used for IssueSources.astro elsewhere.
 import DiagramIcon from './DiagramIcon.astro';
 
+const ja = Astro.url.pathname.startsWith('/ja/');
+
 const problems = [
 	{
 		icon: 'layers',
-		title: 'Roles of different tasks were mixed together',
-		text: 'Operation, confirmation, and optional settings collected in the same step, often forcing a decision all at once.',
+		title: ja ? '性質の異なる作業が混在していた' : 'Roles of different tasks were mixed together',
+		text: ja ? '操作・確認・任意の設定が同じステップに集まり、多くの判断を一度に迫られることが多かった。' : 'Operation, confirmation, and optional settings collected in the same step, often forcing a decision all at once.',
 	},
 	{
 		icon: 'list',
-		title: 'Priority of information was unclear',
-		text: 'Hard to judge on-screen what to check or act on next.',
+		title: ja ? '情報の優先度が不明確だった' : 'Priority of information was unclear',
+		text: ja ? '画面上で、次に何を確認し、何に対応すべきかを判断しづらかった。' : 'Hard to judge on-screen what to check or act on next.',
 	},
 	{
 		icon: 'help-circle',
-		title: 'Guidance was insufficient',
-		text: 'Where you were, and what to do next, was hard to understand.',
+		title: ja ? 'ガイダンスが不足していた' : 'Guidance was insufficient',
+		text: ja ? '今どこにいて、次に何をすればよいのかが分かりづらかった。' : 'Where you were, and what to do next, was hard to understand.',
 	},
 ];
 ---

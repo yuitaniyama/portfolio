@@ -3,24 +3,26 @@
 // structural problem with the corresponding solution in the redesigned
 // List Upload flow, grouped into two columns (Problem / Solution) rather
 // than repeating a "Problem" / "Solution" label on every row.
+const ja = Astro.url.pathname.startsWith('/ja/');
+
 const problems = [
-	{ title: 'Roles of different tasks were mixed together', detail: 'Operation, confirmation, and optional settings were collected into the same step.' },
-	{ title: 'Hard to know what to do next', detail: 'Confirmation and operation ran together, making the next action hard to judge.' },
-	{ title: 'Required checks were easy to miss', detail: 'Required confirmations and optional settings sat side by side on screen.' },
-	{ title: 'Progress and completion were unclear', detail: 'Hard to tell current position, or how far there was left to go.' },
+	{ title: ja ? '性質の異なる作業が混在していた' : 'Roles of different tasks were mixed together', detail: ja ? '操作・確認・任意の設定が、同じステップにまとめられていた。' : 'Operation, confirmation, and optional settings were collected into the same step.' },
+	{ title: ja ? '次に何をすべきか分かりにくかった' : 'Hard to know what to do next', detail: ja ? '確認と操作が一緒に進むため、次のアクションを判断しづらかった。' : 'Confirmation and operation ran together, making the next action hard to judge.' },
+	{ title: ja ? '必須の確認を見落としやすかった' : 'Required checks were easy to miss', detail: ja ? '必須の確認と任意の設定が、画面上に並んでいた。' : 'Required confirmations and optional settings sat side by side on screen.' },
+	{ title: ja ? '進捗と完了が分かりにくかった' : 'Progress and completion were unclear', detail: ja ? '現在地や、あとどれくらいで終わるのかが分かりづらかった。' : 'Hard to tell current position, or how far there was left to go.' },
 ];
 
 const solutions = [
-	{ title: 'Reorganized around one goal per step', detail: 'The mixed handling was restructured into five goal-based steps.' },
-	{ title: "Clarified each step's role", detail: 'Each screen was organized so what it\'s for is clear.' },
-	{ title: 'Separated required actions from optional settings', detail: 'Required checks are prioritized; optional settings moved into their own step.' },
-	{ title: 'Made progress and completion visible', detail: 'Step indicators and processing state show current position and what remains.' },
+	{ title: ja ? '1ステップにつき1つの目的で再編した' : 'Reorganized around one goal per step', detail: ja ? '混在していた処理を、目的ごとの5つのステップに組み直した。' : 'The mixed handling was restructured into five goal-based steps.' },
+	{ title: ja ? '各ステップの役割を明確にした' : "Clarified each step's role", detail: ja ? '各画面が何のためのものかが分かるように整理した。' : 'Each screen was organized so what it\'s for is clear.' },
+	{ title: ja ? '必須のアクションと任意の設定を分けた' : 'Separated required actions from optional settings', detail: ja ? '必須の確認を優先し、任意の設定は独立したステップに移した。' : 'Required checks are prioritized; optional settings moved into their own step.' },
+	{ title: ja ? '進捗と完了が見えるようにした' : 'Made progress and completion visible', detail: ja ? 'ステップインジケーターと処理状態で、現在地と残りが分かる。' : 'Step indicators and processing state show current position and what remains.' },
 ];
 ---
 
 <div class="lurg-grid">
 	<div class="lurg-group lurg-group--problem">
-		<div class="lurg-group__label">Problem</div>
+		<div class="lurg-group__label">{ja ? '課題' : 'Problem'}</div>
 		{
 			problems.map((item) => (
 				<div class="lurg-card">
@@ -31,7 +33,7 @@ const solutions = [
 		}
 	</div>
 	<div class="lurg-group lurg-group--solution">
-		<div class="lurg-group__label">Solution</div>
+		<div class="lurg-group__label">{ja ? '解決策' : 'Solution'}</div>
 		{
 			solutions.map((item) => (
 				<div class="lurg-card">

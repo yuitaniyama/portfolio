@@ -2,9 +2,11 @@
 // Section 04 (hubstep-foundation case study) — the redesigned confirmation
 // screen with tabs per list status, annotated with what each change does.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
-	src="/hubstep-foundation/en/section-05/section05-design-01.png"
-	alt="Redesigned confirmation screen with tabs per list status, annotated: clearer post-confirmation state changes, a visible count of registered vs. required records, and bulk review across multiple pages"
+	src={ja ? '/hubstep-foundation/section-05/section05-design-01.png' : '/hubstep-foundation/en/section-05/section05-design-01.png'}
+	alt={ja ? 'ステータスごとにタブを分けた、再設計後の確認画面。確定後の状態変化の分かりやすさ、登録済み件数と必要件数の可視化、複数ページにまたがる一括確認を注釈している' : 'Redesigned confirmation screen with tabs per list status, annotated: clearer post-confirmation state changes, a visible count of registered vs. required records, and bulk review across multiple pages'}
 />

@@ -6,10 +6,12 @@
 // full detail — same treatment as EarlySystemFlowVisual in the other
 // case study.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
-	src="/hubstep-foundation/en/section-07/section07-designflow.png"
-	alt="LP design-flow board: gray background is PdM-provided starting material, white background is the proposal developed from research into comparable CRM/SFA landing pages"
+	src={ja ? '/hubstep-foundation/section-07/section07-designflow.png' : '/hubstep-foundation/en/section-07/section07-designflow.png'}
+	alt={ja ? 'LPのデザインフローを示したボード。グレー背景はPdMから提供された出発点、白背景は類似するCRM/SFAのランディングページの調査をもとに作成した提案' : 'LP design-flow board: gray background is PdM-provided starting material, white background is the proposal developed from research into comparable CRM/SFA landing pages'}
 	enlargeable={false}
 />

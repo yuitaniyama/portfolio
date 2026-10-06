@@ -12,16 +12,16 @@ import { getCollection } from 'astro:content';
 interface Props {
 	currentSlug: string;
 	lang?: 'en' | 'ja';
-	// The Japanese side only has one translated case study so far, so
-	// there's no real "next" page to link to in Japanese — forcing the
-	// honest "more work in progress" state avoids sending a Japanese
-	// page's reader to an English "next" page with no warning.
+	// Force the plain "more work in progress" state even if another
+	// case study exists.
 	forceEmpty?: boolean;
 }
 
 const { currentSlug, lang = 'en', forceEmpty = false } = Astro.props;
 
-const allWork = await getCollection('work', ({ data }) => !data.draft);
+// The Japanese side reads the Japanese collection (and links to /ja/ pages),
+// so it only ever points at case studies that have a Japanese version.
+const allWork = await (lang === 'ja' ? getCollection('workJa', ({ data }) => !data.draft) : getCollection('work', ({ data }) => !data.draft));
 const ordered = allWork.sort((a, b) => a.data.order - b.data.order);
 const currentIndex = ordered.findIndex((p) => p.id.replace(/\/_meta$/, '') === currentSlug);
 const next =
@@ -35,7 +35,7 @@ const copy =
 
 {
 	next ? (
-		<a class="next-case-study" href={`/work/${next.id.replace(/\/_meta$/, '')}/`}>
+		<a class="next-case-study" href={`${lang === 'ja' ? '/ja' : ''}/work/${next.id.replace(/\/_meta$/, '')}/`}>
 			<div class="next-case-study__text">
 				<div class="next-case-study__label">{copy.nextLabel}</div>
 				<div class="next-case-study__title">{next.data.title}</div>

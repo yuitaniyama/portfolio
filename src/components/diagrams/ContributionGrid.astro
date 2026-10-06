@@ -5,14 +5,16 @@
 // a flat list of contributions, not a process).
 import DiagramIcon from './DiagramIcon.astro';
 
+const ja = Astro.url.pathname.startsWith('/ja/');
+
 const items = [
-	{ icon: 'search', text: 'Researching competitor and similar-service LPs' },
-	{ icon: 'list', text: 'Organizing information priority' },
-	{ icon: 'grid', text: 'Section structure' },
-	{ icon: 'edit', text: 'Refining copy' },
-	{ icon: 'palette', text: 'Visual direction' },
-	{ icon: 'image', text: 'Selecting product screens and diagrams' },
-	{ icon: 'target', text: 'Final design' },
+	{ icon: 'search', text: ja ? '競合・類似サービスのLPの調査' : 'Researching competitor and similar-service LPs' },
+	{ icon: 'list', text: ja ? '情報の優先度の整理' : 'Organizing information priority' },
+	{ icon: 'grid', text: ja ? 'セクション構成' : 'Section structure' },
+	{ icon: 'edit', text: ja ? 'コピーの磨き込み' : 'Refining copy' },
+	{ icon: 'palette', text: ja ? 'ビジュアルの方向性' : 'Visual direction' },
+	{ icon: 'image', text: ja ? 'プロダクト画面・図版の選定' : 'Selecting product screens and diagrams' },
+	{ icon: 'target', text: ja ? '最終デザイン' : 'Final design' },
 ];
 ---
 

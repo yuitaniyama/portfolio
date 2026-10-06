@@ -2,9 +2,11 @@
 // Section 07 (hubstep-foundation case study) — the finished hubstep Lite
 // LP alongside the one-page sales collateral adapted from it.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
-	src="/hubstep-foundation/en/section-07/section07-paper.png"
-	alt="Finished hubstep Lite landing page alongside the one-page sales collateral adapted from it for in-person sales use"
+	src={ja ? '/hubstep-foundation/section-07/section07-paper.png' : '/hubstep-foundation/en/section-07/section07-paper.png'}
+	alt={ja ? '完成したhubstep LiteのLPと、それを対面営業向けに編集した1枚ものの営業資料' : 'Finished hubstep Lite landing page alongside the one-page sales collateral adapted from it for in-person sales use'}
 />

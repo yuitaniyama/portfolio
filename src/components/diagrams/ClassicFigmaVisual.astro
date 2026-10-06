@@ -3,10 +3,12 @@
 // Classic mode migration work. A dense board meant to communicate scale,
 // same non-zoomable treatment as the other whole-board screenshots.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
-	src="/hubstep-foundation/en/section-08/section08-figma.png"
-	alt="Figma board covering the Classic mode migration work, including header redesign, screen structure, and admin screens"
+	src={ja ? '/hubstep-foundation/section-08/section08-figma.png' : '/hubstep-foundation/en/section-08/section08-figma.png'}
+	alt={ja ? 'Classicモードの移行作業をまとめたFigmaボード。ヘッダーの再設計、画面構成、管理画面などを含む' : 'Figma board covering the Classic mode migration work, including header redesign, screen structure, and admin screens'}
 	enlargeable={false}
 />

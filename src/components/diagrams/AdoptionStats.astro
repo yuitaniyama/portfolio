@@ -5,10 +5,12 @@
 // conveys the trend without revealing the business's scale. The trend
 // chart is drawn relative to the Sep 2025 baseline (1×) for the same
 // reason; the two endpoints are the only data points the source gives.
+const ja = Astro.url.pathname.startsWith('/ja/');
+
 const stats = [
-	{ value: '~15×', label: 'Growth in hubstep cases', detail: 'Sep 2025 – Sep 2026', wide: true },
-	{ value: '~60%', label: 'Overall migration rate', detail: 'Sep 2026' },
-	{ value: '~80%', label: 'DMNET migration rate', detail: 'Sep 2026' },
+	{ value: ja ? '約15倍' : '~15×', label: ja ? 'hubstepの案件数の伸び' : 'Growth in hubstep cases', detail: ja ? '2025年9月〜2026年9月' : 'Sep 2025 – Sep 2026', wide: true },
+	{ value: ja ? '約60%' : '~60%', label: ja ? '全体の移行率' : 'Overall migration rate', detail: ja ? '2026年9月' : 'Sep 2026' },
+	{ value: ja ? '約80%' : '~80%', label: ja ? 'DMNETの移行率' : 'DMNET migration rate', detail: ja ? '2026年9月' : 'Sep 2026' },
 ];
 
 const growth = 15;
@@ -28,17 +30,17 @@ const growth = 15;
 	</div>
 
 	<div class="as-trend">
-		<div class="as-trend__title">Hubstep cases relative to Sep 2025</div>
+		<div class="as-trend__title">{ja ? '2025年9月を基準としたhubstepの案件数' : 'Hubstep cases relative to Sep 2025'}</div>
 		<div class="as-trend__bars">
 			<div class="as-trend__point">
 				<div class="as-trend__bar" style={`height: ${100 / growth}%`} />
-				<div class="as-trend__point-value">1×</div>
-				<div class="as-trend__point-label">Sep 2025</div>
+				<div class="as-trend__point-value">{ja ? '1倍' : '1×'}</div>
+				<div class="as-trend__point-label">{ja ? '2025年9月' : 'Sep 2025'}</div>
 			</div>
 			<div class="as-trend__point">
 				<div class="as-trend__bar as-trend__bar--end" style="height: 100%" />
-				<div class="as-trend__point-value">~15×</div>
-				<div class="as-trend__point-label">Sep 2026</div>
+				<div class="as-trend__point-value">{ja ? '約15倍' : '~15×'}</div>
+				<div class="as-trend__point-label">{ja ? '2026年9月' : 'Sep 2026'}</div>
 			</div>
 		</div>
 	</div>

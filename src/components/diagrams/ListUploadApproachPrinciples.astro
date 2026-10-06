@@ -4,11 +4,13 @@
 // grid of rows.
 import DiagramIcon from './DiagramIcon.astro';
 
+const ja = Astro.url.pathname.startsWith('/ja/');
+
 const principles = [
-	{ icon: 'grid', text: 'Sort actions into Action / Check Point / Optional' },
-	{ icon: 'split', text: 'Separate operations of a different nature into their own step' },
-	{ icon: 'check', text: 'Distinguish required actions from optional settings' },
-	{ icon: 'checklist', text: 'Make clear, at every step, what must be completed to move on' },
+	{ icon: 'grid', text: ja ? '操作を Action / Check Point / Optional に仕分ける' : 'Sort actions into Action / Check Point / Optional' },
+	{ icon: 'split', text: ja ? '性質の異なる操作は、それぞれ別のステップに分ける' : 'Separate operations of a different nature into their own step' },
+	{ icon: 'check', text: ja ? '必須のアクションと任意の設定を区別する' : 'Distinguish required actions from optional settings' },
+	{ icon: 'checklist', text: ja ? '次へ進むために何を完了すべきかを、どのステップでも明確にする' : 'Make clear, at every step, what must be completed to move on' },
 ];
 ---
 

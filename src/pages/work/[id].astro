@@ -255,7 +255,7 @@ const renderedSections = [...flatSections, ...blockSections]
 <BaseLayout
 	title={`${data.title} — Yui Taniyama`}
 	lang="en"
-	translationHref={slug === 'hubstep-sfa-platform' ? '/ja/work/hubstep-sfa-platform/' : undefined}
+	translationHref={slug === 'hubstep-sfa-platform' || slug === 'hubstep-foundation' ? `/ja/work/${slug}/` : undefined}
 >
 	<article class="content-grid">
 		{

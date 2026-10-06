@@ -5,21 +5,23 @@
 // directions: Lite is covered earlier on this same page (the LP work in
 // Product Communication), Regular is a separate case study entirely, and
 // Classic mode gets its own deep dive right below this grid.
+const ja = Astro.url.pathname.startsWith('/ja/');
+
 const forms = [
 	{
 		title: 'hubstep Lite',
-		detail: 'A plan centered on managing address lists, and on accumulating DM history, results, and analytics.',
-		note: { label: 'LP work covered in Product Communication, above', href: '#communicating-the-product' },
+		detail: ja ? '宛先リストの管理と、DMの履歴・結果・分析の蓄積を中心としたプラン。' : 'A plan centered on managing address lists, and on accumulating DM history, results, and analytics.',
+		note: ja ? { label: 'LPの取り組みは、上の「プロダクトを伝える」で紹介', href: '#07-product-communication' } : { label: 'LP work covered in Product Communication, above', href: '#communicating-the-product' },
 	},
 	{
 		title: 'hubstep / Regular',
-		detail: 'Started from DM management, then expanded to include SFA functionality — the main product.',
-		note: { label: 'View the case study', href: '/work/hubstep-sfa-platform/', prominent: true },
+		detail: ja ? 'DM管理から始まり、SFA機能へと拡張していった、メインのプロダクト。' : 'Started from DM management, then expanded to include SFA functionality — the main product.',
+		note: ja ? { label: 'ケーススタディを見る', href: '/ja/work/hubstep-sfa-platform/', prominent: true } : { label: 'View the case study', href: '/work/hubstep-sfa-platform/', prominent: true },
 	},
 	{
-		title: 'hubstep Classic mode',
-		detail: "A mode for migrating to hubstep without significantly changing an existing system's operational flow.",
-		note: { label: 'Detailed further below' },
+		title: ja ? 'hubstep Classicモード' : 'hubstep Classic mode',
+		detail: ja ? '既存システムの操作フローを大きく変えずに、hubstepへ移行するためのモード。' : "A mode for migrating to hubstep without significantly changing an existing system's operational flow.",
+		note: { label: ja ? '詳しくは下で紹介' : 'Detailed further below' },
 	},
 ];
 ---

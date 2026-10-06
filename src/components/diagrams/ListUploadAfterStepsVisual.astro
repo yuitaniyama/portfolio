@@ -3,9 +3,11 @@
 // Upload flow, each step now carrying a single, clearly labeled kind of
 // action, check point, or optional setting.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
-	src="/hubstep-foundation/en/section-05/section05-02-afterstep.png"
-	alt="Redesigned 5-step List Upload flow, each step labeled with a single clear kind of action, check point, or optional setting"
+	src={ja ? '/hubstep-foundation/section-05/section05-02-afterstep.png' : '/hubstep-foundation/en/section-05/section05-02-afterstep.png'}
+	alt={ja ? '再設計後の5ステップのリスト登録フロー。各ステップは、アクション・チェックポイント・任意の設定のいずれか1種類に整理されている' : 'Redesigned 5-step List Upload flow, each step labeled with a single clear kind of action, check point, or optional setting'}
 />

@@ -2,9 +2,11 @@
 // Section 03 (hubstep-foundation case study) — the internal feedback log
 // (~500 items) used to organize real-world issues surfaced after launch.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
-	src="/hubstep-foundation/en/section-04/section04-documented-internal-feedback.png"
-	alt="Internal feedback log documenting around 500 items of feedback from the sales team and other internal users"
+	src={ja ? '/hubstep-foundation/section-04/section04-documented-internal-feedback.png' : '/hubstep-foundation/en/section-04/section04-documented-internal-feedback.png'}
+	alt={ja ? '営業チームなど社内ユーザーから寄せられた約500件のフィードバックを記録した、社内フィードバックログ' : 'Internal feedback log documenting around 500 items of feedback from the sales team and other internal users'}
 />

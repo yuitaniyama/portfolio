@@ -14,6 +14,7 @@
 // viewed on a phone). The viewport's aspect-ratio mirrors the iframe's
 // intrinsic ratio, so the visible height scales down by the same factor
 // as the width — no dead space, no cropping.
+const ja = Astro.url.pathname.startsWith('/ja/');
 const LP_URL = 'https://hubstep.jp/lite/';
 ---
 
@@ -23,7 +24,7 @@ const LP_URL = 'https://hubstep.jp/lite/';
 			<div class="llp__laptop-screen">
 				<span class="llp__laptop-camera" />
 				<div class="llp__viewport llp__viewport--desktop">
-					<iframe class="llp__iframe" src={LP_URL} title="hubstep Lite LP — desktop preview" loading="lazy" />
+					<iframe class="llp__iframe" src={LP_URL} title={ja ? 'hubstep Lite LP — デスクトッププレビュー' : 'hubstep Lite LP — desktop preview'} loading="lazy" />
 				</div>
 			</div>
 			<div class="llp__laptop-hinge" />
@@ -34,13 +35,13 @@ const LP_URL = 'https://hubstep.jp/lite/';
 			<div class="llp__phone-body">
 				<span class="llp__phone-island" />
 				<div class="llp__viewport llp__viewport--mobile">
-					<iframe class="llp__iframe" src={LP_URL} title="hubstep Lite LP — mobile preview" loading="lazy" />
+					<iframe class="llp__iframe" src={LP_URL} title={ja ? 'hubstep Lite LP — モバイルプレビュー' : 'hubstep Lite LP — mobile preview'} loading="lazy" />
 				</div>
 			</div>
 		</div>
 	</div>
 	<a class="llp__cta" href={LP_URL} target="_blank" rel="noopener noreferrer">
-		View the LP
+		{ja ? 'LPを見る' : 'View the LP'}
 		<span aria-hidden="true">→</span>
 	</a>
 </div>

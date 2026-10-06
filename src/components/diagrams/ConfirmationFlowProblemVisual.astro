@@ -2,9 +2,11 @@
 // Section 04 (hubstep-foundation case study) — the original address-label
 // confirmation screen, annotated with the specific problems it had.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
-	src="/hubstep-foundation/en/section-05/section05-01-before.png"
-	alt="Original address-label confirmation screen, annotated with problems: status differences buried in a list, unclear alerts, unclear next actions, and error details hidden behind a footer button"
+	src={ja ? '/hubstep-foundation/section-05/section05-01-before.png' : '/hubstep-foundation/en/section-05/section05-01-before.png'}
+	alt={ja ? '従来の宛名ラベル確認画面。リストの中に埋もれたステータスの違い、分かりにくいアラート、次に取るべきアクションの不明確さ、フッターのボタンの奥に隠れたエラーの詳細という課題を注釈している' : 'Original address-label confirmation screen, annotated with problems: status differences buried in a list, unclear alerts, unclear next actions, and error details hidden behind a footer button'}
 />

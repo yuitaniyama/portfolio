@@ -2,9 +2,11 @@
 // Section 06 (hubstep-foundation case study) — usage rules defining when
 // to use Information, Warning, Error, and Success notifications.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
-	src="/hubstep-foundation/en/section-06/section06-rules.png"
-	alt="Usage rules defining the purpose and examples for Information, Warning, Error, and Success notifications"
+	src={ja ? '/hubstep-foundation/section-06/section06-rules.png' : '/hubstep-foundation/en/section-06/section06-rules.png'}
+	alt={ja ? 'Information・Warning・Error・Successの各通知について、目的と使用例を定めた利用ルール' : 'Usage rules defining the purpose and examples for Information, Warning, Error, and Success notifications'}
 />

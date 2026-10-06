@@ -2,9 +2,11 @@
 // Section 01 (hubstep-foundation case study) — before/after diagram of the
 // address-list workflow that made hubstep necessary in the first place.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
-	src="/hubstep-foundation/en/section-01/section01-overview.png"
-	alt="Before and after: previously each recipient list was manually recreated per mailing; hubstep lets customers store, manage, and reuse address data directly"
+	src={ja ? '/hubstep-foundation/section-01/section01-overview.png' : '/hubstep-foundation/en/section-01/section01-overview.png'}
+	alt={ja ? 'Before / After：従来はDM発送のたびに宛先リストを人の手で作り直していたが、hubstepではお客様が宛先データを直接保管・管理し、再利用できる' : 'Before and after: previously each recipient list was manually recreated per mailing; hubstep lets customers store, manage, and reuse address data directly'}
 />

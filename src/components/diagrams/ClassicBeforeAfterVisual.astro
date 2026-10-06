@@ -3,9 +3,11 @@
 // interface (left) alongside the redesigned hubstep Classic mode UI
 // (right), migrated without changing the operational flow users knew.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
-	src="/hubstep-foundation/en/section-08/section08-beforeafter.png"
-	alt="Legacy DM SOLUTIONS interface (left) alongside the redesigned hubstep Classic mode interface (right)"
+	src={ja ? '/hubstep-foundation/section-08/section08-beforeafter.png' : '/hubstep-foundation/en/section-08/section08-beforeafter.png'}
+	alt={ja ? '旧DM SOLUTIONSのインターフェース（左）と、再設計したhubstep Classicモードのインターフェース（右）' : 'Legacy DM SOLUTIONS interface (left) alongside the redesigned hubstep Classic mode interface (right)'}
 />

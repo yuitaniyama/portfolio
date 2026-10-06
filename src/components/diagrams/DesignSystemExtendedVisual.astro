@@ -2,9 +2,11 @@
 // Section 06 (hubstep-foundation case study) — extending an existing
 // Design System component with additional variants and properties.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
-	src="/hubstep-foundation/en/section-06/section06-01-extended.png"
-	alt="hubstep's existing component (left) extended with additional variants and properties (right)"
+	src={ja ? '/hubstep-foundation/section-06/section06-01-extended.png' : '/hubstep-foundation/en/section-06/section06-01-extended.png'}
+	alt={ja ? 'hubstepの既存コンポーネント（左）に、バリアントとプロパティを追加して拡張したもの（右）' : 'hubstep\'s existing component (left) extended with additional variants and properties (right)'}
 />

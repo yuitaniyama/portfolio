@@ -2,9 +2,11 @@
 // Section 06 (hubstep-foundation case study) — new components designed
 // for product needs the existing Design System didn't yet cover.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
-	src="/hubstep-foundation/en/section-06/section06-01-new.png"
-	alt="New Design System components built for product needs the existing system didn't yet cover"
+	src={ja ? '/hubstep-foundation/section-06/section06-01-new.png' : '/hubstep-foundation/en/section-06/section06-01-new.png'}
+	alt={ja ? '既存のデザインシステムではまだカバーできていなかったプロダクトのニーズに対応して作成した、新しいコンポーネント' : 'New Design System components built for product needs the existing system didn\'t yet cover'}
 />

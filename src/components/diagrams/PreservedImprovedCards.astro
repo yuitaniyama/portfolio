@@ -6,14 +6,18 @@
 // same document (a likely copy/paste artifact) — that fragment is
 // intentionally left out here rather than guessed at or reproduced
 // verbatim into the wrong context.
+const ja = Astro.url.pathname.startsWith('/ja/');
+
 const groups = [
 	{
 		title: 'Preserved',
-		items: ['The basic operating flow that existing address-management users were used to', 'How information is found, and list structure'],
+		label: ja ? '維持したもの' : 'Preserved',
+		items: ja ? ['宛先管理の既存ユーザーが慣れている基本的な操作フロー', '情報の探し方と、リストの構造'] : ['The basic operating flow that existing address-management users were used to', 'How information is found, and list structure'],
 	},
 	{
 		title: 'Improved',
-		items: ['Ease of use of the UI', 'Handling of new system requirements'],
+		label: ja ? '改善したもの' : 'Improved',
+		items: ja ? ['UIの使いやすさ', '新しいシステム要件への対応'] : ['Ease of use of the UI', 'Handling of new system requirements'],
 	},
 ];
 ---
@@ -22,7 +26,7 @@ const groups = [
 	{
 		groups.map((g) => (
 			<div class="pic-card" class:list={[g.title === 'Improved' && 'pic-card--improved']}>
-				<div class="pic-card__title">{g.title}</div>
+				<div class="pic-card__title">{g.label}</div>
 				<ul class="pic-card__list">
 					{g.items.map((item) => (
 						<li>{item}</li>

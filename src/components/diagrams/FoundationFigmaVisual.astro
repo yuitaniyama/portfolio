@@ -5,16 +5,18 @@
 // the source material, so it's reproduced here as a simple legend rather
 // than left implicit in the screenshot alone.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <div class="ffv">
 	<div class="ffv__legend">
-		<span class="ffv__legend-item"><span class="ffv__dot ffv__dot--before" />Existing design at join time</span>
-		<span class="ffv__legend-item"><span class="ffv__dot ffv__dot--after" />Redesigned after feedback</span>
+		<span class="ffv__legend-item"><span class="ffv__dot ffv__dot--before" />{ja ? '参加時点の既存デザイン' : 'Existing design at join time'}</span>
+		<span class="ffv__legend-item"><span class="ffv__dot ffv__dot--after" />{ja ? 'フィードバックを受けて再設計' : 'Redesigned after feedback'}</span>
 	</div>
 	<EnlargeableImage
-		src="/hubstep-foundation/en/section-04/section04-figma.png"
-		alt="Figma board of hubstep screens, marking which were the existing design at join time versus which were redesigned in response to internal feedback"
+		src={ja ? '/hubstep-foundation/section-04/section04-figma.png' : '/hubstep-foundation/en/section-04/section04-figma.png'}
+		alt={ja ? 'hubstepの画面を並べたFigmaボード。参加時点の既存デザインと、社内フィードバックを受けて再設計した画面を区別して示している' : 'Figma board of hubstep screens, marking which were the existing design at join time versus which were redesigned in response to internal feedback'}
 		enlargeable={false}
 	/>
 </div>

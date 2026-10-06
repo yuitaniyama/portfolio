@@ -3,9 +3,11 @@
 // Upload flow, annotated with which parts of each step were an Action,
 // a Check Point, or Optional — showing how mixed these were per step.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
-	src="/hubstep-foundation/en/section-05/section05-02-beforestep.png"
-	alt="Original 3-step List Upload flow, annotated with Action, Check Point, and Optional labels showing how mixed these were within each step"
+	src={ja ? '/hubstep-foundation/section-05/section05-02-beforestep.png' : '/hubstep-foundation/en/section-05/section05-02-beforestep.png'}
+	alt={ja ? '従来の3ステップのリスト登録フロー。Action・Check Point・Optionalのラベルで、各ステップにそれらがどれだけ混在していたかを注釈している' : 'Original 3-step List Upload flow, annotated with Action, Check Point, and Optional labels showing how mixed these were within each step'}
 />

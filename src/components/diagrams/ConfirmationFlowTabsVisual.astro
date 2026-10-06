@@ -3,14 +3,16 @@
 // screen in two states: all tabs visible, and the data-check tab open
 // (where duplicate exclusions can be handled together).
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <div class="cftv">
 	<EnlargeableImage
-		src="/hubstep-foundation/en/section-05/section05-design-02.png"
-		alt="Confirmation screen shown in two states: viewing all tabs, and viewing the data-check tab where duplicate exclusions can be handled together"
+		src={ja ? '/hubstep-foundation/section-05/section05-design-02.png' : '/hubstep-foundation/en/section-05/section05-design-02.png'}
+		alt={ja ? '確認画面の2つの状態。すべてのタブを表示した状態と、重複の除外をまとめて行えるデータチェックのタブを表示した状態' : 'Confirmation screen shown in two states: viewing all tabs, and viewing the data-check tab where duplicate exclusions can be handled together'}
 	/>
-	<p class="cftv__caption">Left: viewing all tabs · Right: viewing the data-check tab</p>
+	<p class="cftv__caption">{ja ? '左：すべてのタブを表示 · 右：データチェックのタブを表示' : 'Left: viewing all tabs · Right: viewing the data-check tab'}</p>
 </div>
 
 <style>

@@ -1,17 +1,14 @@
 ---
-// Japanese case study route — currently serves only hubstep-sfa-platform
-// (the one case study translated so far), reading from the workJa /
+// Japanese case study route — serves the translated case studies
+// (hubstep-sfa-platform, hubstep-foundation), reading from the workJa /
 // workSectionMetaJa / workBlocksJa collections (src/content/work-ja/)
 // instead of their English counterparts. Deliberately a separate file
-// from ../../work/[id].astro rather than a shared template: with only
-// one Japanese case study to support, forking this page keeps it simple
-// and keeps the English route (already shared with a recruiter)
-// completely untouched. Diagram components are reused as-is in English
-// — they're visual/schematic, not prose, and only hubstep-sfa-platform's
-// diagrams are imported here (not hubstep-foundation's, which has no
-// Japanese version). If more Japanese case studies are added later,
-// revisit whether this should become a shared template instead.
+// from ../../work/[id].astro rather than a shared template: it keeps the
+// English route (already shared with a recruiter) untouched. Diagram
+// components are shared with the English route; the ones that contain
+// text or language-specific images switch on the URL (/ja/...) themselves.
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FoundationHero from '../../../components/FoundationHero.astro';
 import HubstepHero from '../../../components/HubstepHero.astro';
 import CaseHeader from '../../../components/CaseHeader.astro';
 import NextCaseStudy from '../../../components/NextCaseStudy.astro';
@@ -23,6 +20,32 @@ import Section03Walkthrough from '../../../components/diagrams/Section03Walkthro
 import IssueSources from '../../../components/diagrams/IssueSources.astro';
 import ChallengeShift from '../../../components/diagrams/ChallengeShift.astro';
 import MentalModelsShift from '../../../components/diagrams/MentalModelsShift.astro';
+import BeforeListUploadFlowVisual from '../../../components/diagrams/BeforeListUploadFlowVisual.astro';
+import FoundationBeforeAfterVisual from '../../../components/diagrams/FoundationBeforeAfterVisual.astro';
+import FoundationFeedbackVisual from '../../../components/diagrams/FoundationFeedbackVisual.astro';
+import FoundationFigmaVisual from '../../../components/diagrams/FoundationFigmaVisual.astro';
+import ConfirmationFlowProblemVisual from '../../../components/diagrams/ConfirmationFlowProblemVisual.astro';
+import ConfirmationFlowDesignVisual from '../../../components/diagrams/ConfirmationFlowDesignVisual.astro';
+import ConfirmationFlowTabsVisual from '../../../components/diagrams/ConfirmationFlowTabsVisual.astro';
+import ConfirmationFlowFinalFlowVisual from '../../../components/diagrams/ConfirmationFlowFinalFlowVisual.astro';
+import ConfirmationFlowInteractionVisual from '../../../components/diagrams/ConfirmationFlowInteractionVisual.astro';
+import ListUploadProblemCards from '../../../components/diagrams/ListUploadProblemCards.astro';
+import ListUploadApproachPrinciples from '../../../components/diagrams/ListUploadApproachPrinciples.astro';
+import ListUploadBeforeStepsVisual from '../../../components/diagrams/ListUploadBeforeStepsVisual.astro';
+import ListUploadAfterStepsVisual from '../../../components/diagrams/ListUploadAfterStepsVisual.astro';
+import ListUploadRecapGrid from '../../../components/diagrams/ListUploadRecapGrid.astro';
+import DesignSystemExtendedVisual from '../../../components/diagrams/DesignSystemExtendedVisual.astro';
+import DesignSystemNewComponentsVisual from '../../../components/diagrams/DesignSystemNewComponentsVisual.astro';
+import DesignSystemRulesVisual from '../../../components/diagrams/DesignSystemRulesVisual.astro';
+import ContributionGrid from '../../../components/diagrams/ContributionGrid.astro';
+import ProductCommunicationFlowVisual from '../../../components/diagrams/ProductCommunicationFlowVisual.astro';
+import ProductCommunicationPaperVisual from '../../../components/diagrams/ProductCommunicationPaperVisual.astro';
+import ProductFormsCards from '../../../components/diagrams/ProductFormsCards.astro';
+import ClassicBeforeAfterVisual from '../../../components/diagrams/ClassicBeforeAfterVisual.astro';
+import ClassicFigmaVisual from '../../../components/diagrams/ClassicFigmaVisual.astro';
+import PreservedImprovedCards from '../../../components/diagrams/PreservedImprovedCards.astro';
+import AdoptionStats from '../../../components/diagrams/AdoptionStats.astro';
+import HubstepLiteLpPreview from '../../../components/diagrams/HubstepLiteLpPreview.astro';
 import BeforeDashboardsGrid from '../../../components/diagrams/BeforeDashboardsGrid.astro';
 import LoginHomeFlowVisual from '../../../components/diagrams/LoginHomeFlowVisual.astro';
 import UserJourneyVisual from '../../../components/diagrams/UserJourneyVisual.astro';
@@ -31,7 +54,6 @@ import OutcomeHomeSplit from '../../../components/diagrams/OutcomeHomeSplit.astr
 import OutcomeSalesSplit from '../../../components/diagrams/OutcomeSalesSplit.astro';
 import AfterNavigationVisual from '../../../components/diagrams/AfterNavigationVisual.astro';
 import FinalNavigationFlow from '../../../components/diagrams/FinalNavigationFlow.astro';
-import BeforeListUploadFlowVisual from '../../../components/diagrams/BeforeListUploadFlowVisual.astro';
 import MappingValidationGapVisual from '../../../components/diagrams/MappingValidationGapVisual.astro';
 import ErrorRecoveryGapVisual from '../../../components/diagrams/ErrorRecoveryGapVisual.astro';
 import MappingRuleLearningVisual from '../../../components/diagrams/MappingRuleLearningVisual.astro';
@@ -57,11 +79,20 @@ const SECTION_EYEBROWS: Record<string, string> = {
 	'今後の探索 — AIを活用した営業ワークフロー': '今後の探索',
 	進化し続けるプロダクトのデザインから学んだこと: '学び',
 	インパクト: 'インパクト',
+	// hubstep-foundation
+	背景: '背景',
+	既存プロダクトへの参加: '前提',
+	初期デザインから現実の要件へ: '現場のフィードバック',
+	宛名ラベルの確認フローの再設計: '代表的なデザイン',
+	リスト登録フローの再設計: '代表的なデザイン',
+	デザインシステムの拡張: 'デザインシステム',
+	プロダクトを伝える: 'プロダクトコミュニケーション',
+	プロダクトの拡張と定着: '拡張と定着',
+	学んだこと: '学び',
 };
 
 // Same keys as BLOCK_VISUALS in the English route — the Japanese content
-// tree mirrors the same folder/ref names, only hubstep-sfa-platform's
-// subset is needed here.
+// tree mirrors the same folder/ref names.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BLOCK_VISUALS: Record<string, any> = {
 	'hubstep-sfa-platform/sections/01-product-transformation/before': BeforeDiagram,
@@ -92,6 +123,31 @@ const BLOCK_VISUALS: Record<string, any> = {
 	'hubstep-sfa-platform/sections/07-ai-workflow/voice-to-crm-exploration': VoiceToCrmExplorationVisual,
 	'hubstep-sfa-platform/sections/08-status-reflection/design-role-evolution': DesignRoleEvolutionVisual,
 	'hubstep-sfa-platform/sections/09-impact/impact-content': ImpactContent,
+	'hubstep-foundation/sections/01-background/before-after': FoundationBeforeAfterVisual,
+	'hubstep-foundation/sections/03-real-world-requirements/feedback': FoundationFeedbackVisual,
+	'hubstep-foundation/sections/03-real-world-requirements/figma': FoundationFigmaVisual,
+	'hubstep-foundation/sections/04-confirmation-flow/problem-screen': ConfirmationFlowProblemVisual,
+	'hubstep-foundation/sections/04-confirmation-flow/design-01': ConfirmationFlowDesignVisual,
+	'hubstep-foundation/sections/04-confirmation-flow/tabs': ConfirmationFlowTabsVisual,
+	'hubstep-foundation/sections/04-confirmation-flow/final-flow': ConfirmationFlowFinalFlowVisual,
+	'hubstep-foundation/sections/04-confirmation-flow/interaction': ConfirmationFlowInteractionVisual,
+	'hubstep-foundation/sections/05-list-upload/problem-cards': ListUploadProblemCards,
+	'hubstep-foundation/sections/05-list-upload/approach-principles': ListUploadApproachPrinciples,
+	'hubstep-foundation/sections/05-list-upload/before-steps': ListUploadBeforeStepsVisual,
+	'hubstep-foundation/sections/05-list-upload/after-steps': ListUploadAfterStepsVisual,
+	'hubstep-foundation/sections/05-list-upload/recap': ListUploadRecapGrid,
+	'hubstep-foundation/sections/06-design-system/extended': DesignSystemExtendedVisual,
+	'hubstep-foundation/sections/06-design-system/new': DesignSystemNewComponentsVisual,
+	'hubstep-foundation/sections/06-design-system/rules': DesignSystemRulesVisual,
+	'hubstep-foundation/sections/07-product-communication/contribution': ContributionGrid,
+	'hubstep-foundation/sections/07-product-communication/lp-preview': HubstepLiteLpPreview,
+	'hubstep-foundation/sections/07-product-communication/designflow': ProductCommunicationFlowVisual,
+	'hubstep-foundation/sections/07-product-communication/paper': ProductCommunicationPaperVisual,
+	'hubstep-foundation/sections/08-expansion-adoption/forms': ProductFormsCards,
+	'hubstep-foundation/sections/08-expansion-adoption/classic-beforeafter': ClassicBeforeAfterVisual,
+	'hubstep-foundation/sections/08-expansion-adoption/classic-figma': ClassicFigmaVisual,
+	'hubstep-foundation/sections/08-expansion-adoption/preserved-improved': PreservedImprovedCards,
+	'hubstep-foundation/sections/08-expansion-adoption/adoption': AdoptionStats,
 };
 
 export async function getStaticPaths() {
@@ -165,7 +221,7 @@ const translationHref = `/work/${slug}/`;
 
 <BaseLayout title={`${data.title} — Yui Taniyama`} lang="ja" translationHref={translationHref}>
 	<article class="content-grid">
-		<HubstepHero />
+		{slug === 'hubstep-foundation' ? <FoundationHero /> : <HubstepHero />}
 
 		<CaseHeader eyebrow={data.eyebrow} title={data.title} meta={data.meta} intro={introParagraphs} challenges={data.challenges} lang="ja" />
 
@@ -221,7 +277,7 @@ const translationHref = `/work/${slug}/`;
 			</div>
 		</div>
 
-		<NextCaseStudy currentSlug={slug} lang="ja" forceEmpty />
+		<NextCaseStudy currentSlug={slug} lang="ja" />
 	</article>
 </BaseLayout>
 

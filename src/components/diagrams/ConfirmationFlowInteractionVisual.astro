@@ -3,9 +3,11 @@
 // interaction: candidates for exclusion are pre-selected, and the
 // selection can be inverted to change which records are kept instead.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
-	src="/hubstep-foundation/en/section-05/section05-interaction.png"
-	alt="Duplicate-exclusion modal with exclusion candidates pre-selected, and the option to invert the selection to change which records are kept"
+	src={ja ? '/hubstep-foundation/section-05/section05-interaction.png' : '/hubstep-foundation/en/section-05/section05-interaction.png'}
+	alt={ja ? '除外候補があらかじめ選択された重複除外モーダル。選択を反転させて、残すレコードを変更することもできる' : 'Duplicate-exclusion modal with exclusion candidates pre-selected, and the option to invert the selection to change which records are kept'}
 />
