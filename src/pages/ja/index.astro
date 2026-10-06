@@ -4,9 +4,7 @@ import { getCollection } from 'astro:content';
 
 // Japanese homepage — a translated duplicate of src/pages/index.astro.
 // Card copy is hand-authored per project, same as the English version;
-// only hubstep-sfa-platform has a Japanese case study page so far, so
-// the other two cards link out to their English pages rather than a
-// Japanese page that doesn't exist yet.
+// every card links to its Japanese case study page.
 const CARD_COPY: Record<
 	string,
 	{
@@ -54,6 +52,18 @@ projects.push({
 		description: '日本在住の英語話者向けのB2C確定申告サービス。',
 		skills: ['競合調査', 'UI探索', 'ユーザビリティテスト'],
 		href: '/ja/work/freedom-tax-japan/',
+	},
+});
+
+projects.push({
+	slug: 'amano-graniph',
+	title: '天野喜孝の世界を、着られるプロダクトに翻訳する',
+	copy: {
+		image: { src: '/home/selected-work/amano-graniph-cover.png', width: 2400, height: 1348 },
+		meta: 'ファッションデザイン・ライセンスコラボレーション',
+		description: '天野喜孝のアートワークが持つ繊細さと空気感を、服として残すファッションコレクションをデザインした。',
+		skills: ['コンセプト開発', 'ガーメントデザイン', 'アートワークの展開'],
+		href: '/ja/work/amano-graniph/',
 	},
 });
 ---
