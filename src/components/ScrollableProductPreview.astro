@@ -15,6 +15,7 @@ interface Props {
 }
 
 const { src, alt, label, height = 420 } = Astro.props;
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <figure class="spp" style={`--spp-height: ${height}px;`}>
@@ -23,13 +24,13 @@ const { src, alt, label, height = 420 } = Astro.props;
 	<div class="spp__device">
 		<div class="spp__screen">
 			<span class="spp__camera" aria-hidden="true"></span>
-			<div class="spp__viewport" tabindex="0" aria-label={`Scrollable preview: ${alt}`}>
+			<div class="spp__viewport" tabindex="0" aria-label={`${ja ? 'スクロールできるプレビュー' : 'Scrollable preview'}: ${alt}`}>
 				<img class="spp__image" src={src} alt={alt} loading="lazy" decoding="async" />
 				<span class="spp__hint" aria-hidden="true">
 					<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
 						<path d="M8 1.5v13M8 1.5L5.2 4.3M8 1.5l2.8 2.8M8 14.5l-2.8-2.8M8 14.5l2.8-2.8" />
 					</svg>
-					Scroll to explore
+					{ja ? 'スクロールして見る' : 'Scroll to explore'}
 				</span>
 			</div>
 		</div>

@@ -1,0 +1,1255 @@
+---
+// Freedom Tax Japan — Supporting Case Study (Project 03). A standalone
+// case study (not in the `work` content collection), rendered by two thin
+// pages: src/pages/work/freedom-tax-japan.astro (lang="en") and
+// src/pages/ja/work/freedom-tax-japan.astro (lang="ja"). All copy lives in
+// the two content objects below (EN / JA, same shape); image files are
+// shared because the product screens are English in both versions.
+// It reuses the shared case-study layout classes from global.css
+// (content-grid, case-study-body, case-index, case-section).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CaseHeader from './CaseHeader.astro';
+import ScrollableProductPreview from './ScrollableProductPreview.astro';
+import EnlargeableImage from './EnlargeableImage.astro';
+
+interface Props {
+	lang?: 'en' | 'ja';
+}
+const { lang = 'en' } = Astro.props;
+const ja = lang === 'ja';
+
+// Each example uses whichever comparison structure best explains that
+// piece of work (3-step before/reference/implemented, 3-step
+// before/proposal/implemented, or a simpler 2-step exploration/
+// implemented) rather than being forced into one identical shape.
+// `gridLayout` gives an example a 2-up editorial grid instead of the
+// single-row treatment (four screens is one too many to read in a row).
+// Image files and sizes are shared by both languages; only the text
+// (tag, alt label, caption) differs — see `content` below.
+const exampleImages = [
+	{
+		gridLayout: true,
+		steps: [
+			[{ file: 'tax-season-before', width: 3270, height: 1636 }],
+			[{ file: 'tax-season-reference', width: 2880, height: 1408 }],
+			[{ file: 'tax-season-proposal', width: 3840, height: 2160 }],
+			[{ file: 'tax-season-implemented', width: 2610, height: 1322 }],
+		],
+	},
+	{
+		gridLayout: true,
+		steps: [
+			[{ file: 'tax-guide-before', width: 1160, height: 461 }],
+			[{ file: 'tax-guide-proposal', width: 1160, height: 646 }],
+			[{ file: 'tax-guide-implemented', width: 2360, height: 1205 }],
+		],
+	},
+	{
+		gridLayout: false,
+		steps: [
+			[{ file: 'wall-of-gratitude-exploration', width: 1600, height: 693 }],
+			[{ file: 'wall-of-gratitude-implemented', width: 1280, height: 764 }],
+		],
+	},
+];
+
+// Participants are anonymized, so there are no real photos or screen
+// captures to show per person. Each gets a small circular "vibe" photo
+// (free-license stock, Unsplash License — no attribution required)
+// tied to an unrelated interest, purely as a lightweight, generic
+// visual identifier — not a claim that this is what the person looks
+// like.
+const participantPhotos = ['lynn-tennis', 'neil-glasses', 'joshua-golf', 'victor-cat'];
+
+const EN = {
+	pageTitle: "Freedom Tax Japan — Yui Taniyama",
+	eyebrow: 'Supporting Case Study',
+	title: "Bringing Research and Testing to Freedom Tax Japan's Redesign",
+	description: 'A B2C tax-filing service for English-speaking residents in Japan.',
+	meta: [
+		{ label: 'Role', value: 'UI/UX Design Intern' },
+		{ label: 'Environment', value: 'English-speaking startup' },
+		{ label: 'Collaboration', value: 'Senior UI/UX Designer, Founder' },
+		{ label: 'Focus', value: 'Competitive Research · UI Exploration · Usability Testing' },
+	],
+	intro: [
+		'Freedom Tax Japan helps English-speaking residents in Japan navigate tax filing. As a UI/UX design intern, I worked alongside a senior designer and the founder, contributing research, design exploration, and usability testing to the redesign.',
+	],
+	heroAlt: 'FreedomTax Japan landing page and design exploration screens',
+	indexLabel: 'In this case study',
+	sections: [
+		{ id: 'outcome', eyebrow: '01 — Outcome', title: 'What the project produced' },
+		{ id: 'research', eyebrow: '02 — Research', title: 'Understanding the market before designing' },
+		{ id: 'design-exploration', eyebrow: '03 — Design exploration', title: 'Turning insights into design decisions' },
+		{ id: 'usability-testing', eyebrow: '04 — Usability testing', title: 'Testing the experience with users' },
+		{ id: 'learning', eyebrow: '05 — Learning', title: 'What I took forward' },
+	],
+	outcomes: [
+		{ value: '15', label: 'Competitors analyzed' },
+		{ value: '4', label: 'Moderated usability testing sessions' },
+		{ value: 'Multiple UI ideas', label: 'Incorporated into the redesign' },
+		{ value: 'New landing page', label: 'Launched before the 2025 tax season' },
+	],
+	outcomeText:
+		'The redesign combined competitive research, collaborative design exploration, and usability testing. <strong>Several of the UI ideas I proposed were incorporated into the final direction</strong>, while <strong>user testing helped uncover issues that were difficult to identify through internal design reviews alone.</strong>',
+	finalLanding: { alt: 'Final FreedomTax Japan landing page design', label: 'Final landing page' },
+	research: {
+		auditAlt: 'Competitive analysis mapping the user flows of 15 tax-filing services',
+		auditCaption: 'Competitive analysis (Desktop)',
+		appAlt: 'Competitive audit of app-based tax-filing experiences',
+		appCaption: 'Competitive analysis (App)',
+		text: [
+			'I reviewed 15 competing services and <strong>mapped their user flows to understand how tax-related services communicated value, built trust, and guided users toward the next step.</strong>',
+			'I shared the findings with the team and used them as input for our redesign discussions.',
+		],
+	},
+	synthesis: {
+		eyebrow: 'Research synthesis',
+		heading: 'Two characteristics that shaped the redesign',
+		text: 'The competitive audit helped us <strong>narrow the discussion to two characteristics that became central to the redesign: trust and convenience.</strong>',
+		items: [
+			{
+				num: '01',
+				label: 'Trust',
+				heading: 'Trust needed to be visible, not assumed',
+				body: 'Users needed <strong>clear evidence that a tax service was credible</strong> — through expertise, customer experiences, social proof, and transparent information about the company.',
+				keywords: 'Expertise · Social proof · Customer experience · Transparency',
+			},
+			{
+				num: '02',
+				label: 'Convenience',
+				heading: 'Convenience was about reducing uncertainty, not just steps',
+				body: 'A convenient experience meant knowing what to do next, understanding complex terms, seeing progress, and knowing the expected time and cost — while still being able to get support when needed.',
+				keywords: 'Clear actions · Progress · Plain language · Price &amp; time transparency',
+			},
+		],
+	},
+	designIntro:
+		'Not every design direction started from the same source. Some came from competitive research, others from user behavior or team discussions. The following are three proposals I contributed that were incorporated into the product.',
+	examples: [
+		{
+			eyebrow: '01 — Competitive research',
+			heading: 'Making tax-season timing visible',
+			body: [
+				'The team was <strong>repeatedly asked when users could file their taxes</strong>, even though the timing followed a predictable annual schedule.',
+				'During the competitive audit, I found a UK tax service using a persistent notification bar for time-sensitive filing information. <strong>I proposed applying a similar pattern to FTJ so users could see the relevant tax-season timing without needing to ask.</strong>',
+				'<strong>The idea was adopted</strong>, and during usability testing <strong>participants found the timing information clear and easy to understand.</strong>',
+			],
+			steps: [
+				{ tag: 'Before', labels: ['Previous FTJ hero'] },
+				{
+					tag: 'Competitive reference',
+					labels: ['Competitive reference — UK tax service notification bar'],
+					caption: 'Pattern identified during competitive research',
+				},
+				{ tag: 'My proposal', labels: ['My wireframe for the FTJ notification bar'] },
+				{ tag: 'Implemented', labels: ['Implemented FTJ notification bar'] },
+			],
+		},
+		{
+			eyebrow: '02 — User behavior',
+			heading: 'Making high-interest content easier to explore',
+			body: [
+				'Interaction data showed <strong>strong engagement with Tax Guide content, even near the bottom of the landing page.</strong>',
+				'<strong>I proposed a more scannable article layout. The direction was adopted</strong>, with the final implementation simplified to fit the no-code platform.',
+			],
+			steps: [
+				{ tag: 'Before', labels: ['Previous resource section'] },
+				{ tag: 'My proposal', labels: ['My Tax Guide / resource UI proposal'] },
+				{
+					tag: 'Implemented',
+					labels: ['Implemented resource section'],
+					caption: 'Thumbnail and author elements were omitted due to platform constraints.',
+				},
+			],
+		},
+		{
+			eyebrow: '03 — Collaboration',
+			heading: 'Designing for feedback of different lengths',
+			body: [
+				'My mentor proposed creating a dedicated "Wall of Gratitude" to surface more customer feedback.',
+				'<strong>I explored flexible layouts for feedback of different lengths</strong>, and the adopted direction <strong>made longer responses easier to scan.</strong>',
+			],
+			steps: [
+				{ tag: 'Exploration', labels: ['Wall of Gratitude layout exploration'] },
+				{ tag: 'Implemented', labels: ['Implemented Wall of Gratitude'] },
+			],
+		},
+	],
+	testing: {
+		text: [
+			'I planned and conducted four moderated usability testing sessions with participants I recruited, with input from my boss on the discussion guide.',
+			'Each session lasted approximately 30–60 minutes and included a prototype walkthrough, follow-up questions, and discussion around trust, service understanding, and next actions.',
+			'I documented participants’ comments alongside the exact screens they were reacting to, which made it easier to identify where the experience was clear and where confusion remained.',
+			'I then reviewed the findings with the senior designer and the team. Rather than deciding on design changes independently, we identified issues together and explored possible responses collaboratively.',
+		],
+		boardAlt: 'Usability testing documentation board, showing screens annotated with participant comments',
+		setupLabel: 'Test setup',
+		setup: ['4 participants', '30–60 min / session', 'Moderated sessions', 'Prototype walkthrough', 'Comments + behavior documented'],
+		insightsHead: '4 participant insights',
+		dt: { context: 'Context', reacted: 'What they reacted to', revealed: 'What it revealed' },
+		participants: [
+			{
+				name: 'Lynn',
+				context: 'Long-term resident in Japan, already working with an accountant.',
+				reacted:
+					'She was interested in the promise of making tax filing easier over time, but felt unclear about what the free consultation included and whether the service was meant for someone in her situation.',
+				revealed: 'The overall value proposition was appealing, but the service fit and first step were not always obvious.',
+			},
+			{
+				name: 'Neil',
+				context: 'User familiar with tax filing in both Japan and the US.',
+				reacted:
+					'He found parts of the experience easy to understand, but some labels and sections felt ambiguous. He also questioned the difference between certain CTAs and wanted more direct wording in a few places.',
+				revealed: 'A stronger information hierarchy and clearer action labels were needed to reduce interpretation effort.',
+			},
+			{
+				name: 'Joshua',
+				context: 'Freelancer with prior tax-filing experience and an existing accountant.',
+				reacted:
+					'He saw the service as trustworthy, responded positively to the visuals and quantitative proof, and felt the overall flow was clear. At the same time, price remained the most important factor in whether he would consider switching.',
+				revealed: 'Trust signals were effective, but pricing clarity remained central to decision-making.',
+			},
+			{
+				name: 'Victor',
+				context: 'User reviewing the portal and input flow in more detail.',
+				reacted:
+					'He hesitated around field formats, naming conventions, and income categories, and would have benefited from clearer examples, helper text, and more guided input patterns.',
+				revealed:
+					'The portal experience needed more support at moments where users had to map real-life situations into the product’s structure.',
+			},
+		],
+	},
+	learnings: [
+		{
+			title: 'Research before solutions',
+			body: 'Competitive research gave the team a shared starting point before discussing solutions.',
+		},
+		{
+			title: 'Testing reveals what reviews miss',
+			body: 'Usability testing exposed confusion that was difficult to notice through internal design reviews alone.',
+		},
+		{
+			title: 'Design is collaborative',
+			body: 'Working with a senior designer taught me how to contribute ideas without treating product design as an individual exercise.',
+		},
+	],
+	pager: {
+		prev: { label: 'Previous case study', title: 'Keeping hubstep Coherent While It Grew', href: '/work/hubstep-foundation/' },
+		next: {
+			label: 'Next case study',
+			title: "Translating Yoshitaka Amano's World into Wearable Products",
+			href: '/work/amano-graniph/',
+		},
+	},
+};
+
+const JA = {
+	pageTitle: 'Freedom Tax Japan — Yui Taniyama',
+	eyebrow: 'サブケーススタディ',
+	title: 'Freedom Tax Japanのリデザインに、リサーチとテストを取り入れる',
+	description: '日本在住の英語話者向けのB2C確定申告サービス。',
+	meta: [
+		{ label: '役割', value: 'UI/UXデザインインターン' },
+		{ label: '環境', value: '英語を使うスタートアップ' },
+		{ label: '協働', value: 'シニアUI/UXデザイナー、創業者' },
+		{ label: 'フォーカス', value: '競合調査 · UI探索 · ユーザビリティテスト' },
+	],
+	intro: [
+		'Freedom Tax Japanは、日本に住む英語話者が確定申告を進めるのを支援するサービスだ。UI/UXデザインインターンとして、シニアデザイナーと創業者とともに、リデザインに向けたリサーチ、デザイン探索、ユーザビリティテストに携わった。',
+	],
+	heroAlt: 'FreedomTax Japanのランディングページとデザイン探索の画面',
+	indexLabel: '目次',
+	sections: [
+		{ id: 'outcome', eyebrow: '01 — 成果', title: 'このプロジェクトが生んだもの' },
+		{ id: 'research', eyebrow: '02 — リサーチ', title: '設計の前に市場を理解する' },
+		{ id: 'design-exploration', eyebrow: '03 — デザイン探索', title: 'インサイトをデザインの判断に変える' },
+		{ id: 'usability-testing', eyebrow: '04 — ユーザビリティテスト', title: 'ユーザーと体験をテストする' },
+		{ id: 'learning', eyebrow: '05 — 学び', title: '次に持ち越したこと' },
+	],
+	outcomes: [
+		{ value: '15', label: '分析した競合サービス' },
+		{ value: '4', label: 'モデレーター付きユーザビリティテストのセッション' },
+		{ value: '複数のUIアイデア', label: 'リデザインに反映' },
+		{ value: '新しいランディングページ', label: '2025年の確定申告シーズンの前に公開' },
+	],
+	outcomeText:
+		'リデザインでは、競合調査、チームでのデザイン探索、ユーザビリティテストを組み合わせた。<strong>私が提案したUIアイデアのいくつかが、最終的な方向性に取り入れられた。</strong>また、<strong>ユーザーテストによって、社内のデザインレビューだけでは気づきにくい課題が見えてきた。</strong>',
+	finalLanding: { alt: '完成したFreedomTax Japanのランディングページのデザイン', label: '完成したランディングページ' },
+	research: {
+		auditAlt: '15の確定申告サービスのユーザーフローをマッピングした競合分析',
+		auditCaption: '競合分析（デスクトップ）',
+		appAlt: 'アプリ型の確定申告体験の競合調査',
+		appCaption: '競合分析（アプリ）',
+		text: [
+			'15の競合サービスを調べ、<strong>各サービスのユーザーフローをマッピングして、税務関連サービスがどのように価値を伝え、信頼を築き、ユーザーを次のステップへ導いているかを理解した。</strong>',
+			'調査結果はチームに共有し、リデザインの議論のインプットとして使った。',
+		],
+	},
+	synthesis: {
+		eyebrow: '調査の統合',
+		heading: 'リデザインを形づくった2つの特性',
+		text: '競合調査によって、議論を<strong>リデザインの中心となった2つの特性、信頼と利便性</strong>に絞り込めた。',
+		items: [
+			{
+				num: '01',
+				label: '信頼',
+				heading: '信頼は、前提にするのではなく、見える形にする必要があった',
+				body: 'ユーザーには、<strong>税務サービスが信頼できるという明確な根拠</strong>が必要だった。それは、専門性、お客様の体験、ソーシャルプルーフ、そして企業についての透明性のある情報を通じて示されるものだ。',
+				keywords: '専門性 · ソーシャルプルーフ · お客様の体験 · 透明性',
+			},
+			{
+				num: '02',
+				label: '利便性',
+				heading: '利便性とは、手順を減らすことだけでなく、不確実さを減らすことだった',
+				body: '利便性の高い体験とは、次に何をすべきかが分かり、複雑な用語が理解でき、進捗が見え、所要時間と費用の目安が分かること——そのうえで、必要なときにはサポートを受けられることだった。',
+				keywords: '明確なアクション · 進捗 · 平易な言葉 · 価格と時間の透明性',
+			},
+		],
+	},
+	designIntro:
+		'すべてのデザインの方向性が、同じところから始まったわけではない。競合調査から生まれたものもあれば、ユーザー行動やチームでの議論から生まれたものもある。以下は、私が提案し、プロダクトに取り入れられた3つの案だ。',
+	examples: [
+		{
+			eyebrow: '01 — 競合調査',
+			heading: '確定申告シーズンの時期を見えるようにする',
+			body: [
+				'時期は毎年決まったスケジュールに沿っているにもかかわらず、チームは<strong>いつ確定申告ができるのかを、ユーザーから繰り返し尋ねられていた。</strong>',
+				'競合調査の中で、英国の税務サービスが、期限のある申告情報を常時表示の通知バーで伝えているのを見つけた。<strong>FTJにも同様のパターンを取り入れ、ユーザーが尋ねなくても、確定申告シーズンの時期が分かるようにすることを提案した。</strong>',
+				'<strong>このアイデアは採用され</strong>、ユーザビリティテストでは、<strong>参加者は時期の情報を明確で分かりやすいと感じていた。</strong>',
+			],
+			steps: [
+				{ tag: '変更前', labels: ['以前のFTJのヒーロー'] },
+				{
+					tag: '競合の参考例',
+					labels: ['競合の参考例 — 英国の税務サービスの通知バー'],
+					caption: '競合調査で見つけたパターン',
+				},
+				{ tag: '私の提案', labels: ['FTJの通知バーのワイヤーフレーム（私の提案）'] },
+				{ tag: '実装されたもの', labels: ['実装されたFTJの通知バー'] },
+			],
+		},
+		{
+			eyebrow: '02 — ユーザー行動',
+			heading: '関心の高いコンテンツを探しやすくする',
+			body: [
+				'インタラクションのデータから、<strong>ランディングページの下部に近い位置でも、Tax Guideのコンテンツへのエンゲージメントが高い</strong>ことが分かった。',
+				'<strong>より流し読みしやすい記事レイアウトを提案した。この方向性は採用され</strong>、最終的な実装は、ノーコードのプラットフォームに合わせて簡略化された。',
+			],
+			steps: [
+				{ tag: '変更前', labels: ['以前のリソースセクション'] },
+				{ tag: '私の提案', labels: ['Tax Guide／リソースUIの提案（私の提案）'] },
+				{
+					tag: '実装されたもの',
+					labels: ['実装されたリソースセクション'],
+					caption: 'サムネイルと著者の要素は、プラットフォームの制約により省略された。',
+				},
+			],
+		},
+		{
+			eyebrow: '03 — コラボレーション',
+			heading: '長さの異なるフィードバックに対応するデザイン',
+			body: [
+				'メンターが、より多くのお客様の声を見せるための専用ページ「Wall of Gratitude」を作ることを提案した。',
+				'<strong>長さの異なるフィードバックに対応できる柔軟なレイアウトを探り</strong>、採用された方向性は、<strong>長めの回答も流し読みしやすくした。</strong>',
+			],
+			steps: [
+				{ tag: '探索', labels: ['Wall of Gratitudeのレイアウト探索'] },
+				{ tag: '実装されたもの', labels: ['実装されたWall of Gratitude'] },
+			],
+		},
+	],
+	testing: {
+		text: [
+			'私が募集した参加者を対象に、モデレーター付きのユーザビリティテストを4回計画し、実施した。ディスカッションガイドについては、上司からも意見をもらった。',
+			'各セッションは約30〜60分で、プロトタイプのウォークスルー、フォローアップの質問、そして信頼、サービスの理解、次のアクションをめぐる対話で構成した。',
+			'参加者のコメントを、反応していた画面そのものと並べて記録した。これによって、体験が明確だった箇所と、混乱が残った箇所を特定しやすくなった。',
+			'その後、結果をシニアデザイナーやチームと確認した。デザインの変更を一人で決めるのではなく、課題を一緒に特定し、対応策を協力して検討した。',
+		],
+		boardAlt: 'ユーザビリティテストの記録ボード。参加者のコメントを注釈した画面を並べている',
+		setupLabel: 'テストの設定',
+		setup: ['参加者4名', '1セッション30〜60分', 'モデレーター付きセッション', 'プロトタイプのウォークスルー', 'コメントと行動を記録'],
+		insightsHead: '参加者4名のインサイト',
+		dt: { context: 'コンテキスト', reacted: '反応していた点', revealed: 'そこから見えたこと' },
+		participants: [
+			{
+				name: 'Lynn',
+				context: '日本に長く住んでおり、すでに会計士に依頼している。',
+				reacted:
+					'時間をかけて確定申告を楽にしていくという約束には関心を持ったが、無料相談に何が含まれるのか、そしてこのサービスが自分のような状況の人を対象にしているのかが分からないと感じた。',
+				revealed: '全体のバリュープロポジションは魅力的だったが、サービスが自分に合うかどうかと、最初の一歩は、必ずしも明確ではなかった。',
+			},
+			{
+				name: 'Neil',
+				context: '日本とアメリカの両方での確定申告に慣れているユーザー。',
+				reacted:
+					'体験の一部は理解しやすいと感じたが、ラベルやセクションの中には曖昧に感じられるものがあった。また、一部のCTAの違いに疑問を持ち、いくつかの箇所では、より直接的な表現を求めていた。',
+				revealed: '解釈の手間を減らすために、より強い情報階層と、より明確なアクションラベルが必要だった。',
+			},
+			{
+				name: 'Joshua',
+				context: '確定申告の経験があり、すでに会計士がいるフリーランス。',
+				reacted:
+					'このサービスを信頼できると見ており、ビジュアルや定量的な根拠に好意的に反応し、全体のフローも明確だと感じていた。一方で、乗り換えを検討するかどうかでは、価格が最も重要な要素であり続けた。',
+				revealed: '信頼を示す要素は効果的だったが、価格の分かりやすさが、意思決定の中心であり続けた。',
+			},
+			{
+				name: 'Victor',
+				context: 'ポータルと入力フローを、より詳しく確認したユーザー。',
+				reacted:
+					'フィールドの形式、命名ルール、所得の区分で迷っており、より明確な例、補助テキスト、ガイド付きの入力パターンがあれば助かっただろう。',
+				revealed: '現実の状況をプロダクトの構造に当てはめなければならない場面で、ポータルの体験にはより多くのサポートが必要だった。',
+			},
+		],
+	},
+	learnings: [
+		{
+			title: 'ソリューションの前に、リサーチ',
+			body: '競合調査は、解決策を議論する前に、チームに共通の出発点を与えてくれた。',
+		},
+		{
+			title: 'テストは、レビューが見逃すものを明らかにする',
+			body: 'ユーザビリティテストは、社内のデザインレビューだけでは気づきにくい混乱を明らかにした。',
+		},
+		{
+			title: 'デザインは協働である',
+			body: 'シニアデザイナーと働く中で、プロダクトデザインを個人の作業として扱わず、アイデアで貢献する方法を学んだ。',
+		},
+	],
+	pager: {
+		prev: { label: '前のケーススタディ', title: '成長するhubstepの一貫性を保つ', href: '/ja/work/hubstep-foundation/' },
+		next: {
+			label: '次のケーススタディ（英語版）',
+			title: "Translating Yoshitaka Amano's World into Wearable Products",
+			href: '/work/amano-graniph/',
+		},
+	},
+};
+
+const c = ja ? JA : EN;
+const translationHref = ja ? '/work/freedom-tax-japan/' : '/ja/work/freedom-tax-japan/';
+
+// Merge the shared image data (file / size / layout) with the per-language text.
+const designExamples = c.examples.map((ex, i) => ({
+	...ex,
+	gridLayout: exampleImages[i].gridLayout,
+	steps: ex.steps.map((step, j) => ({
+		...step,
+		images: exampleImages[i].steps[j].map((img, k) => ({ ...img, label: step.labels[k] })),
+	})),
+}));
+
+const participants = c.testing.participants.map((p, i) => ({ ...p, photo: participantPhotos[i] }));
+---
+
+<BaseLayout title={c.pageTitle} lang={lang} translationHref={translationHref}>
+	<article class="content-grid">
+		<CaseHeader
+			eyebrow={c.eyebrow}
+			title={c.title}
+			description={c.description}
+			meta={c.meta}
+			intro={c.intro}
+			lang={lang}
+		/>
+
+		<div class="ftj-hero">
+			<img
+				class="ftj-hero__img"
+				src="/freedom-tax-japan/hero/hero2.png"
+				alt={c.heroAlt}
+				width="3200"
+				height="2400"
+				loading="eager"
+				decoding="async"
+			/>
+		</div>
+
+		<div class="case-study-body">
+			<nav class="case-index" aria-label="Case study sections">
+				<div class="case-index__eyebrow">{c.indexLabel}</div>
+				<ol>
+					{
+						c.sections.map((s) => (
+							<li>
+								<a href={`#${s.id}`}>{s.title}</a>
+							</li>
+						))
+					}
+				</ol>
+			</nav>
+
+			<div class="case-sections">
+				<!-- 01 OUTCOME -->
+				<section id="outcome" class="case-section">
+					<div class="section-eyebrow">{c.sections[0].eyebrow}</div>
+					<h2>{c.sections[0].title}</h2>
+
+					<dl class="ftj-stats">
+						{
+							c.outcomes.map((o) => (
+								<div class="ftj-stat">
+									<dt class="ftj-stat__value">{o.value}</dt>
+									<dd class="ftj-stat__label">{o.label}</dd>
+								</div>
+							))
+						}
+					</dl>
+
+					<div class="prose">
+						<p set:html={c.outcomeText} />
+					</div>
+
+					<ScrollableProductPreview
+						src="/freedom-tax-japan/outcome/final-landing-page.png"
+						alt={c.finalLanding.alt}
+						label={c.finalLanding.label}
+						height={480}
+					/>
+				</section>
+
+				<!-- 02 RESEARCH -->
+				<section id="research" class="case-section">
+					<div class="section-eyebrow">{c.sections[1].eyebrow}</div>
+					<h2>{c.sections[1].title}</h2>
+
+					<figure class="ftj-audit">
+						<EnlargeableImage
+							src="/freedom-tax-japan/research/competitive-audit.png"
+							alt={c.research.auditAlt}
+							enlargeable={false}
+						/>
+						<figcaption class="ftj-audit__caption">{c.research.auditCaption}</figcaption>
+					</figure>
+
+					<div class="ftj-research-row">
+						<figure class="ftj-research-row__visual">
+							<EnlargeableImage
+								src="/freedom-tax-japan/research/app-competitive-audit.png"
+								alt={c.research.appAlt}
+								enlargeable={false}
+							/>
+							<figcaption class="ftj-audit__caption">{c.research.appCaption}</figcaption>
+						</figure>
+						<div class="prose ftj-research-row__text">
+							{c.research.text.map((p) => <p set:html={p} />)}
+						</div>
+					</div>
+
+					<div class="ftj-synthesis">
+						<div class="section-eyebrow">{c.synthesis.eyebrow}</div>
+						<h3 class="ftj-synthesis__heading">{c.synthesis.heading}</h3>
+						<div class="prose">
+							<p set:html={c.synthesis.text} />
+						</div>
+
+						<div class="ftj-synthesis__grid">
+							{
+								c.synthesis.items.map((item) => (
+									<div class="ftj-synthesis__item">
+										<div class="ftj-synthesis__tag">
+											<span class="ftj-synthesis__num">{item.num}</span>
+											<span class="ftj-synthesis__label">{item.label}</span>
+										</div>
+										<h4 class="ftj-synthesis__item-heading">{item.heading}</h4>
+										<p class="ftj-synthesis__body" set:html={item.body} />
+										<p class="ftj-synthesis__keywords" set:html={item.keywords} />
+									</div>
+								))
+							}
+						</div>
+					</div>
+				</section>
+
+				<!-- 03 DESIGN EXPLORATION -->
+				<section id="design-exploration" class="case-section">
+					<div class="section-eyebrow">{c.sections[2].eyebrow}</div>
+					<h2>{c.sections[2].title}</h2>
+
+					<div class="prose">
+						<p>{c.designIntro}</p>
+					</div>
+
+					<div class="ftj-examples">
+						{
+							designExamples.map((example) => (
+								<div class="ftj-example">
+									<div class="section-eyebrow">{example.eyebrow}</div>
+									<h3 class="ftj-example__heading">{example.heading}</h3>
+
+									<div class="prose">
+										{example.body.map((p) => (
+											<p set:html={p} />
+										))}
+									</div>
+
+									{example.gridLayout ? (
+										<div class="ftj-steps-grid">
+											{example.steps.map((step, i) => (
+												<figure
+													class:list={[
+														'ftj-steps-grid__item',
+														i === example.steps.length - 1 && example.steps.length % 2 !== 0 && 'ftj-steps-grid__item--full',
+													]}
+												>
+													<div class="section-eyebrow">
+														{String(i + 1).padStart(2, '0')} — {step.tag}
+													</div>
+													<div class="ftj-steps__images">
+														{step.images.map((image) => (
+															<img
+																class="ftj-steps__img"
+																src={`/freedom-tax-japan/design-exploration/${image.file}.png`}
+																alt={image.label}
+																width={image.width}
+																height={image.height}
+																loading="lazy"
+																decoding="async"
+															/>
+														))}
+													</div>
+													{step.caption && <figcaption class="ftj-audit__caption">{step.caption}</figcaption>}
+												</figure>
+											))}
+										</div>
+									) : (
+										<div class="ftj-steps">
+											{example.steps.map((step, i) => (
+												<figure class="ftj-steps__step">
+													<div class="section-eyebrow">
+														{String(i + 1).padStart(2, '0')} — {step.tag}
+													</div>
+													<div class="ftj-steps__images">
+														{step.images.map((image) => (
+															<img
+																class="ftj-steps__img"
+																src={`/freedom-tax-japan/design-exploration/${image.file}.png`}
+																alt={image.label}
+																width={image.width}
+																height={image.height}
+																loading="lazy"
+																decoding="async"
+															/>
+														))}
+													</div>
+													{step.caption && <figcaption class="ftj-audit__caption">{step.caption}</figcaption>}
+												</figure>
+											))}
+										</div>
+									)}
+								</div>
+							))
+						}
+					</div>
+				</section>
+
+				<!-- 04 USABILITY TESTING (strongest section) -->
+				<section id="usability-testing" class="case-section ftj-testing">
+					<div class="section-eyebrow">{c.sections[3].eyebrow}</div>
+					<h2>{c.sections[3].title}</h2>
+
+					<div class="prose">
+						{c.testing.text.map((p) => <p>{p}</p>)}
+					</div>
+
+					<EnlargeableImage
+						src="/freedom-tax-japan/usability-testing/usability-testing-documentation.png"
+						alt={c.testing.boardAlt}
+						enlargeable={false}
+					/>
+
+					<div class="ftj-setup">
+						<div class="ftj-setup__label">{c.testing.setupLabel}</div>
+						<ul>
+							{c.testing.setup.map((s) => <li>{s}</li>)}
+						</ul>
+					</div>
+
+					<div class="ftj-insights-head">{c.testing.insightsHead}</div>
+					<div class="ftj-insights">
+						{
+							participants.map((p) => (
+								<article class="ftj-insight">
+									<img
+										class="ftj-avatar"
+										src={`/freedom-tax-japan/usability-testing/${p.photo}.jpg`}
+										alt=""
+										width="120"
+										height="120"
+										loading="lazy"
+										decoding="async"
+									/>
+									<h3 class="ftj-insight__name">{p.name}</h3>
+									<dl>
+										<dt>{c.testing.dt.context}</dt>
+										<dd>{p.context}</dd>
+										<dt>{c.testing.dt.reacted}</dt>
+										<dd>{p.reacted}</dd>
+										<dt>{c.testing.dt.revealed}</dt>
+										<dd class="ftj-insight__revealed">{p.revealed}</dd>
+									</dl>
+								</article>
+							))
+						}
+					</div>
+				</section>
+
+				<!-- 05 LEARNING -->
+				<section id="learning" class="case-section">
+					<div class="section-eyebrow">{c.sections[4].eyebrow}</div>
+					<h2>{c.sections[4].title}</h2>
+
+					<ol class="ftj-learnings">
+						{
+							c.learnings.map((l, i) => (
+								<li>
+									<div class="ftj-learnings__num">{String(i + 1).padStart(2, '0')}</div>
+									<div class="ftj-learnings__title">{l.title}</div>
+									<p class="ftj-learnings__body">{l.body}</p>
+								</li>
+							))
+						}
+					</ol>
+				</section>
+			</div>
+		</div>
+
+		<nav class="ftj-pager" aria-label="Case study navigation">
+			<a href={c.pager.prev.href}>
+				<span class="ftj-pager__label">{c.pager.prev.label}</span>
+				<span class="ftj-pager__title">{c.pager.prev.title}</span>
+			</a>
+			<a href={c.pager.next.href} class="ftj-pager__next">
+				<span class="ftj-pager__label">{c.pager.next.label}</span>
+				<span class="ftj-pager__title">{c.pager.next.title}</span>
+			</a>
+		</nav>
+	</article>
+</BaseLayout>
+
+<style>
+	/* FTJ's own reserved accent (sampled from the product's brand blue,
+	   same reasoning as the hubstep teal via --color-accent in
+	   global.css) for the active Section Index item — kept local to
+	   this page rather than promoted to a shared token, since it's a
+	   per-case-study brand color, not a sitewide one. */
+	.case-index a.is-active {
+		color: #0496ce;
+	}
+
+	.ftj-hero {
+		margin-top: var(--space-6);
+	}
+
+	/* hero2.png is 4:3 (a screen-collage composite, not a 16:9 banner like
+	   the hubstep heroes). Run it full-bleed at that ratio and it reads
+	   noticeably taller/heavier than the other case studies' hero bands —
+	   capping its width (rather than cropping the image) keeps its
+	   rendered height in the same neighborhood without forcing an exact
+	   ratio match. */
+	.ftj-hero__img {
+		display: block;
+		width: 100%;
+		max-width: 44rem;
+		height: auto;
+		margin-inline: auto;
+	}
+
+	/* Vertical rhythm inside a section: heading, then blocks spaced evenly. */
+	.case-section > :global(* + *) {
+		margin-top: var(--space-4);
+	}
+
+	.case-section > h2 + :global(*) {
+		margin-top: var(--space-4);
+	}
+
+	/* Outcome stats — 2×2, hairline separators instead of cards. */
+	.ftj-stats {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		margin-bottom: 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.ftj-stat {
+		padding: var(--space-3) var(--space-3) var(--space-3) 0;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.ftj-stat__value {
+		font-size: var(--text-h2);
+		font-weight: 700;
+		line-height: 1.1;
+		letter-spacing: -0.01em;
+		color: #154384;
+	}
+
+	.ftj-stat__label {
+		margin: var(--space-1) 0 0;
+		color: var(--color-text-muted);
+		font-family: var(--font-body);
+		font-size: 0.9em;
+		line-height: 1.75;
+	}
+
+	/* Research: the competitive-audit visual, enlargeable since its value
+	   is in showing the breadth of the audit, not being legible inline
+	   at full width (per EnlargeableImage's existing lightbox pattern). */
+	.ftj-audit__caption {
+		margin: var(--space-2) 0 0;
+		font-size: var(--text-label);
+		color: var(--color-text-muted);
+	}
+
+	/* App audit sits beside its own explanation rather than stacking as
+	   a second full-width hero image — reads as an extension of the
+	   research (smaller, paired with text) rather than competing with
+	   the Desktop audit above. ~52/48 split, with a wide gap standing
+	   in for "generous whitespace between them". */
+	.ftj-research-row {
+		display: grid;
+		grid-template-columns: 1.1fr 1fr;
+		gap: var(--space-8);
+		align-items: center;
+		margin-top: var(--space-8);
+	}
+
+	.ftj-research-row__visual {
+		margin: 0;
+	}
+
+	.ftj-research-row__text {
+		max-width: none;
+	}
+
+	/* Research synthesis — two findings the audit narrowed the redesign
+	   to. Deliberately plain (hairline + numbering, no card chrome) to
+	   stay editorial rather than reading as a UI component. */
+	.ftj-synthesis {
+		margin-top: var(--space-8);
+	}
+
+	.ftj-synthesis__heading {
+		font-size: var(--text-body);
+		font-weight: 600;
+		line-height: 1.3;
+	}
+
+	/* Card grid: rows are shared via subgrid, so each row (tag / heading /
+	   body / keywords) takes the height of whichever card needs more —
+	   the shorter card's cells stretch to match, which is what keeps the
+	   heading block and the keywords line aligned across both cards
+	   regardless of copy length, without hardcoding any heights. */
+	.ftj-synthesis__grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: auto auto auto auto;
+		column-gap: var(--space-6);
+		margin-top: var(--space-4);
+	}
+
+	.ftj-synthesis__item {
+		display: grid;
+		grid-template-rows: subgrid;
+		grid-row: 1 / -1;
+		padding: var(--space-4);
+		border: 1px solid var(--color-border);
+		border-radius: 20px;
+		box-shadow: 0 4px 16px -8px rgba(17, 17, 17, 0.12);
+	}
+
+	.ftj-synthesis__tag {
+		display: flex;
+		align-items: baseline;
+		gap: var(--space-2);
+	}
+
+	.ftj-synthesis__num,
+	.ftj-learnings__num {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		color: var(--color-text-muted);
+	}
+
+	.ftj-synthesis__label {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		font-weight: 700;
+	}
+
+	.ftj-synthesis__item-heading {
+		/* h4 isn't covered by global.css's h1/h2/h3 margin reset, so its
+		   UA default margin-bottom (~1em) was adding extra space here on
+		   top of the next element's own margin-top — reset it explicitly. */
+		margin: var(--space-2) 0 0;
+		font-size: var(--text-body);
+		font-weight: 600;
+		line-height: 1.3;
+		color: #154384;
+	}
+
+	.ftj-synthesis__body {
+		margin-top: var(--space-2);
+		color: var(--color-text-muted);
+		font-family: var(--font-body);
+		font-size: 0.9em;
+		line-height: 1.75;
+	}
+
+	.ftj-synthesis__body strong {
+		font-weight: 600;
+	}
+
+	.ftj-synthesis__keywords {
+		margin-top: var(--space-2);
+		font-size: var(--text-label);
+		letter-spacing: 0.02em;
+		color: var(--color-text-muted);
+	}
+
+	/* Design exploration: each example gets generous room to breathe
+	   (space-editorial-ish gap) since the visuals carry the story and
+	   shouldn't feel cramped together. */
+	.ftj-examples {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-12);
+	}
+
+	.ftj-insights-head,
+	.ftj-setup__label {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.ftj-example__heading {
+		margin-top: var(--space-2);
+		font-size: var(--text-body);
+		font-weight: 600;
+		line-height: 1.3;
+	}
+
+	/* Flexbox rather than a fixed-column grid so a 2-step (exploration →
+	   implemented) and a 3-step (before → reference → implemented)
+	   example both lay out correctly without separate markup. */
+	.ftj-steps {
+		display: flex;
+		align-items: flex-start;
+		gap: var(--space-3);
+		margin-top: var(--space-4);
+	}
+
+	.ftj-steps__step {
+		flex: 1;
+		min-width: 0;
+		margin: 0;
+	}
+
+	.ftj-steps__step .section-eyebrow {
+		margin-bottom: var(--space-2);
+	}
+
+	/* Real screenshots, not a uniform placeholder box — each renders at
+	   its own natural aspect ratio (no crop/distortion), so steps in the
+	   same row can end at different heights when their source images
+	   have different proportions. */
+	.ftj-steps__img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	/* A step can hold more than one image (Example 03's "Exploration"
+	   step shows two directions explored before the team converged) —
+	   stacked in place rather than spilling into their own columns, so
+	   they still read as one step in the Before/Exploration/Implemented
+	   sequence rather than a whole extra step. */
+	.ftj-steps__images {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+	}
+
+	/* Example 01 only: 2x2 editorial grid instead of a single row, so
+	   four screens can run much larger. No arrows — numbering + the
+	   existing eyebrow label style (reused as-is, not a new type style)
+	   carry the sequence instead of a process-diagram feel. */
+	.ftj-steps-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		column-gap: var(--space-6);
+		row-gap: var(--space-8);
+		margin-top: var(--space-4);
+	}
+
+	.ftj-steps-grid__item {
+		margin: 0;
+	}
+
+	/* A lone item in the last row (odd step count, e.g. Example 02's
+	   3-step Before/My proposal/Implemented) spans both columns instead
+	   of sitting half-width with an empty cell beside it — reads as the
+	   result the other two lead up to, not a leftover. */
+	.ftj-steps-grid__item--full {
+		grid-column: 1 / -1;
+	}
+
+	.ftj-steps-grid__item--full .ftj-steps__images {
+		max-width: 60%;
+	}
+
+	.ftj-steps-grid__item .section-eyebrow {
+		margin-bottom: var(--space-2);
+	}
+
+	/* Usability testing: the heaviest section — bigger heading, more air,
+	   a tinted band for the setup summary, larger participant blocks. */
+	.ftj-testing {
+		margin-top: calc(var(--space-editorial) * 1.15);
+	}
+
+	.case-section.ftj-testing > h2 {
+		font-size: var(--text-h2);
+	}
+
+	.ftj-setup {
+		padding: var(--space-3) 0;
+		border-top: 1px solid var(--color-text);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.ftj-setup ul {
+		list-style: none;
+		margin: var(--space-2) 0 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-1) var(--space-4);
+		font-weight: 600;
+		font-size: 0.9em;
+	}
+
+	.ftj-insights-head {
+		margin-top: var(--space-8);
+	}
+
+	.ftj-insights {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-8) var(--space-4);
+	}
+
+	.case-section > .ftj-insights {
+		margin-top: var(--space-3);
+	}
+
+	/* Anonymized-participant avatar — a generic themed photo, not a
+	   portrait of the actual person, cropped to a small circle so it
+	   reads as a lightweight identifier rather than a "final" image. */
+	.ftj-avatar {
+		display: block;
+		width: 64px;
+		height: 64px;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
+	.ftj-insight__name {
+		margin-top: var(--space-3);
+		font-size: var(--text-h3);
+	}
+
+	.ftj-insight dl {
+		margin: var(--space-3) 0 0;
+	}
+
+	.ftj-insight dt {
+		margin-top: var(--space-4);
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.ftj-insight dt:first-child {
+		margin-top: 0;
+	}
+
+	.ftj-insight dd {
+		margin: var(--space-1) 0 0;
+		color: var(--color-text-muted);
+		font-family: var(--font-body);
+		font-size: 0.9em;
+		line-height: 1.75;
+	}
+
+	/* Specificity needs to beat ".ftj-insight dd" above (which now sets
+	   the muted/Montserrat body treatment) so this stays the emphasized,
+	   near-black takeaway line rather than blending into the rest of
+	   the card. */
+	.ftj-insight dd.ftj-insight__revealed {
+		color: var(--color-text);
+		font-family: var(--font-sans);
+		font-weight: 600;
+	}
+
+	/* Learning: three short rows. */
+	.ftj-learnings {
+		list-style: none;
+		margin: var(--space-4) 0 0;
+		padding: 0;
+	}
+
+	.ftj-learnings li {
+		display: grid;
+		grid-template-columns: 3rem 1fr;
+		column-gap: var(--space-2);
+		padding: var(--space-3) 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.ftj-learnings li:last-child {
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.ftj-learnings__title {
+		font-size: var(--text-h3);
+		font-weight: 700;
+		line-height: 1.2;
+	}
+
+	.ftj-learnings__body {
+		grid-column: 2;
+		margin: var(--space-1) 0 0;
+		max-width: var(--measure);
+		color: var(--color-text-muted);
+		font-family: var(--font-body);
+		font-size: 0.9em;
+		line-height: 1.75;
+	}
+
+	/* Footer navigation: Previous / Back to all work. */
+	.ftj-pager {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-4);
+		margin-top: var(--space-16);
+		padding: var(--space-6) 0 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.ftj-pager a {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
+		text-decoration: none;
+		transition: opacity 150ms ease;
+	}
+
+	.ftj-pager a:hover,
+	.ftj-pager a:focus-visible {
+		opacity: 0.7;
+	}
+
+	.ftj-pager__next {
+		text-align: right;
+		align-items: flex-end;
+	}
+
+	.ftj-pager__label {
+		font-size: var(--text-label);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.ftj-pager__title {
+		font-size: var(--text-h3);
+		font-weight: 700;
+		line-height: 1.2;
+	}
+
+	@media (max-width: 640px) {
+		.ftj-stats,
+		.ftj-synthesis__grid,
+		.ftj-insights,
+		.ftj-pager {
+			grid-template-columns: 1fr;
+		}
+
+		/* Single column now, so the two cards no longer share rows —
+		   each falls back to sizing its own content normally instead of
+		   trying to occupy the same subgrid row range. */
+		.ftj-synthesis__grid {
+			grid-template-rows: none;
+			row-gap: var(--space-4);
+		}
+
+		.ftj-synthesis__item {
+			grid-template-rows: auto;
+			grid-row: auto;
+		}
+
+		.ftj-research-row {
+			grid-template-columns: 1fr;
+		}
+
+		.ftj-steps {
+			flex-direction: column;
+		}
+
+		.ftj-steps-grid {
+			grid-template-columns: 1fr;
+			row-gap: var(--space-6);
+		}
+
+		.ftj-pager__next {
+			text-align: left;
+			align-items: flex-start;
+		}
+	}
+</style>
+
+<script>
+	// Section Index scrollspy (same behavior as the shared case-study
+	// template): the section nearest the top of the reading band is "current".
+	const sections = document.querySelectorAll<HTMLElement>('.case-sections .case-section[id]');
+	const links = document.querySelectorAll<HTMLAnchorElement>('.case-index a[href^="#"]');
+	if (sections.length && links.length) {
+		const setActive = (id: string) => {
+			links.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === `#${id}`));
+		};
+		const headerH = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0;
+		let observer: IntersectionObserver | undefined;
+		const visible = new Set<string>();
+
+		const build = () => {
+			observer?.disconnect();
+			visible.clear();
+			observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((e) => (e.isIntersecting ? visible.add(e.target.id) : visible.delete(e.target.id)));
+					let current: string | undefined;
+					let bestTop = Infinity;
+					visible.forEach((id) => {
+						const top = document.getElementById(id)!.getBoundingClientRect().top;
+						if (top < bestTop) {
+							bestTop = top;
+							current = id;
+						}
+					});
+					if (current) setActive(current);
+				},
+				{ rootMargin: `-${headerH() + 8}px 0px -70% 0px`, threshold: 0 }
+			);
+			sections.forEach((s) => observer!.observe(s));
+		};
+
+		build();
+		window.addEventListener('resize', build);
+	}
+</script>

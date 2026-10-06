@@ -16,6 +16,10 @@ interface Props {
 const { title, lang = 'en', translationHref } = Astro.props;
 
 const nav = lang === 'ja' ? { about: 'プロフィール', email: 'メール' } : { about: 'About', email: 'Email' };
+
+// Resume PDF shown in the header and footer. One English PDF
+// (public/resume.pdf) serves both language versions of the site.
+const resume = { label: 'Resume', href: '/resume.pdf' };
 ---
 
 <html lang={lang}>
@@ -48,13 +52,7 @@ const nav = lang === 'ja' ? { about: 'プロフィール', email: 'メール' } 
 				<a href={lang === 'ja' ? '/ja/' : '/'}>YUI TANIYAMA</a>
 				<div class="site-nav__links">
 					<a href={lang === 'ja' ? '/ja/about/' : '/about'}>{nav.about}</a>
-					{
-						/* Resume link hidden until the actual PDF is in place at
-						   public/resume.pdf — pointing it at a file that 404s
-						   would be worse than leaving it out for now. Re-add the
-						   two links below (here and in the footer) once the file
-						   exists. */
-					}
+					{resume && <a href={resume.href} target="_blank" rel="noopener">{resume.label}</a>}
 					<a href="mailto:taniyama.yu65709@gmail.com">{nav.email}</a>
 					<a href="https://www.linkedin.com/in/yui-taniyama" target="_blank" rel="noopener">LinkedIn</a>
 					<span class="site-nav__lang">
@@ -103,6 +101,7 @@ const nav = lang === 'ja' ? { about: 'プロフィール', email: 'メール' } 
 		</main>
 
 		<footer class="site-footer page-padding">
+			{resume && <a href={resume.href} target="_blank" rel="noopener">{resume.label}</a>}
 			<a href="mailto:taniyama.yu65709@gmail.com">{nav.email}</a>
 			<a href="https://www.linkedin.com/in/yui-taniyama" target="_blank" rel="noopener">LinkedIn</a>
 		</footer>
