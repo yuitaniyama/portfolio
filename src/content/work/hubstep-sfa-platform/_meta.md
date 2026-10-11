@@ -26,6 +26,7 @@ challenges:
     body: "Re-examining the released product through feedback from the internal sales team, and friction I found using it myself."
     linkLabel: "Shipping Exposed the Real UX Problems"
     href: "#shipping-exposed-the-real-ux-problems"
+resultsNote: "These features have not been released to all users yet, so usage statistics are not available."
 results:
   - tag: "01"
     label: "Before release"
@@ -49,7 +50,6 @@ results:
         label: "UX/UI issues I found myself, with improvement proposals"
       - value: "3"
         label: "workflow-level UX improvements and early-stage issue framings"
-    note: "I took the managed-account selection screen and the call-case list-add UI to the PdM and Engineering myself, which led to concrete improvement work."
     linkLabel: "Shipping Exposed the Real UX Problems"
     href: "#shipping-exposed-the-real-ux-problems"
 intro: |

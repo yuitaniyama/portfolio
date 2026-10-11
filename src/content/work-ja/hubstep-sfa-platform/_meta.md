@@ -26,6 +26,7 @@ challenges:
     body: "社内の営業チームのフィードバックや、自分自身が使う中で感じた使いにくさをもとに、リリース後のプロダクトを見直していくこと。"
     linkLabel: "リリースで見えてきた本当のUX課題"
     href: "#03-shipping-exposed"
+resultsNote: "これらの機能はまだ全ユーザーにリリースしていないため、統計はまだ取れていない。"
 results:
   - tag: "01"
     label: "リリース前"
@@ -49,7 +50,6 @@ results:
         label: "自ら見つけたUX/UI課題について、改善案を検討"
       - value: "3件"
         label: "業務フロー単位のUX改善・設計初期の論点整理"
-    note: "管理先選択画面と、架電案件のリスト追加UIは、PdM・エンジニアリングに自ら提案し、具体的な改善検討につなげた。"
     linkLabel: "リリースで見えてきた本当のUX課題"
     href: "#03-shipping-exposed"
 intro: |

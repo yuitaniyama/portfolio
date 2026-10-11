@@ -34,6 +34,8 @@ const work = defineCollection({
 				})
 			)
 			.optional(),
+		// Optional short caveat shown under the "Result" heading.
+		resultsNote: z.string().optional(),
 		// Optional "Result" boxes shown under the problem boxes: one per
 		// problem, same order. `stats` are at-a-glance numbers.
 		results: z
@@ -140,6 +142,8 @@ const workJa = defineCollection({
 				})
 			)
 			.optional(),
+		// Optional short caveat shown under the "Result" heading.
+		resultsNote: z.string().optional(),
 		// Optional "Result" boxes shown under the problem boxes: one per
 		// problem, same order. `stats` are at-a-glance numbers.
 		results: z

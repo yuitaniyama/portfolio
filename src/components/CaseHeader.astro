@@ -17,6 +17,7 @@ interface Props {
 	// introducing them (e.g. "...two different design challenges:").
 	challenges?: { tag: string; label: string; heading: string; body: string; linkLabel?: string; href?: string }[];
 	// Optional "Result" boxes shown under the problem boxes (one per problem).
+	resultsNote?: string;
 	results?: {
 		tag: string;
 		label: string;
@@ -32,7 +33,7 @@ interface Props {
 	lang?: 'en' | 'ja';
 }
 
-const { eyebrow, title, description, titleNote, meta, intro, challenges, results, lang = 'en' } = Astro.props;
+const { eyebrow, title, description, titleNote, meta, intro, challenges, results, resultsNote, lang = 'en' } = Astro.props;
 const projectInfoLabel = lang === 'ja' ? 'プロジェクト情報' : 'Project Info';
 
 // A meta value listing several items uses " · " as its delimiter (e.g.
@@ -97,6 +98,7 @@ const metaRows = meta.map((m) => ({ label: m.label, values: m.value.split(' · '
 							{results && results.length > 0 && (
 								<>
 									<h2 class="case-challenges__title case-challenges__title--result">Result</h2>
+									{resultsNote && <p class="case-challenges__subtext">{resultsNote}</p>}
 									<div class="case-challenges case-challenges--results">
 										{results.map((r) => (
 											<div class="case-challenge">
@@ -231,6 +233,13 @@ const metaRows = meta.map((m) => ({ label: m.label, values: m.value.split(' · '
 		margin-top: var(--space-8);
 	}
 
+	.case-challenges__subtext {
+		margin: var(--space-2) 0 0;
+		font-size: 0.9375rem;
+		line-height: 1.7;
+		color: var(--color-text-muted);
+	}
+
 	/* Result boxes: six shared rows (tag, heading, body, stats, note,
 	   link) so both cards line up even when one has no stats. */
 	.case-challenges--results {
@@ -247,7 +256,6 @@ const metaRows = meta.map((m) => ({ label: m.label, values: m.value.split(' · '
 		align-items: baseline;
 		gap: var(--space-3);
 		padding: var(--space-2) 0;
-		border-top: 1px solid var(--color-border);
 	}
 
 	.case-result__value {
@@ -278,7 +286,6 @@ const metaRows = meta.map((m) => ({ label: m.label, values: m.value.split(' · '
 	.case-result__flow-step {
 		position: relative;
 		padding: var(--space-2) 0 var(--space-2) 2rem;
-		border-top: 1px solid var(--color-border);
 		font-size: 0.9375rem;
 		line-height: 1.5;
 		color: var(--color-text);
@@ -298,7 +305,6 @@ const metaRows = meta.map((m) => ({ label: m.label, values: m.value.split(' · '
 	.case-result__note {
 		margin: var(--space-2) 0 0;
 		padding-top: var(--space-2);
-		border-top: 1px solid var(--color-border);
 		font-size: 0.9375rem;
 		line-height: 1.7;
 		color: var(--color-text-muted);
