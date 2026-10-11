@@ -17,17 +17,17 @@ challenges:
   - tag: "01"
     label: "Before release"
     heading: "An ambiguous product direction"
-    body: "Helping the team turn it into something concrete enough to build."
+    body: "SFA was the direction, but the experience wasn't concrete yet. The challenge was turning it into something the team could build."
     linkLabel: "Making an Ambiguous Product Tangible"
     href: "#making-an-ambiguous-product-tangible"
   - tag: "02"
     label: "After release"
-    heading: "UX problems that surfaced after release"
-    body: "Re-examining the released product as new UX problems became visible."
+    heading: "UI/UX problems surfaced by internal users' feedback"
+    body: "Re-examining the released product through feedback from the internal sales team, and friction I found using it myself."
     linkLabel: "Shipping Exposed the Real UX Problems"
     href: "#shipping-exposed-the-real-ux-problems"
 intro: |
-  hubstep began as a CRM focused on direct mail operations. As the business expanded into SFA, I worked across two different design challenges:
+  hubstep began as a CRM focused on direct mail operations. As the business expanded into SFA, I worked across two different design challenges.
 
   My role gradually expanded from translating requirements into UI to questioning navigation, page responsibilities, and workflows across the product — while exploring what the next sales experience could become.
 ---

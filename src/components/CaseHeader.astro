@@ -59,7 +59,9 @@ const metaRows = meta.map((m) => ({ label: m.label, values: m.value.split(' · '
 				<Fragment>
 					<p>{p}</p>
 					{i === 0 && challenges && challenges.length > 0 && (
-						<div class="case-challenges">
+						<div class="case-challenges-wrap">
+							<h2 class="case-challenges__title">Problem</h2>
+							<div class="case-challenges">
 							{challenges.map((c) => (
 								<div class="case-challenge">
 									<div class="case-challenge__tag">
@@ -77,6 +79,7 @@ const metaRows = meta.map((m) => ({ label: m.label, values: m.value.split(' · '
 									)}
 								</div>
 							))}
+							</div>
 						</div>
 					)}
 				</Fragment>
@@ -110,6 +113,12 @@ const metaRows = meta.map((m) => ({ label: m.label, values: m.value.split(' · '
 	   with hubstep's teal for the heading. Rows are shared via subgrid so
 	   the headings and bodies line up across both cards. Font sizes are
 	   explicit because the intro copy around them is set larger. */
+	.case-challenges__title {
+		margin: var(--space-6) 0 0;
+		font-size: clamp(1.5rem, 1.25rem + 0.75vw, 1.875rem);
+		line-height: 1.2;
+	}
+
 	.case-challenges {
 		display: grid;
 		grid-template-columns: 1fr 1fr;

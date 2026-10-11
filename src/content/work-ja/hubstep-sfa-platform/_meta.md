@@ -16,14 +16,14 @@ heroVisual: "Visual 01 — Hero composition using several strong hubstep screens
 challenges:
   - tag: "01"
     label: "リリース前"
-    heading: "曖昧だったプロダクトの方向性"
-    body: "チームが実装できる具体的な形に変えていくこと。"
+    heading: "曖昧なプロダクトの方向性"
+    body: "SFAへ拡張する方針は決まっていたが、体験の具体像は固まっていなかった。それをチームが実装に進める形にしていくこと。"
     linkLabel: "曖昧なプロダクトを具体化する"
     href: "#02-making-tangible"
   - tag: "02"
     label: "リリース後"
-    heading: "リリース後に見えてきたUXの課題"
-    body: "リリース後に新たに見えてきたUXの問題を踏まえて、プロダクトを見直していくこと。"
+    heading: "社内ユーザーの声から見えてきたUIUXの課題"
+    body: "社内の営業チームのフィードバックや、自分自身が使う中で感じた使いにくさをもとに、リリース後のプロダクトを見直していくこと。"
     linkLabel: "リリースで見えてきた本当のUX課題"
     href: "#03-shipping-exposed"
 intro: |
