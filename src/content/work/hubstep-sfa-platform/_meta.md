@@ -26,6 +26,32 @@ challenges:
     body: "Re-examining the released product through feedback from the internal sales team, and friction I found using it myself."
     linkLabel: "Shipping Exposed the Real UX Problems"
     href: "#shipping-exposed-the-real-ux-problems"
+results:
+  - tag: "01"
+    label: "Before release"
+    heading: "Ideas made visible, direction settled"
+    body: "I turned stakeholders' ideas into high-fidelity screens one after another. That made the discussion visible and let the team settle on a direction."
+    flow:
+      - "Stakeholders' ideas"
+      - "High-fidelity screens"
+      - "Discussion made visible"
+      - "Direction settled"
+    linkLabel: "Making an Ambiguous Product Tangible"
+    href: "#making-an-ambiguous-product-tangible"
+  - tag: "02"
+    label: "After release"
+    heading: "Improvements delivered, and issues I raised myself"
+    body: "Beyond the requested fixes, I organized issues from the existing flows and proposed improvements on my own. First-half review:"
+    stats:
+      - value: "28"
+        label: "post-release improvement items addressed"
+      - value: "14"
+        label: "UX/UI issues I found myself, with improvement proposals"
+      - value: "3"
+        label: "workflow-level UX improvements and early-stage issue framings"
+    note: "I took the managed-account selection screen and the call-case list-add UI to the PdM and Engineering myself, which led to concrete improvement work."
+    linkLabel: "Shipping Exposed the Real UX Problems"
+    href: "#shipping-exposed-the-real-ux-problems"
 intro: |
   hubstep began as a CRM focused on direct mail operations. As the business expanded into SFA, I worked across two different design challenges.
 

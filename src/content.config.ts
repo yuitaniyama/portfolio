@@ -34,6 +34,23 @@ const work = defineCollection({
 				})
 			)
 			.optional(),
+		// Optional "Result" boxes shown under the problem boxes: one per
+		// problem, same order. `stats` are at-a-glance numbers.
+		results: z
+			.array(
+				z.object({
+					tag: z.string(),
+					label: z.string(),
+					heading: z.string(),
+					body: z.string(),
+					stats: z.array(z.object({ value: z.string(), label: z.string() })).optional(),
+					flow: z.array(z.string()).optional(),
+					note: z.string().optional(),
+					linkLabel: z.string().optional(),
+					href: z.string().optional(),
+				})
+			)
+			.optional(),
 	}),
 });
 
@@ -118,6 +135,23 @@ const workJa = defineCollection({
 					label: z.string(),
 					heading: z.string(),
 					body: z.string(),
+					linkLabel: z.string().optional(),
+					href: z.string().optional(),
+				})
+			)
+			.optional(),
+		// Optional "Result" boxes shown under the problem boxes: one per
+		// problem, same order. `stats` are at-a-glance numbers.
+		results: z
+			.array(
+				z.object({
+					tag: z.string(),
+					label: z.string(),
+					heading: z.string(),
+					body: z.string(),
+					stats: z.array(z.object({ value: z.string(), label: z.string() })).optional(),
+					flow: z.array(z.string()).optional(),
+					note: z.string().optional(),
 					linkLabel: z.string().optional(),
 					href: z.string().optional(),
 				})
