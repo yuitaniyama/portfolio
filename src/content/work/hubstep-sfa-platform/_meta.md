@@ -16,32 +16,26 @@ heroVisual: "Visual 01 — Hero composition using several strong hubstep screens
 challenges:
   - tag: "01"
     label: "Before release"
-    heading: "An ambiguous product direction"
+    heading: "The product direction was ambiguous, and the team was stuck in a conceptual loop"
     body: "SFA was the direction, but the experience wasn't concrete yet. The challenge was turning it into something the team could build."
-    linkLabel: "Making an Ambiguous Product Tangible"
-    href: "#making-an-ambiguous-product-tangible"
   - tag: "02"
     label: "After release"
     heading: "UI/UX problems surfaced by internal users' feedback"
     body: "Re-examining the released product through feedback from the internal sales team, and friction I found using it myself."
-    linkLabel: "Shipping Exposed the Real UX Problems"
-    href: "#shipping-exposed-the-real-ux-problems"
 resultsNote: "These features have not been released to all users yet, so usage statistics are not available."
 results:
   - tag: "01"
     label: "Before release"
-    heading: "Ideas made visible, direction settled"
+    heading: "Requirements turned into designs quickly with AI — about 2 months saved"
     body: "I turned stakeholders' ideas into high-fidelity screens one after another. That made the discussion visible and let the team settle on a direction."
     flow:
       - "Stakeholders' ideas"
       - "High-fidelity screens"
       - "Discussion made visible"
       - "Direction settled"
-    linkLabel: "Making an Ambiguous Product Tangible"
-    href: "#making-an-ambiguous-product-tangible"
   - tag: "02"
     label: "After release"
-    heading: "Improvements delivered, and issues I raised myself"
+    heading: "Requests plus my own proposals earned positive feedback from internal users"
     body: "Beyond the requested fixes, I organized issues from the existing flows and proposed improvements on my own. First-half review:"
     stats:
       - value: "28"
@@ -50,8 +44,6 @@ results:
         label: "UX/UI issues I found myself, with improvement proposals"
       - value: "3"
         label: "workflow-level UX improvements and early-stage issue framings"
-    linkLabel: "Shipping Exposed the Real UX Problems"
-    href: "#shipping-exposed-the-real-ux-problems"
 intro: |
   hubstep began as a CRM focused on direct mail operations. As the business expanded into SFA, I worked across two different design challenges.
 

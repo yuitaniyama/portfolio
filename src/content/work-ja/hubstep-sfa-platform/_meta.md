@@ -16,32 +16,26 @@ heroVisual: "Visual 01 — Hero composition using several strong hubstep screens
 challenges:
   - tag: "01"
     label: "リリース前"
-    heading: "曖昧なプロダクトの方向性"
+    heading: "プロダクトの方向性が曖昧で、コンセプチュアルループにはまっていた"
     body: "SFAへ拡張する方針は決まっていたが、体験の具体像は固まっていなかった。それをチームが実装に進める形にしていくこと。"
-    linkLabel: "曖昧なプロダクトを具体化する"
-    href: "#02-making-tangible"
   - tag: "02"
     label: "リリース後"
     heading: "社内ユーザーの声から見えてきたUIUXの課題"
     body: "社内の営業チームのフィードバックや、自分自身が使う中で感じた使いにくさをもとに、リリース後のプロダクトを見直していくこと。"
-    linkLabel: "リリースで見えてきた本当のUX課題"
-    href: "#03-shipping-exposed"
 resultsNote: "これらの機能はまだ全ユーザーにリリースしていないため、統計はまだ取れていない。"
 results:
   - tag: "01"
     label: "リリース前"
-    heading: "アイデアを可視化し、方向性を固めた"
+    heading: "AIで要件を素早くデザインに。2ヶ月の短縮に成功。"
     body: "ステークホルダーのアイデアを、次々とハイファイの画面にして見せた。議論が目に見える形になり、チームは方向性を固めることができた。"
     flow:
       - "ステークホルダーのアイデア"
       - "ハイファイの画面"
       - "議論の可視化"
       - "方向性が固まる"
-    linkLabel: "曖昧なプロダクトを具体化する"
-    href: "#02-making-tangible"
   - tag: "02"
     label: "リリース後"
-    heading: "依頼された改善と、自ら見つけた課題の提案"
+    heading: "要望と自らの提案で、社内ユーザーから良いフィードバックが届くように。"
     body: "依頼された改善に対応するだけでなく、現状のフローから課題を整理し、自ら改善を提案した。上半期の評価より："
     stats:
       - value: "28件"
@@ -50,8 +44,6 @@ results:
         label: "自ら見つけたUX/UI課題について、改善案を検討"
       - value: "3件"
         label: "業務フロー単位のUX改善・設計初期の論点整理"
-    linkLabel: "リリースで見えてきた本当のUX課題"
-    href: "#03-shipping-exposed"
 intro: |
   hubstepは、ダイレクトメール業務に特化したCRMとしてスタートした。事業がSFAへと拡大するにつれ、私は2つの異なるデザイン課題に取り組んだ。
 
