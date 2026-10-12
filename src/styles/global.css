@@ -215,6 +215,142 @@ main h1 {
 	color: var(--color-text);
 }
 
+/* "Work" menu in the header: a popover listing every case study. Opens on
+   hover / keyboard focus (CSS) or tap (script adds .is-open). */
+.site-nav__work {
+	position: relative;
+}
+
+.site-nav__work-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
+	padding: 0;
+	border: 0;
+	background: none;
+	font: inherit;
+	letter-spacing: inherit;
+	text-transform: inherit;
+	color: inherit;
+	cursor: pointer;
+}
+
+.site-nav__work-btn svg {
+	transition: transform 150ms ease;
+}
+
+.site-nav__work:hover .site-nav__work-btn svg,
+.site-nav__work.is-open .site-nav__work-btn svg {
+	transform: rotate(180deg);
+}
+
+.site-nav__work-btn:hover,
+.site-nav__work-btn:focus-visible {
+	color: var(--color-text);
+}
+
+/* The extra top padding bridges the gap between the button and the card,
+   so the pointer can travel into the menu without it closing. */
+.work-menu {
+	position: absolute;
+	top: 100%;
+	left: -0.75rem;
+	z-index: 30;
+	width: 19rem;
+	padding-top: 0.75rem;
+	visibility: hidden;
+	opacity: 0;
+	transform: translateY(-4px);
+	transition: opacity 150ms ease, transform 150ms ease, visibility 0s linear 150ms;
+}
+
+.site-nav__work:hover .work-menu,
+.site-nav__work:focus-within .work-menu,
+.site-nav__work.is-open .work-menu {
+	visibility: visible;
+	opacity: 1;
+	transform: none;
+	transition-delay: 0s;
+}
+
+.work-menu__list {
+	list-style: none;
+	margin: 0;
+	padding: var(--space-1);
+	background: var(--color-bg);
+	border: 1px solid var(--color-border);
+	border-radius: 14px 14px 0 0;
+	border-bottom: 0;
+	box-shadow: 0 12px 32px -12px rgba(17, 17, 17, 0.2);
+}
+
+.work-menu__item {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	padding: 0.6rem 0.75rem;
+	border-radius: 10px;
+	letter-spacing: 0;
+	text-transform: none;
+	color: var(--color-text);
+}
+
+.work-menu__item:hover,
+.work-menu__item:focus-visible {
+	background: #f5f5f5;
+}
+
+.work-menu__item[aria-current='page'] {
+	background: #f5f5f5;
+}
+
+.work-menu__name {
+	font-size: 0.9375rem;
+	font-weight: 600;
+	line-height: 1.3;
+}
+
+.work-menu__sub {
+	font-size: 0.8125rem;
+	line-height: 1.4;
+	color: var(--color-text-muted);
+}
+
+.work-menu__all {
+	display: block;
+	padding: 0.7rem 1.5rem 0.85rem;
+	background: var(--color-bg);
+	border: 1px solid var(--color-border);
+	border-top: 1px solid var(--color-border);
+	border-radius: 0 0 14px 14px;
+	box-shadow: 0 12px 32px -12px rgba(17, 17, 17, 0.2);
+	font-size: var(--text-label);
+	letter-spacing: 0.02em;
+	text-transform: none;
+	color: var(--color-text-muted);
+}
+
+.work-menu__all:hover,
+.work-menu__all:focus-visible {
+	color: var(--color-text);
+}
+
+@media (max-width: 640px) {
+	.site-nav__work {
+		position: static;
+	}
+
+	/* On phones the menu spans the screen width under the header. */
+	.work-menu {
+		position: fixed;
+		top: var(--header-h);
+		left: var(--page-padding);
+		right: var(--page-padding);
+		width: auto;
+		padding-top: 0.25rem;
+	}
+}
+
 .site-footer {
 	margin-top: var(--space-16);
 	padding-top: var(--space-4);
