@@ -4,10 +4,12 @@
 // static and non-interactive (no expand icon, no lightbox) since it's
 // read at a glance rather than inspected closely.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
 	src="/section-07/current-sales-workflow.png"
-	alt="Current administrative workflow following a completed deal"
+	alt={ja ? '受注後の、現在の事務ワークフロー' : 'Current administrative workflow following a completed deal'}
 	enlargeable={false}
 />

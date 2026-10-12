@@ -5,9 +5,11 @@
 // this renders as a standalone full-width visual (no separate paired
 // text) with the existing click-to-expand lightbox.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
 	src="/section-05/error-recovery-gap.png"
-	alt="Opening the generated error file still repeats the same error message without guidance"
+	alt={ja ? '生成されたエラーファイルを開いても、ガイダンスのないまま同じエラーメッセージが繰り返される' : 'Opening the generated error file still repeats the same error message without guidance'}
 />

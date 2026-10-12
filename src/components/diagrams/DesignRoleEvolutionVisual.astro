@@ -4,10 +4,12 @@
 // screenshot under inspection, so it renders plainly at full width with
 // no expand icon or lightbox — just visible at a comfortable size.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
 	src="/section-08/design-role-evolution.png"
-	alt="Early stage: making an ambiguous idea tangible. Later stage: making a growing product coherent for users."
+	alt={ja ? '初期：曖昧なアイデアを具体的にする。後期：成長するプロダクトを、ユーザーにとって一貫したものにする。' : 'Early stage: making an ambiguous idea tangible. Later stage: making a growing product coherent for users.'}
 	enlargeable={false}
 />

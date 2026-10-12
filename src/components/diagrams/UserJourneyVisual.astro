@@ -5,14 +5,16 @@
 // full Reading Column width now that it stands alone, so it reads as
 // legible supporting evidence rather than an oversized hero.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <div class="ujv">
 	<EnlargeableImage
 		src="/section-04/section04-user-journey-roles.png"
-		alt="User journeys comparing salesperson and manager roles"
+		alt={ja ? '営業担当者とマネージャーのユーザージャーニーの比較' : 'User journeys comparing salesperson and manager roles'}
 	/>
-	<p class="ujv__caption">User journeys for different roles</p>
+	<p class="ujv__caption">{ja ? '役割ごとのユーザージャーニー' : 'User journeys for different roles'}</p>
 </div>
 
 <style>

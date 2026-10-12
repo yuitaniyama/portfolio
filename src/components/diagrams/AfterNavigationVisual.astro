@@ -5,9 +5,11 @@
 // lightbox (same pattern as the flow map and user journeys) rather
 // than the scroll-to-explore preview.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
 	src="/section-04/section04-after-navigation.png"
-	alt="Improved navigation between the redesigned Account Home and Sales Dashboard / Sales Report"
+	alt={ja ? '再設計したAccount HomeとSales Dashboard / Sales Reportの間の、改善したナビゲーション' : 'Improved navigation between the redesigned Account Home and Sales Dashboard / Sales Report'}
 />

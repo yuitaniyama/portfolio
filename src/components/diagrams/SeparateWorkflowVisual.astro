@@ -5,9 +5,11 @@
 // treatment as any other diagram — no eyebrow label, unlike the
 // adopted direction below it.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
 	src="/section-06/separate-workflow-proposal.png"
-	alt="Rejected proposal: users choose between DM and SFA workflows before entering either"
+	alt={ja ? '却下された案：ユーザーが、DMとSFAのどちらのワークフローに入るかを先に選ぶ' : 'Rejected proposal: users choose between DM and SFA workflows before entering either'}
 />

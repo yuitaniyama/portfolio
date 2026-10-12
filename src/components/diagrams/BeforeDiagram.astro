@@ -4,25 +4,27 @@
 // placed independently within the section's narrative. Visual design
 // unchanged — this is a straight extraction.
 import DiagramIcon from './DiagramIcon.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <div class="wf">
 	<div class="wf-block">
-		<div class="wf-label">Before</div>
+		<div class="wf-label">{ja ? '変更前' : 'Before'}</div>
 		<div class="wf-diagram wf-diagram--before">
 			<div class="wf-card">
 				<DiagramIcon name="clipboard" />
-				<span>List</span>
+				<span>{ja ? 'リスト' : 'List'}</span>
 			</div>
 			<div class="wf-connector" />
 			<div class="wf-card">
 				<DiagramIcon name="mail" />
-				<span>Direct Mail</span>
+				<span>{ja ? 'ダイレクトメール' : 'Direct Mail'}</span>
 			</div>
 			<div class="wf-connector" />
 			<div class="wf-card">
 				<DiagramIcon name="analysis" />
-				<span>Result</span>
+				<span>{ja ? '結果' : 'Result'}</span>
 			</div>
 		</div>
 	</div>

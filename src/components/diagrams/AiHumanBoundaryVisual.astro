@@ -4,9 +4,11 @@
 // detail-dense table, so it reuses the existing click-to-expand
 // lightbox for closer inspection.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
 	src="/section-07/ai-human-boundary.png"
-	alt="Table mapping task ownership, AI role, human review, and permissions across the sales workflow"
+	alt={ja ? '営業ワークフロー全体にわたる、タスクの担当、AIの役割、人によるレビュー、権限を整理した表' : 'Table mapping task ownership, AI role, human review, and permissions across the sales workflow'}
 />

@@ -4,10 +4,12 @@
 // its purpose here is to communicate scale/complexity, not to function
 // as a readable interactive diagram, so no expand icon or lightbox.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
 	src="/section-02/early-system-flow-mapping.png"
-	alt="Early system-level flow mapping of features, states, and screens, done before screen design"
+	alt={ja ? '画面設計の前に行った、機能・状態・画面のシステムレベルのフローの整理' : 'Early system-level flow mapping of features, states, and screens, done before screen design'}
 	enlargeable={false}
 />

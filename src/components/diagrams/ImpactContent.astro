@@ -9,23 +9,25 @@
 // card on the right — a factual explanation of the design-timeline
 // impact, not a testimonial/quote (class names kept as `impact-quote*`
 // to avoid an unrelated rename; the card's box styling is unchanged).
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 const metrics = [
 	{
 		value: '185',
-		label: 'Pages & modal states designed',
-		detail: '91 pages · 94 modal states',
+		label: ja ? '設計したページ・モーダルの状態' : 'Pages & modal states designed',
+		detail: ja ? '91ページ · 94モーダル' : '91 pages · 94 modal states',
 	},
 	{
-		value: '~2 months',
-		label: 'Estimated design time saved, according to the PdM',
+		value: ja ? '約2か月' : '~2 months',
+		label: ja ? 'PdMの見積もりによる、デザイン期間の短縮' : 'Estimated design time saved, according to the PdM',
 	},
 	{
 		value: '21',
-		label: 'Post-launch improvement projects',
+		label: ja ? 'リリース後の改善プロジェクト' : 'Post-launch improvement projects',
 	},
 	{
 		value: '12',
-		label: 'Additional improvement areas identified proactively',
+		label: ja ? '自ら見つけた追加の改善領域' : 'Additional improvement areas identified proactively',
 	},
 ];
 ---
@@ -44,10 +46,18 @@ const metrics = [
 	</div>
 
 	<div class="impact-quote">
-		<p class="impact-quote__text impact-quote__text--primary">Rapid prototyping accelerated the initial design phase.</p>
+		<p class="impact-quote__text impact-quote__text--primary">{ja ? 'ラピッドプロトタイピングが、初期のデザインフェーズを加速させた。' : 'Rapid prototyping accelerated the initial design phase.'}</p>
 		<p class="impact-quote__text impact-quote__text--secondary">
-			Turning early workflows into editable screens with Figma Make shortened the planned design timeline by
-			<strong>~2 months</strong>, according to the PdM.
+			{ja ? (
+				<Fragment>
+					初期のワークフローを、Figma Makeで編集可能な画面にすることで、計画していたデザイン期間が、PdMの見積もりで<strong>約2か月</strong>短縮された。
+				</Fragment>
+			) : (
+				<Fragment>
+					Turning early workflows into editable screens with Figma Make shortened the planned design timeline by{' '}
+					<strong>~2 months</strong>, according to the PdM.
+				</Fragment>
+			)}
 		</p>
 	</div>
 </div>

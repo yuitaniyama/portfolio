@@ -6,36 +6,38 @@
 // them read as one problem rather than two separate visuals.
 import ScrollableProductPreview from '../ScrollableProductPreview.astro';
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <div class="bdg">
 	<div class="bdg__cell">
 		<ScrollableProductPreview
 			src="/section-04/section04-home-before.png"
-			alt="Account Home before the redesign"
-			label="Account Home (before)"
+			alt={ja ? '再設計前のAccount Home' : 'Account Home before the redesign'}
+			label={ja ? 'Account Home（変更前）' : 'Account Home (before)'}
 			height={280}
 		/>
 	</div>
 	<div class="bdg__cell">
 		<EnlargeableImage
 			src="/section-04/section04-before-account-home-navigation.png"
-			alt="Navigation path back to Account Home"
+			alt={ja ? 'Account Homeに戻るためのナビゲーション経路' : 'Navigation path back to Account Home'}
 			enlargeable={false}
 		/>
 	</div>
 	<div class="bdg__cell">
 		<ScrollableProductPreview
 			src="/section-04/section04-sales-dashboard-before.png"
-			alt="Sales Dashboard before the redesign"
-			label="Sales Dashboard (before)"
+			alt={ja ? '再設計前のSales Dashboard' : 'Sales Dashboard before the redesign'}
+			label={ja ? 'Sales Dashboard（変更前）' : 'Sales Dashboard (before)'}
 			height={280}
 		/>
 	</div>
 	<div class="bdg__cell">
 		<EnlargeableImage
 			src="/section-04/section04-before-sales-dashboard-navigation.png"
-			alt="Side navigation path to Sales Dashboard"
+			alt={ja ? 'Sales Dashboardへのサイドナビゲーションの経路' : 'Side navigation path to Sales Dashboard'}
 			enlargeable={false}
 		/>
 	</div>

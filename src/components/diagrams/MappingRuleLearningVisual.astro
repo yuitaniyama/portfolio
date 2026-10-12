@@ -5,9 +5,11 @@
 // explanatory text all stay readable, with the existing click-to-expand
 // lightbox for closer inspection.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
 	src="/section-05/mapping-rule-learning.png"
-	alt="Mapping screen and FAQ page: users had to understand the system's data rules to map correctly"
+	alt={ja ? 'マッピング画面とFAQページ：正しくマッピングするには、ユーザーがシステムのデータルールを理解する必要があった' : 'Mapping screen and FAQ page: users had to understand the system\'s data rules to map correctly'}
 />

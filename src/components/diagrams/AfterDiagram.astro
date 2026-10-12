@@ -5,29 +5,31 @@
 // unchanged — this is a straight extraction.
 import DiagramIcon from './DiagramIcon.astro';
 
+const ja = Astro.url.pathname.startsWith('/ja/');
+
 const actionCards = [
-	{ icon: 'mail', label: 'Direct Mail' },
-	{ icon: 'phone', label: 'Call' },
-	{ icon: 'plus', label: 'Other Actions' },
+	{ icon: 'mail', label: ja ? 'ダイレクトメール' : 'Direct Mail' },
+	{ icon: 'phone', label: ja ? '架電' : 'Call' },
+	{ icon: 'plus', label: ja ? 'その他のアクション' : 'Other Actions' },
 ];
 
 const contextCards = [
-	{ icon: 'briefcase', label: 'Opportunities' },
+	{ icon: 'briefcase', label: ja ? '案件' : 'Opportunities' },
 	{ icon: 'check', label: 'TODO' },
-	{ icon: 'activity', label: 'Activities' },
-	{ icon: 'history', label: 'History' },
-	{ icon: 'analysis', label: 'Analysis' },
-	{ icon: 'arrow', label: 'Next Action' },
+	{ icon: 'activity', label: ja ? '活動' : 'Activities' },
+	{ icon: 'history', label: ja ? '履歴' : 'History' },
+	{ icon: 'analysis', label: ja ? '分析' : 'Analysis' },
+	{ icon: 'arrow', label: ja ? 'ネクストアクション' : 'Next Action' },
 ];
 ---
 
 <div class="wf">
 	<div class="wf-block">
-		<div class="wf-label">After</div>
+		<div class="wf-label">{ja ? '変更後' : 'After'}</div>
 		<div class="wf-diagram wf-diagram--after">
 			<div class="wf-card wf-card--source">
 				<DiagramIcon name="clipboard" />
-				<span>List / Contacts</span>
+				<span>{ja ? 'リスト / コンタクト' : 'List / Contacts'}</span>
 			</div>
 
 			<div class="wf-stem" aria-hidden="true" />

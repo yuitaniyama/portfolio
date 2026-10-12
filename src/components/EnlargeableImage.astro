@@ -118,10 +118,11 @@ const { src, alt, loading = 'lazy', class: className, enlargeable = true } = Ast
 		root.hidden = true;
 		root.setAttribute('role', 'dialog');
 		root.setAttribute('aria-modal', 'true');
-		root.setAttribute('aria-label', 'Enlarged image');
+		const isJa = document.documentElement.lang === 'ja';
+		root.setAttribute('aria-label', isJa ? '拡大表示' : 'Enlarged image');
 		root.innerHTML = `
 			<div class="site-lightbox__backdrop" data-lightbox-close></div>
-			<button type="button" class="site-lightbox__close" data-lightbox-close aria-label="Close enlarged image">
+			<button type="button" class="site-lightbox__close" data-lightbox-close aria-label="${isJa ? '拡大表示を閉じる' : 'Close enlarged image'}">
 				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
 					<path d="M6 6l12 12M18 6L6 18" />
 				</svg>

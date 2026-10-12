@@ -5,14 +5,16 @@
 // asset path/props live in one place; ProductWalkthrough itself stays
 // generic for future case-study videos.
 import ProductWalkthrough from '../ProductWalkthrough.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <ProductWalkthrough
 	src="/section-03/section03-product-walkthrough.mp4"
 	poster="/section-03/section03-product-walkthrough-poster.jpg"
-	label="First SFA Release"
-	dateRange="Jun–Jul 2026"
-	alt="Product walkthrough of the first hubstep SFA release"
+	label={ja ? '最初のSFAリリース' : 'First SFA Release'}
+	dateRange={ja ? '2026年6月〜7月' : 'Jun–Jul 2026'}
+	alt={ja ? '最初のhubstep SFAリリースのプロダクトウォークスルー' : 'Product walkthrough of the first hubstep SFA release'}
 	width={1744}
 	height={1190}
 />

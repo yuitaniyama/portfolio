@@ -5,14 +5,16 @@
 // pill-like boxes with no left accent line — the "after" card reads as
 // more important through its tinted background alone, not bold type or
 // a border, so hierarchy stays legible even at normal text weight.
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <div class="cs">
-	<p class="cs__lead">The challenge was shifting from:</p>
+	<p class="cs__lead">{ja ? '課題は、問いを次のように転換することだった：' : 'The challenge was shifting from:'}</p>
 
 	<div class="cs__comparison">
 		<div class="cs__card cs__card--before">
-			<p class="cs__quote cs__quote--before">“How do we build the SFA?”</p>
+			<p class="cs__quote cs__quote--before">{ja ? '「SFAをどう作るか？」' : '“How do we build the SFA?”'}</p>
 		</div>
 
 		<div class="cs__arrow" aria-hidden="true">
@@ -23,7 +25,7 @@
 
 		<div class="cs__card cs__card--after">
 			<p class="cs__quote cs__quote--after">
-				“How do we make the growing product work as one coherent sales experience?”
+				{ja ? '「成長を続けるプロダクトを、どうすれば1つの一貫した営業体験として機能させられるか？」' : '“How do we make the growing product work as one coherent sales experience?”'}
 			</p>
 		</div>
 	</div>

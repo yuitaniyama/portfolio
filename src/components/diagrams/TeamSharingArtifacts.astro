@@ -8,14 +8,16 @@
 // wider left column plus each image's own natural proportions is what
 // gives the portrait one more presence, not a forced equal size.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <div class="tsa">
 	<div class="tsa__item">
-		<EnlargeableImage src="/section-04/section04-team-sharing-01.png" alt="Findings shared with the team" />
+		<EnlargeableImage src="/section-04/section04-team-sharing-01.png" alt={ja ? 'チームに共有した調査結果' : 'Findings shared with the team'} />
 	</div>
 	<div class="tsa__item">
-		<EnlargeableImage src="/section-04/section04-team-sharing-02.png" alt="Findings shared with the team" />
+		<EnlargeableImage src="/section-04/section04-team-sharing-02.png" alt={ja ? 'チームに共有した調査結果' : 'Findings shared with the team'} />
 	</div>
 </div>
 

@@ -6,9 +6,11 @@
 // block (12-outcome-login.md), so this component renders only the
 // image — no duplicate caption.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
 	src="/section-04/section04-final-navigation-flow.png"
-	alt="Resulting navigation flow: login, Home, and Sales Report"
+	alt={ja ? '改善後のナビゲーションフロー：ログイン、Home、Sales Report' : 'Resulting navigation flow: login, Home, and Sales Report'}
 />

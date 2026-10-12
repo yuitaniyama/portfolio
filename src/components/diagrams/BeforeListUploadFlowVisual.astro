@@ -5,9 +5,11 @@
 // click-to-expand lightbox and gets full Reading Column width rather
 // than being shrunk to fit.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
 	src="/section-05/before-list-upload-flow.png"
-	alt="Existing six-step List Upload flow, with friction identified at each step"
+	alt={ja ? '既存の6ステップのリスト登録フロー。各ステップで見つかった摩擦を示している' : 'Existing six-step List Upload flow, with friction identified at each step'}
 />

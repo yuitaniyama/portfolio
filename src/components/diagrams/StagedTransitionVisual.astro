@@ -4,9 +4,11 @@
 // paired caption copy here. Plain full-width treatment, same weight as
 // the other supporting visual in this section.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
 	src="/section-06/staged-sfa-transition.png"
-	alt="Release 1 brings familiar DM work into Home; Release 2 refines navigation and surfaces DM lists for SFA"
+	alt={ja ? 'リリース1では、使い慣れたDMの作業をHomeに取り込む。リリース2では、ナビゲーションを磨き込み、SFAのためにDMのリストを表示する' : 'Release 1 brings familiar DM work into Home; Release 2 refines navigation and surfaces DM lists for SFA'}
 />

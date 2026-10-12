@@ -5,21 +5,24 @@
 // approved Section 04 text, just composed alongside its own visual
 // instead of sitting in a separate prose block above a shared grid.
 import ScrollableProductPreview from '../ScrollableProductPreview.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <div class="ohs">
 	<div class="prose ohs__text">
 		<h3>Home / Account Home</h3>
-		<p>Account Home was reframed around the logged-in user's work for the day.</p>
+		<p>{ja ? 'Account Homeは、ログインしているユーザーのその日の業務を軸に再構成された。' : "Account Home was reframed around the logged-in user's work for the day."}</p>
 		<p>
-			Access to Home was added directly to the side navigation, and the page was reorganized so users could
-			reach key areas of the product from Home.
+			{ja
+				? 'サイドナビゲーションからHomeへ直接アクセスできるようにし、ユーザーがHomeからプロダクトの主要な領域へ移動できるようにページを再編した。'
+				: 'Access to Home was added directly to the side navigation, and the page was reorganized so users could reach key areas of the product from Home.'}
 		</p>
 	</div>
 	<div class="ohs__visual">
 		<ScrollableProductPreview
 			src="/section-04/section04-home-after.png"
-			alt="Redesigned Account Home"
+			alt={ja ? '再設計後のAccount Home' : 'Redesigned Account Home'}
 			label="Account Home"
 			height={280}
 		/>

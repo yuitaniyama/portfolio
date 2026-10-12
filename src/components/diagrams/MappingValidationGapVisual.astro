@@ -4,9 +4,11 @@
 // later failing because mapped IDs don't match existing data. Primary,
 // full-width visual with the existing click-to-expand lightbox.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <EnlargeableImage
 	src="/section-05/mapping-validation-gap.png"
-	alt="Gap between the mapping step indicating requirements are met and the upload later failing"
+	alt={ja ? 'マッピングのステップでは要件を満たしていると示されるのに、のちにアップロードが失敗するというギャップ' : 'Gap between the mapping step indicating requirements are met and the upload later failing'}
 />

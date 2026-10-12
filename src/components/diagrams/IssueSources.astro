@@ -7,10 +7,12 @@
 // rather than a process — they happened at the same time, not in order.
 import DiagramIcon from './DiagramIcon.astro';
 
+const ja = Astro.url.pathname.startsWith('/ja/');
+
 const sources = [
-	{ icon: 'mail', text: 'Feedback from the internal sales team' },
-	{ icon: 'activity', text: 'Friction I noticed while using the product myself' },
-	{ icon: 'analysis', text: 'Workflows that had grown more complex as hubstep expanded beyond DM' },
+	{ icon: 'mail', text: ja ? '社内営業チームからのフィードバック' : 'Feedback from the internal sales team' },
+	{ icon: 'activity', text: ja ? '自分自身がプロダクトを使う中で感じた使いにくさ' : 'Friction I noticed while using the product myself' },
+	{ icon: 'analysis', text: ja ? 'hubstepがDMの枠を超えて拡張したことで複雑化したワークフロー' : 'Workflows that had grown more complex as hubstep expanded beyond DM' },
 ];
 ---
 

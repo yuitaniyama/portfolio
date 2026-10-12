@@ -6,13 +6,15 @@
 // SFA Release" marker) to read as the primary visual — not a new
 // decorative style, just the existing pattern reused for emphasis.
 import EnlargeableImage from '../EnlargeableImage.astro';
+
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <div class="ihd">
-	<div class="ihd__label">Adopted direction</div>
+	<div class="ihd__label">{ja ? '採用した方向性' : 'Adopted direction'}</div>
 	<EnlargeableImage
 		src="/section-06/integrated-home-direction.png"
-		alt="Adopted direction: familiar DM work brought into the SFA Home"
+		alt={ja ? '採用した方向性：使い慣れたDMの作業を、SFAのHomeに取り込む' : 'Adopted direction: familiar DM work brought into the SFA Home'}
 	/>
 </div>
 
