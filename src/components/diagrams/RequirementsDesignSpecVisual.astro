@@ -46,14 +46,14 @@ const ja = Astro.url.pathname.startsWith('/ja/');
 		<img
 			class="rq-img"
 			style="grid-column: design;"
-			src={`${BASE}/design-exploration.png`}
-			alt={ja ? '多くのSFAデザイン探索を、注釈の線でつないだ横長のFigmaボード' : 'A wide Figma board showing many iterated SFA design explorations, connected by annotation lines'}
+			src={`${BASE}/early-system-flow-thumb.webp`}
+			alt={ja ? 'SFAの要件を、機能・状態・画面のつながりとして整理した、システムレベルのフロー図' : 'A system-level flow diagram of the SFA requirements, showing how features, states, and screens connect'}
 			loading="eager"
 			decoding="async"
 		/>
 		<div class="rq-label" style="grid-column: design;">{ja ? 'デザイン探索' : 'Design exploration'}</div>
 		<div class="rq-caption" style="grid-column: design;">
-			{ja ? 'ワークフローを、議論し、問い直し、磨き込めるだけ具体的にする' : 'Making the workflow concrete enough to discuss, challenge, and refine'}
+			{ja ? 'フロー図で、要件に破綻がないか、追加で必要な画面はないかを、エンジニアと検討する' : 'Using flow diagrams to check the requirements for gaps and missing screens, together with Engineering'}
 		</div>
 
 		<div class="rq-connector" style="grid-column: connB;">
