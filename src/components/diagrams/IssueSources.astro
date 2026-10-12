@@ -3,8 +3,10 @@
 // issues surfaced from, exactly as stated in the surrounding prose:
 // sales-team feedback, friction the designer noticed personally, and
 // workflows grown more complex as the product expanded. Presented as
-// three parallel, unordered sources (no numbering, no sequence arrows)
-// rather than a process — they happened at the same time, not in order.
+// three parallel, unordered boxes (a "Problem" label, an icon and one
+// line each; no numbering, no sequence arrows) rather than a process —
+// they happened at the same time, not in order. Same plain card look as
+// the Problem / Result boxes in the case header.
 import DiagramIcon from './DiagramIcon.astro';
 
 const ja = Astro.url.pathname.startsWith('/ja/');
@@ -20,6 +22,7 @@ const sources = [
 	{
 		sources.map((s) => (
 			<div class="is-item">
+				<span class="is-item__tag">Problem</span>
 				<DiagramIcon name={s.icon} />
 				<p class="is-item__text">{s.text}</p>
 			</div>
@@ -39,12 +42,26 @@ const sources = [
 		flex-direction: column;
 		align-items: flex-start;
 		gap: var(--space-2);
+		padding: var(--space-3) var(--space-4) var(--space-4);
+		border: 1px solid var(--color-border);
+		border-radius: 20px;
+		box-shadow: 0 4px 16px -8px rgba(17, 17, 17, 0.12);
+	}
+
+	.is-item__tag {
+		margin-bottom: var(--space-1);
+		font-family: var(--font-sans);
+		font-size: var(--text-label);
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text);
 	}
 
 	.is-item__text {
 		margin: 0;
-		font-size: var(--text-label);
-		line-height: 1.5;
+		font-size: 1rem;
+		line-height: 1.6;
 		color: var(--color-text-muted);
 	}
 

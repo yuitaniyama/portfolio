@@ -18,7 +18,6 @@ import RequirementsDesignSpecVisual from '../../../components/diagrams/Requireme
 import EarlySystemFlowVisual from '../../../components/diagrams/EarlySystemFlowVisual.astro';
 import Section03Walkthrough from '../../../components/diagrams/Section03Walkthrough.astro';
 import IssueSources from '../../../components/diagrams/IssueSources.astro';
-import ChallengeShift from '../../../components/diagrams/ChallengeShift.astro';
 import MentalModelsShift from '../../../components/diagrams/MentalModelsShift.astro';
 import KeyPoint from '../../../components/diagrams/KeyPoint.astro';
 import BeforeListUploadFlowVisual from '../../../components/diagrams/BeforeListUploadFlowVisual.astro';
@@ -73,7 +72,7 @@ import { getCollection, render } from 'astro:content';
 const SECTION_EYEBROWS: Record<string, string> = {
 	'DMツールから営業プラットフォームへ': '背景',
 	曖昧なプロダクトを具体化する: 'プロセス',
-	リリースで見えてきた本当のUX課題: 'リリース後',
+	リリースで見えてきた大量のUIUX課題: 'リリース後',
 	'HomeとSales Reportの再定義': '中核となるUX課題',
 	リスト登録を見直す: 'ワークフロー改善',
 	営業ワークフロー全体でプロダクトを進化させる: 'プロダクトの進化',
@@ -103,7 +102,6 @@ const BLOCK_VISUALS: Record<string, any> = {
 	'hubstep-sfa-platform/sections/02-making-tangible/first-release-walkthrough': Section03Walkthrough,
 	'hubstep-sfa-platform/sections/02-making-tangible/key-point': KeyPoint,
 	'hubstep-sfa-platform/sections/03-shipping-exposed/issue-sources': IssueSources,
-	'hubstep-sfa-platform/sections/03-shipping-exposed/challenge-shift': ChallengeShift,
 	'hubstep-sfa-platform/sections/02-making-tangible/mental-models-shift': MentalModelsShift,
 	'hubstep-sfa-platform/sections/04-home-sales-report/before-dashboards-grid': BeforeDashboardsGrid,
 	'hubstep-sfa-platform/sections/04-home-sales-report/login-home-flow': LoginHomeFlowVisual,

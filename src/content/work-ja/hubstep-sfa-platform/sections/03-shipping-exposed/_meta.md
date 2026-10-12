@@ -1,4 +1,4 @@
 ---
-title: "リリースで見えてきた本当のUX課題"
+title: "リリースで見えてきた大量のUIUX課題"
 priority: bridge
 ---

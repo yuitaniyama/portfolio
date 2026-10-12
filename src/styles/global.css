@@ -661,13 +661,14 @@ main h1 {
 	font-weight: 600;
 }
 
-/* Section 03 ("Shipping Exposed the Real UX Problems") stays BRIDGE
+/* Section 03 ("Shipping Exposed Many UI/UX Problems") stays BRIDGE
    priority for spacing/rhythm, but at the user's explicit request its
    heading alone should read as an equivalent top-level section to
    Section 02, not the de-emphasized bridge treatment above. Scoped to
    this one section's id (not a change to the shared bridge style, so
    any other bridge section keeps the compact heading). */
-#shipping-exposed-the-real-ux-problems > h2 {
+#shipping-exposed-many-ui-ux-problems > h2,
+[id='03-shipping-exposed'] > h2 {
 	font-size: var(--text-h3);
 	font-weight: 700;
 }
