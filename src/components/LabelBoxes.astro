@@ -1,0 +1,113 @@
+---
+// A small label plus one plain box per item — used inside case studies
+// for Problem / Result pairs ("problem" and "result" variants: one box per
+// item, in a row) and for a one-line callout ("callout": a single
+// tinted strip). Content comes from a `type: boxes` block (label, variant,
+// items) so the copy stays in the markdown files, in both languages.
+interface Props {
+	label?: string;
+	items: string[];
+	variant?: 'problem' | 'result' | 'callout';
+}
+
+const { label, items, variant = 'problem' } = Astro.props;
+---
+
+{
+	variant === 'callout' ? (
+		<div class="lb-callout">
+			{label && <span class="lb-callout__tag">{label}</span>}
+			<p class="lb-callout__text">{items[0]}</p>
+		</div>
+	) : (
+		<div class={`lb lb--${variant}`} style={`--lb-n: ${Math.min(items.length, 3)};`}>
+			{items.map((text) => (
+				<div class="lb__box">
+					{label && <span class="lb__tag">{label}</span>}
+					<p class="lb__text">{text}</p>
+				</div>
+			))}
+		</div>
+	)
+}
+
+<style>
+	.lb {
+		container-type: inline-size;
+		display: grid;
+		grid-template-columns: repeat(var(--lb-n), minmax(0, 1fr));
+		gap: var(--space-3);
+	}
+
+	.lb__box {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+		padding: var(--space-3) var(--space-4) var(--space-4);
+		border: 1px solid var(--color-border);
+		border-radius: 20px;
+		box-shadow: 0 4px 16px -8px rgba(17, 17, 17, 0.12);
+	}
+
+	.lb__tag {
+		font-family: var(--font-sans);
+		font-size: var(--text-label);
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text);
+	}
+
+	.lb--result .lb__tag {
+		color: #007e70;
+	}
+
+	.lb__text {
+		margin: 0;
+		font-size: 1rem;
+		line-height: 1.7;
+		color: var(--color-text-muted);
+	}
+
+	.lb--result .lb__text {
+		color: var(--color-text);
+	}
+
+	.lb-callout {
+		display: flex;
+		align-items: baseline;
+		gap: var(--space-3);
+		padding: var(--space-3) var(--space-4);
+		border-radius: 14px;
+		background: rgba(10, 126, 113, 0.06);
+	}
+
+	.lb-callout__tag {
+		flex: none;
+		font-family: var(--font-sans);
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: #007e70;
+	}
+
+	.lb-callout__text {
+		margin: 0;
+		font-size: 1rem;
+		line-height: 1.7;
+		font-weight: 500;
+		color: var(--color-text);
+	}
+
+	@media (max-width: 760px) {
+		.lb {
+			grid-template-columns: 1fr;
+		}
+
+		.lb-callout {
+			flex-direction: column;
+			gap: var(--space-1);
+		}
+	}
+</style>

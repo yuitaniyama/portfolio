@@ -11,7 +11,7 @@ import EarlySystemFlowVisual from '../../components/diagrams/EarlySystemFlowVisu
 import Section03Walkthrough from '../../components/diagrams/Section03Walkthrough.astro';
 import IssueSources from '../../components/diagrams/IssueSources.astro';
 import MentalModelsShift from '../../components/diagrams/MentalModelsShift.astro';
-import KeyPoint from '../../components/diagrams/KeyPoint.astro';
+import LabelBoxes from '../../components/LabelBoxes.astro';
 import BeforeDashboardsGrid from '../../components/diagrams/BeforeDashboardsGrid.astro';
 import LoginHomeFlowVisual from '../../components/diagrams/LoginHomeFlowVisual.astro';
 import UserJourneyVisual from '../../components/diagrams/UserJourneyVisual.astro';
@@ -106,7 +106,6 @@ const BLOCK_VISUALS: Record<string, any> = {
 	'hubstep-sfa-platform/sections/02-making-tangible/requirements-design-spec': RequirementsDesignSpecVisual,
 	'hubstep-sfa-platform/sections/02-making-tangible/early-system-flow': EarlySystemFlowVisual,
 	'hubstep-sfa-platform/sections/02-making-tangible/first-release-walkthrough': Section03Walkthrough,
-	'hubstep-sfa-platform/sections/02-making-tangible/key-point': KeyPoint,
 	'hubstep-sfa-platform/sections/03-shipping-exposed/issue-sources': IssueSources,
 	'hubstep-sfa-platform/sections/02-making-tangible/mental-models-shift': MentalModelsShift,
 	'hubstep-sfa-platform/sections/04-home-sales-report/before-dashboards-grid': BeforeDashboardsGrid,
@@ -233,6 +232,9 @@ const blockSections = await Promise.all(
 				if (block.data.type === 'placeholder-list') {
 					return { type: 'placeholder-list', items: block.data.items ?? [] };
 				}
+				if (block.data.type === 'boxes') {
+					return { type: 'boxes', label: block.data.label, variant: block.data.variant, items: block.data.items ?? [] };
+				}
 				const { Content } = await render(block);
 				return { type: 'prose', Content };
 			})
@@ -295,11 +297,17 @@ const renderedSections = [...flatSections, ...blockSections]
 							)}
 							<h2>{section.title}</h2>
 
-							{section.blocks.map(({ type, Content, Component, items, cards }) => (
+							{section.blocks.map(({ type, Content, Component, items, label, variant, cards }) => (
 								type === 'visual' ? (
 									Component && (
 										<div class="case-visuals case-visuals--diagram">
 											<Component />
+										</div>
+									)
+								) : type === 'boxes' ? (
+									items && items.length > 0 && (
+										<div class="case-visuals case-visuals--diagram">
+											<LabelBoxes label={label} variant={variant} items={items} />
 										</div>
 									)
 								) : type === 'placeholder-list' ? (

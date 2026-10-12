@@ -96,7 +96,7 @@ const workSectionMeta = defineCollection({
 const workBlocks = defineCollection({
 	loader: glob({ pattern: '*/sections/*/blocks/*.md', base: './src/content/work' }),
 	schema: z.object({
-		type: z.enum(['prose', 'visual', 'placeholder-list']).default('prose'),
+		type: z.enum(['prose', 'visual', 'placeholder-list', 'boxes']).default('prose'),
 		// type: 'visual' — which component to render, resolved via a
 		// lookup keyed by "<section folder id>/<ref>" in [id].astro.
 		ref: z.string().optional(),
@@ -104,6 +104,10 @@ const workBlocks = defineCollection({
 		// position; held here (not guessed into a spot) until placement
 		// is specified.
 		items: z.array(z.string()).optional(),
+		// type: 'boxes' — small label + one box per item (items), as a
+		// Problem / Result pair or a one-line callout.
+		label: z.string().optional(),
+		variant: z.enum(['problem', 'result', 'callout']).optional(),
 	}),
 });
 
@@ -175,9 +179,11 @@ const workSectionMetaJa = defineCollection({
 const workBlocksJa = defineCollection({
 	loader: glob({ pattern: '*/sections/*/blocks/*.md', base: './src/content/work-ja' }),
 	schema: z.object({
-		type: z.enum(['prose', 'visual', 'placeholder-list']).default('prose'),
+		type: z.enum(['prose', 'visual', 'placeholder-list', 'boxes']).default('prose'),
 		ref: z.string().optional(),
 		items: z.array(z.string()).optional(),
+		label: z.string().optional(),
+		variant: z.enum(['problem', 'result', 'callout']).optional(),
 	}),
 });
 

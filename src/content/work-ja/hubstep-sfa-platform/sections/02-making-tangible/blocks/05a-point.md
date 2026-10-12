@@ -1,4 +1,7 @@
 ---
-type: visual
-ref: key-point
+type: boxes
+variant: callout
+label: "ポイント"
+items:
+  - "プロダクトが目に見える形になったことで、チームはSFAという「アイデア」について議論する段階を終え、プロダクトそのものについての意思決定を始められるようになった。"
 ---
