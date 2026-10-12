@@ -16,6 +16,7 @@
 import EnlargeableImage from '../EnlargeableImage.astro';
 
 const BASE = '/section-02';
+const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
 <div class="rq">
@@ -24,21 +25,21 @@ const BASE = '/section-02';
 			class="rq-img"
 			style="grid-column: req;"
 			src={`${BASE}/requirements.png`}
-			alt="Spreadsheets listing SFA requirements, use cases, and stakeholder requests"
+			alt={ja ? 'SFAの要件、ユースケース、ステークホルダーからの要望をまとめたスプレッドシート' : 'Spreadsheets listing SFA requirements, use cases, and stakeholder requests'}
 			loading="eager"
 			decoding="async"
 		/>
-		<div class="rq-label" style="grid-column: req;">Requirements</div>
-		<div class="rq-caption" style="grid-column: req;">What needed to be supported</div>
+		<div class="rq-label" style="grid-column: req;">{ja ? '要件' : 'Requirements'}</div>
+		<div class="rq-caption" style="grid-column: req;">{ja ? '対応すべきこと' : 'What needed to be supported'}</div>
 
 		<div class="rq-connector" style="grid-column: connA;">
 			<div class="rq-rel">
-				<span class="rq-rel__text">Clarify requirements</span>
+				<span class="rq-rel__text">{ja ? '要件を確認する' : 'Clarify requirements'}</span>
 				<span class="rq-rel__line rq-rel__line--fwd" aria-hidden="true" />
 			</div>
 			<div class="rq-rel rq-rel--reverse">
 				<span class="rq-rel__line rq-rel__line--rev" aria-hidden="true" />
-				<span class="rq-rel__text">Ask questions and explore options</span>
+				<span class="rq-rel__text">{ja ? '質問し、選択肢を探る' : 'Ask questions and explore options'}</span>
 			</div>
 		</div>
 
@@ -46,23 +47,23 @@ const BASE = '/section-02';
 			class="rq-img"
 			style="grid-column: design;"
 			src={`${BASE}/design-exploration.png`}
-			alt="A wide Figma board showing many iterated SFA design explorations, connected by annotation lines"
+			alt={ja ? '多くのSFAデザイン探索を、注釈の線でつないだ横長のFigmaボード' : 'A wide Figma board showing many iterated SFA design explorations, connected by annotation lines'}
 			loading="eager"
 			decoding="async"
 		/>
-		<div class="rq-label" style="grid-column: design;">Design exploration</div>
+		<div class="rq-label" style="grid-column: design;">{ja ? 'デザイン探索' : 'Design exploration'}</div>
 		<div class="rq-caption" style="grid-column: design;">
-			Making the workflow concrete enough to discuss, challenge, and refine
+			{ja ? 'ワークフローを、議論し、問い直し、磨き込めるだけ具体的にする' : 'Making the workflow concrete enough to discuss, challenge, and refine'}
 		</div>
 
 		<div class="rq-connector" style="grid-column: connB;">
 			<div class="rq-rel">
-				<span class="rq-rel__text">Propose design and rationale</span>
+				<span class="rq-rel__text">{ja ? 'デザインと根拠を提案する' : 'Propose design and rationale'}</span>
 				<span class="rq-rel__line rq-rel__line--fwd" aria-hidden="true" />
 			</div>
 			<div class="rq-rel rq-rel--reverse">
 				<span class="rq-rel__line rq-rel__line--rev" aria-hidden="true" />
-				<span class="rq-rel__text">Provide feedback and finalize details</span>
+				<span class="rq-rel__text">{ja ? 'フィードバックをもらい、詳細を確定する' : 'Provide feedback and finalize details'}</span>
 			</div>
 		</div>
 
@@ -70,25 +71,25 @@ const BASE = '/section-02';
 			class="rq-img"
 			style="grid-column: spec;"
 			src={`${BASE}/specification.png`}
-			alt="Specification documents in the team's shared repository"
+			alt={ja ? 'チームの共有リポジトリにある仕様書' : "Specification documents in the team's shared repository"}
 			loading="eager"
 			decoding="async"
 		/>
-		<div class="rq-label" style="grid-column: spec;">Specification</div>
-		<div class="rq-caption" style="grid-column: spec;">Turning decisions into a shared implementation reference</div>
+		<div class="rq-label" style="grid-column: spec;">{ja ? '仕様' : 'Specification'}</div>
+		<div class="rq-caption" style="grid-column: spec;">{ja ? '決定事項を、共有できる実装のリファレンスにする' : 'Turning decisions into a shared implementation reference'}</div>
 	</div>
 
 	<div class="rq-evidence">
-		<div class="rq-evidence__eyebrow">Exploring ideas through visuals</div>
+		<div class="rq-evidence__eyebrow">{ja ? 'ビジュアルでアイデアを探る' : 'Exploring ideas through visuals'}</div>
 
 		<div class="rq-metrics">
 			<div class="rq-metric">
 				<div class="rq-metric__value">50+</div>
-				<div class="rq-metric__label">screens explored</div>
+				<div class="rq-metric__label">{ja ? '探索した画面' : 'screens explored'}</div>
 			</div>
 			<div class="rq-metric">
 				<div class="rq-metric__value">20+</div>
-				<div class="rq-metric__label">supporting modals</div>
+				<div class="rq-metric__label">{ja ? '関連するモーダル' : 'supporting modals'}</div>
 			</div>
 		</div>
 
@@ -96,12 +97,12 @@ const BASE = '/section-02';
 			<figure class="rq-evidence__item">
 				<EnlargeableImage
 					src={`${BASE}/section02-sales-input-notes.png`}
-					alt="Pink sticky notes organizing sales input and feature ideas into themes"
+					alt={ja ? '営業からのインプットと機能アイデアをテーマごとに整理したピンクの付箋' : 'Pink sticky notes organizing sales input and feature ideas into themes'}
 				/>
 				<figcaption>
-					<div class="rq-label">Sales input and feature ideas</div>
+					<div class="rq-label">{ja ? '営業からのインプットと機能アイデア' : 'Sales input and feature ideas'}</div>
 					<div class="rq-caption">
-						Feedback and requests from the sales team, organized to identify concrete needs.
+						{ja ? '営業チームからのフィードバックや要望を整理し、具体的なニーズを見つけた。' : 'Feedback and requests from the sales team, organized to identify concrete needs.'}
 					</div>
 				</figcaption>
 			</figure>
@@ -109,12 +110,12 @@ const BASE = '/section-02';
 			<figure class="rq-evidence__item">
 				<EnlargeableImage
 					src={`${BASE}/section02-design-iterations.png`}
-					alt="Two hubstep dashboard design iterations shown side by side with annotation notes"
+					alt={ja ? 'hubstepのダッシュボードの2つのデザイン案を、注釈つきで並べたもの' : 'Two hubstep dashboard design iterations shown side by side with annotation notes'}
 				/>
 				<figcaption>
-					<div class="rq-label">Design exploration in progress</div>
+					<div class="rq-label">{ja ? '進行中のデザイン探索' : 'Design exploration in progress'}</div>
 					<div class="rq-caption">
-						Screens and flows reviewed, annotated, and refined as the product became more concrete.
+						{ja ? 'プロダクトが具体的になるにつれて、画面とフローをレビューし、注釈を付け、磨き込んだ。' : 'Screens and flows reviewed, annotated, and refined as the product became more concrete.'}
 					</div>
 				</figcaption>
 			</figure>
