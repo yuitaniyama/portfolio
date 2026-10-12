@@ -1,0 +1,52 @@
+---
+// Section 02 (hubstep case study) — the turning point of the story, set
+// as a small "key point" callout instead of a pull quote: a short tag
+// followed by one plain sentence. One component serves both languages
+// (chosen from the URL).
+const ja = Astro.url.pathname.startsWith('/ja/');
+const label = ja ? 'ポイント' : 'Key point';
+const text = ja
+	? 'プロダクトが目に見える形になったことで、チームはSFAという「アイデア」について議論する段階を終え、プロダクトそのものについての意思決定を始められるようになった。'
+	: 'Once the product became visible, the team could stop debating the idea of an SFA and start making decisions about the product itself.';
+---
+
+<div class="kp">
+	<span class="kp__tag">{label}</span>
+	<p class="kp__text">{text}</p>
+</div>
+
+<style>
+	.kp {
+		display: flex;
+		align-items: baseline;
+		gap: var(--space-3);
+		padding: var(--space-3) var(--space-4);
+		border-radius: 14px;
+		background: rgba(10, 126, 113, 0.06);
+	}
+
+	.kp__tag {
+		flex: none;
+		font-family: var(--font-sans);
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: #007e70;
+	}
+
+	.kp__text {
+		margin: 0;
+		font-size: 1rem;
+		line-height: 1.7;
+		font-weight: 500;
+		color: var(--color-text);
+	}
+
+	@media (max-width: 640px) {
+		.kp {
+			flex-direction: column;
+			gap: var(--space-1);
+		}
+	}
+</style>

@@ -1,4 +1,4 @@
 ---
 type: visual
-ref: walkthrough
+ref: key-point
 ---
