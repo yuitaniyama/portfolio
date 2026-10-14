@@ -2,7 +2,8 @@
 // Impact section (hubstep SFA case study), organized as two Problem /
 // result rows so it mirrors the Problem and Result boxes at the top of the
 // page: one row for the "before release" problem (design time saved) and
-// one for the "after release" problem (the UI/UX issues worked on). Each
+// one for the "after release" problem (the UI/UX issues worked on), plus
+// a project-wide row (pages and modal states designed). Each
 // row has a big number on the left and its explanation on the right.
 // One component serves both languages (chosen from the URL).
 const ja = Astro.url.pathname.startsWith('/ja/');
@@ -22,7 +23,13 @@ const t = ja
 				{ value: '14', label: '自ら見つけた課題' },
 				{ value: '3', label: '業務フロー単位のUX改善' },
 			],
-			aside: '設計したページ・モーダルの状態：185（91ページ · 94モーダル）',
+			p3Tag: 'プロジェクト全体',
+			p3Value: '185',
+			p3Label: '設計したページ・モーダルの状態',
+			p3Items: [
+				{ value: '91', label: 'ページ' },
+				{ value: '94', label: 'モーダルの状態' },
+			],
 		}
 	: {
 			p1Tag: 'Problem 1 — Before release',
@@ -38,7 +45,13 @@ const t = ja
 				{ value: '14', label: 'issues I identified proactively' },
 				{ value: '3', label: 'workflow-level UX improvements' },
 			],
-			aside: 'Pages & modal states designed: 185 (91 pages · 94 modal states)',
+			p3Tag: 'Across the project',
+			p3Value: '185',
+			p3Label: 'Pages & modal states designed',
+			p3Items: [
+				{ value: '91', label: 'pages' },
+				{ value: '94', label: 'modal states' },
+			],
 		};
 ---
 
@@ -77,7 +90,25 @@ const t = ja
 		</div>
 	</section>
 
-	<p class="impact-aside">{t.aside}</p>
+	<section class="impact-row">
+		<div class="impact-row__tag">{t.p3Tag}</div>
+		<div class="impact-row__grid">
+			<div class="impact-stat">
+				<div class="impact-stat__value">{t.p3Value}</div>
+				<div class="impact-stat__label">{t.p3Label}</div>
+			</div>
+			<dl class="impact-breakdown">
+				{
+					t.p3Items.map((item) => (
+						<div class="impact-breakdown__item">
+							<dt class="impact-breakdown__value">{item.value}</dt>
+							<dd class="impact-breakdown__label">{item.label}</dd>
+						</div>
+					))
+				}
+			</dl>
+		</div>
+	</section>
 </div>
 
 <style>
@@ -174,12 +205,6 @@ const t = ja
 		margin: 0;
 		line-height: 1.5;
 		color: var(--color-text);
-	}
-
-	.impact-aside {
-		margin: 0;
-		font-size: var(--text-label);
-		color: var(--color-text-muted);
 	}
 
 	@container (max-width: 600px) {
