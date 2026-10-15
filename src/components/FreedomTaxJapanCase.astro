@@ -89,9 +89,10 @@ const EN = {
 			body: 'At the time it was still one of the few services of its kind in Japan, and competitive research had not been done enough. FTJ had not yet identified what its strengths were, or which areas needed improvement.',
 		},
 	],
+	detailsPart: { label: 'Details', title: 'What I actually did', lead: 'The rest of this page looks at the work behind the overview, step by step.' },
 	indexLabel: 'In this case study',
 	sections: [
-		{ id: 'outcome', eyebrow: '01 — Results', title: 'Results' },
+		{ id: 'outcome', eyebrow: '01 — Overview', title: 'Results' },
 		{ id: 'research', eyebrow: '02 — Research', title: 'Understanding the market before designing' },
 		{ id: 'design-exploration', eyebrow: '03 — Design exploration', title: 'Turning insights into design decisions' },
 		{ id: 'usability-testing', eyebrow: '04 — Usability testing', title: 'Testing the experience with users' },
@@ -333,9 +334,10 @@ const JA = {
 			body: '当時、日本ではまだユニークなサービスの一つで、競合リサーチが十分にできていなかった。そのため、FTJの強みは何か、改善すべき領域はどこかを、特定できていなかった。',
 		},
 	],
+	detailsPart: { label: 'Details', title: '実際にやったことの詳細', lead: 'ここからは、Overviewで挙げた内容を、実際に行った順に詳しく見ていく。' },
 	indexLabel: '目次',
 	sections: [
-		{ id: 'outcome', eyebrow: '01 — 結果', title: '結果' },
+		{ id: 'outcome', eyebrow: '01 — Overview', title: '結果' },
 		{ id: 'research', eyebrow: '02 — リサーチ', title: '設計の前に市場を理解する' },
 		{ id: 'design-exploration', eyebrow: '03 — デザイン探索', title: 'インサイトをデザインの判断に変える' },
 		{ id: 'usability-testing', eyebrow: '04 — ユーザビリティテスト', title: 'ユーザーと体験をテストする' },
@@ -620,6 +622,13 @@ const participants = c.testing.participants.map((p, i) => ({ ...p, photo: partic
 						height={480}
 					/>
 				</section>
+
+				<!-- DETAILS: introduces the sections that unpack the Overview -->
+				<div class="ftj-part">
+					<div class="section-eyebrow">{c.detailsPart.label}</div>
+					<h2 class="ftj-part__title">{c.detailsPart.title}</h2>
+					<p class="ftj-part__lead">{c.detailsPart.lead}</p>
+				</div>
 
 				<!-- 02 RESEARCH -->
 				<section id="research" class="case-section">
@@ -919,6 +928,25 @@ const participants = c.testing.participants.map((p, i) => ({ ...p, photo: partic
 
 	.case-section > h2 + :global(*) {
 		margin-top: var(--space-4);
+	}
+
+	/* Divider heading between the Overview and the detailed sections. */
+	.ftj-part {
+		margin-top: var(--space-editorial);
+		padding-top: var(--space-6);
+		border-top: 1px solid var(--color-border);
+	}
+
+	.ftj-part__title {
+		margin: 0;
+		font-size: var(--text-h2);
+		font-weight: 700;
+		line-height: 1.2;
+	}
+
+	.ftj-part__lead {
+		margin: var(--space-2) 0 0;
+		color: var(--color-text-muted);
 	}
 
 	/* Results: the project told as five short steps, each with its key
