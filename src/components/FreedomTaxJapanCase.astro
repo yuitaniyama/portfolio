@@ -173,7 +173,6 @@ const EN = {
 			boxes: [
 				{ label: 'Problem', text: 'Users kept asking when they could file, even though the timing follows a fixed annual schedule.' },
 				{ label: 'Suggestion', text: 'In the competitive research, I found a UK tax service showing time-sensitive filing information in a persistent notification bar. <strong>I proposed the same pattern for FTJ</strong>, so users can see the tax-season timing without asking.' },
-				{ label: 'Result', text: '<strong>The proposal was adopted.</strong>' },
 			],
 			quote: { label: 'Usability testing', text: 'Participants found the timing information clear and easy to understand.' },
 			steps: [
@@ -421,7 +420,6 @@ const JA = {
 			boxes: [
 				{ label: 'Problem', text: '時期は毎年決まっているのに、いつ確定申告ができるのかを、ユーザーから繰り返し尋ねられていた。' },
 				{ label: 'Suggestion', text: '競合調査で、英国の税務サービスが、期限のある申告情報を常時表示の通知バーで伝えているのを見つけた。<strong>FTJにも同様のパターンを取り入れる</strong>ことを提案し、ユーザーが尋ねなくても時期が分かるようにした。' },
-				{ label: 'Result', text: '<strong>この提案は採用された。</strong>' },
 			],
 			quote: { label: 'ユーザビリティテスト', text: '参加者は、時期の情報を明確で分かりやすいと感じていた。' },
 			steps: [
@@ -714,7 +712,7 @@ const participants = c.testing.participants.map((p, i) => ({ ...p, photo: partic
 									<div class="section-eyebrow">{example.eyebrow}</div>
 									<h3 class="ftj-example__heading">{example.heading}</h3>
 
-									<div class="ftj-ex-boxes">
+									<div class="ftj-ex-boxes" style={`--n: ${example.boxes.length};`}>
 										{example.boxes.map((b) => (
 											<div class:list={['ftj-ex-box', b.label === 'Result' && 'ftj-ex-box--result']}>
 												<span class="ftj-ex-box__tag">{b.label}</span>
@@ -724,10 +722,10 @@ const participants = c.testing.participants.map((p, i) => ({ ...p, photo: partic
 									</div>
 
 									{example.quote && (
-										<div class="ftj-callout">
-											<span class="ftj-callout__tag">{example.quote.label}</span>
-											<p class="ftj-callout__text">{example.quote.text}</p>
-										</div>
+										<blockquote class="ftj-quote">
+											<p class="ftj-quote__text">{example.quote.text}</p>
+											<footer class="ftj-quote__source">{example.quote.label}</footer>
+										</blockquote>
 									)}
 
 									{example.gridLayout ? (
@@ -955,7 +953,7 @@ const participants = c.testing.participants.map((p, i) => ({ ...p, photo: partic
 	.ftj-ex-boxes {
 		margin-top: var(--space-3);
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
+		grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr));
 		gap: var(--space-3);
 	}
 
@@ -999,31 +997,27 @@ const participants = c.testing.participants.map((p, i) => ({ ...p, photo: partic
 		font-weight: 600;
 	}
 
-	.ftj-callout {
-		margin-top: var(--space-3);
-		display: flex;
-		align-items: baseline;
-		gap: var(--space-3);
-		padding: var(--space-3) var(--space-4);
-		border-radius: 14px;
-		background: rgba(21, 67, 132, 0.06);
+	/* Pull quote under the boxes — same look as the site's quotes (left
+	   rule, italic), with the text in FTJ blue. */
+	.ftj-quote {
+		margin: var(--space-4) 0 0;
+		padding-left: var(--space-3);
+		border-left: 2px solid var(--color-border);
 	}
 
-	.ftj-callout__tag {
-		flex: none;
-		font-family: var(--font-sans);
-		font-size: 0.75rem;
+	.ftj-quote__text {
+		margin: 0;
+		font-style: italic;
 		font-weight: 600;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
+		line-height: 1.7;
 		color: #154384;
 	}
 
-	.ftj-callout__text {
-		margin: 0;
-		font-weight: 500;
-		line-height: 1.7;
-		color: var(--color-text);
+	.ftj-quote__source {
+		margin-top: var(--space-1);
+		font-size: var(--text-label);
+		letter-spacing: 0.02em;
+		color: var(--color-text-muted);
 	}
 
 	/* Divider heading between the Overview and the detailed sections. */
@@ -1634,10 +1628,6 @@ const participants = c.testing.participants.map((p, i) => ({ ...p, photo: partic
 			grid-template-columns: 1fr;
 		}
 
-		.ftj-callout {
-			flex-direction: column;
-			gap: var(--space-1);
-		}
 
 		.ftj-revision__row {
 			grid-template-columns: 1fr;
