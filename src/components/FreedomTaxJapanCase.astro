@@ -101,7 +101,7 @@ const EN = {
 	resultSteps: [
 		{
 			stat: { value: '15', label: 'services analyzed' },
-			text: 'I analyzed 15 tax-filing services, across both desktop and app. <strong>Two characteristics essential to tax filing came into view: trust and convenience.</strong>',
+			text: 'I analyzed 15 tax-filing services, across both desktop and app. <strong>I found two essential characteristics of tax filing: trust and convenience.</strong>',
 		},
 		{
 			text: 'The team then brainstormed how to bring these into the new landing page and FTJ’s system. <strong>I facilitated that meeting.</strong>',
@@ -206,7 +206,7 @@ const EN = {
 			eyebrow: '03 — Collaboration',
 			heading: 'Designing for feedback of different lengths',
 			body: [
-				'In the brainstorm, customer testimonials came up as something that builds trust. To show more of the positive feedback FTJ had received, my mentor proposed creating a dedicated "Wall of Gratitude".',
+				'In the brainstorm, customer testimonials came up as something that builds trust. To show more of the positive feedback FTJ had received, a dedicated page was proposed; the senior designer came up with the title "Wall of Gratitude". The first design was my mentor’s idea, but I also put forward other UI options, and one of mine was the one implemented.',
 				'<strong>I explored flexible layouts for feedback of different lengths</strong>, and the adopted direction <strong>made longer responses easier to scan.</strong>',
 			],
 			steps: [
@@ -226,6 +226,16 @@ const EN = {
 		setupLabel: 'Test setup',
 		setup: ['4 participants', '30–60 min / session', 'Moderated sessions', 'Prototype walkthrough', 'Comments + behavior documented'],
 		insightsHead: '4 participant insights',
+		revision: {
+			heading: 'Example of a revision made after testing',
+			lead: 'One participant looked at the “What makes us different” chart and was confused: it appeared to say the service is “for corporations.” Some of the copy around it was revised.',
+			cols: { before: 'Tested version', after: 'Released version' },
+			rows: [
+				{ what: 'Chart title', before: 'Where Tax Solutions Focus', after: 'Where Tax Services Focus' },
+				{ what: 'First sentence', before: '95% of accountants focus on companies', after: '95% of accountants in Japan focus on companies' },
+				{ what: 'Closing line', before: 'At FreedomTax Japan we want to close this gap.', after: 'FreedomTax Japan exists to close this gap.' },
+			],
+		},
 		dt: { context: 'Context', reacted: 'What they reacted to', revealed: 'What it revealed' },
 		participants: [
 			{
@@ -335,7 +345,7 @@ const JA = {
 	resultSteps: [
 		{
 			stat: { value: '15', label: '分析したサービス' },
-			text: 'Tax Filingのサービスを、デスクトップとアプリの両方で、合計15サービス分析した。その結果、<strong>Tax Filingに欠かせない大切な特性が、「信頼」と「利便性」の2つ見えてきた。</strong>',
+			text: 'Tax Filingのサービスを、デスクトップとアプリの両方で、合計15サービス分析した。その結果、<strong>Tax Filingに欠かせない2つの大切な特徴として、「信頼」と「利便性」があることがわかった。</strong>',
 		},
 		{
 			text: 'それらを、新しいLPやFTJのシステムにどう組み込むかを、チームでブレインストームすることになった。<strong>私は、そのミーティングのファシリテーターを務めた。</strong>',
@@ -440,7 +450,7 @@ const JA = {
 			eyebrow: '03 — コラボレーション',
 			heading: '長さの異なるフィードバックに対応するデザイン',
 			body: [
-				'ブレインストームでは、他のお客様の声が信頼につながる、という話が出た。FTJに寄せられていた良いフィードバックをより多く見せるために、メンターが、専用ページ「Wall of Gratitude」を作ることを提案した。',
+				'ブレインストームでは、他のお客様の声が信頼につながる、という話が出た。FTJに寄せられていた良いフィードバックをより多く見せるために、専用ページが提案され、「Wall of Gratitude」というタイトルは、シニアデザイナーが提案した。最初のデザインはメンターのアイデアだったが、私も別のUI案を出し、そのUIが実装された。',
 				'<strong>長さの異なるフィードバックに対応できる柔軟なレイアウトを探り</strong>、採用された方向性は、<strong>長めの回答も流し読みしやすくした。</strong>',
 			],
 			steps: [
@@ -460,6 +470,16 @@ const JA = {
 		setupLabel: 'テストの設定',
 		setup: ['参加者4名', '1セッション30〜60分', 'モデレーター付きセッション', 'プロトタイプのウォークスルー', 'コメントと行動を記録'],
 		insightsHead: '参加者4名のインサイト',
+		revision: {
+			heading: 'テストを受けて修正した例',
+			lead: '「What makes us different」のグラフを見て、「法人向けのサービス」に見えると、混乱した参加者がいた。そこで、周辺の文言をいくつか修正した。',
+			cols: { before: 'テスト時のバージョン', after: '公開バージョン' },
+			rows: [
+				{ what: 'グラフのタイトル', before: 'Where Tax Solutions Focus', after: 'Where Tax Services Focus' },
+				{ what: '1文目', before: '95% of accountants focus on companies', after: '95% of accountants in Japan focus on companies' },
+				{ what: '結びの文', before: 'At FreedomTax Japan we want to close this gap.', after: 'FreedomTax Japan exists to close this gap.' },
+			],
+		},
 		dt: { context: 'コンテキスト', reacted: '反応していた点', revealed: 'そこから見えたこと' },
 		participants: [
 			{
@@ -630,7 +650,7 @@ const participants = c.testing.participants.map((p, i) => ({ ...p, photo: partic
 					</div>
 
 					<div class="ftj-insights-list">
-						<div class="section-eyebrow">{c.research.insightsHeading}</div>
+						<div class="ftj-insights-list__tag">{c.research.insightsHeading}</div>
 						<ul>
 							{c.research.insights.map((t) => <li set:html={t} />)}
 						</ul>
@@ -793,6 +813,27 @@ const participants = c.testing.participants.map((p, i) => ({ ...p, photo: partic
 								</article>
 							))
 						}
+					</div>
+
+					<div class="ftj-revision">
+						<h3 class="ftj-revision__heading">{c.testing.revision.heading}</h3>
+						<p class="ftj-revision__lead">{c.testing.revision.lead}</p>
+						<div class="ftj-revision__table" role="table">
+							<div class="ftj-revision__row ftj-revision__row--head" role="row">
+								<span role="columnheader"></span>
+								<span role="columnheader">{c.testing.revision.cols.before}</span>
+								<span role="columnheader">{c.testing.revision.cols.after}</span>
+							</div>
+							{
+								c.testing.revision.rows.map((r) => (
+									<div class="ftj-revision__row" role="row">
+										<span class="ftj-revision__what" role="rowheader">{r.what}</span>
+										<span class="ftj-revision__before" role="cell">{r.before}</span>
+										<span class="ftj-revision__after" role="cell">{r.after}</span>
+									</div>
+								))
+							}
+						</div>
 					</div>
 				</section>
 
@@ -994,6 +1035,23 @@ const participants = c.testing.participants.map((p, i) => ({ ...p, photo: partic
 		color: var(--color-text);
 	}
 
+	/* Highlighted panel (same callout look as the Key point on the hubstep
+	   page, in FTJ's blue): a tinted rounded box with a small blue tag. */
+	.ftj-insights-list {
+		padding: var(--space-4);
+		border-radius: 14px;
+		background: rgba(21, 67, 132, 0.06);
+	}
+
+	.ftj-insights-list__tag {
+		font-family: var(--font-sans);
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: #154384;
+	}
+
 	.ftj-insights-list ul {
 		margin: var(--space-2) 0 0;
 		padding-left: 1.25em;
@@ -1002,12 +1060,62 @@ const participants = c.testing.participants.map((p, i) => ({ ...p, photo: partic
 	.ftj-insights-list li {
 		margin-top: var(--space-1);
 		line-height: 1.75;
-		color: var(--color-text-muted);
+		color: var(--color-text);
+	}
+
+	.ftj-insights-list li::marker {
+		color: #154384;
 	}
 
 	.ftj-insights-list li :global(strong) {
-		color: var(--color-text);
+		color: #154384;
+		font-weight: 700;
+	}
+
+	/* Revision example: what the testing showed, and the copy that changed. */
+	.ftj-revision__heading {
+		margin: 0;
+		font-size: var(--text-body);
 		font-weight: 600;
+	}
+
+	.ftj-revision__lead {
+		margin: var(--space-2) 0 var(--space-3);
+		line-height: 1.75;
+		color: var(--color-text-muted);
+	}
+
+	.ftj-revision__row {
+		display: grid;
+		grid-template-columns: 8rem 1fr 1fr;
+		gap: var(--space-3);
+		padding: var(--space-2) 0;
+		border-top: 1px solid var(--color-border);
+		font-size: 0.9375rem;
+		line-height: 1.6;
+	}
+
+	.ftj-revision__row:last-child {
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.ftj-revision__row--head {
+		font-size: var(--text-label);
+		letter-spacing: 0.04em;
+		color: var(--color-text-muted);
+	}
+
+	.ftj-revision__what {
+		color: var(--color-text-muted);
+	}
+
+	.ftj-revision__before {
+		color: var(--color-text-muted);
+	}
+
+	.ftj-revision__after {
+		font-weight: 600;
+		color: #154384;
 	}
 
 	/* Research: the competitive-audit visual, enlargeable since its value
@@ -1393,6 +1501,15 @@ const participants = c.testing.participants.map((p, i) => ({ ...p, photo: partic
 	@media (max-width: 640px) {
 		.ftj-result-step {
 			grid-template-columns: 2rem 1fr;
+		}
+
+		.ftj-revision__row {
+			grid-template-columns: 1fr;
+			gap: 0.25rem;
+		}
+
+		.ftj-revision__row--head {
+			display: none;
 		}
 
 		.ftj-data__fact {
