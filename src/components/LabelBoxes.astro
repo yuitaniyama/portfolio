@@ -8,9 +8,13 @@ interface Props {
 	label?: string;
 	items: string[];
 	variant?: 'problem' | 'result' | 'callout';
+	// Optional second column of quotes (e.g. direct user feedback), shown to
+	// the right of the boxes, which then stack on the left.
+	quotes?: string[];
+	quotesLabel?: string;
 }
 
-const { label, items, variant = 'problem' } = Astro.props;
+const { label, items, variant = 'problem', quotes, quotesLabel } = Astro.props;
 ---
 
 {
@@ -19,12 +23,29 @@ const { label, items, variant = 'problem' } = Astro.props;
 			{label && <span class="lb-callout__tag">{label}</span>}
 			<p class="lb-callout__text">{items[0]}</p>
 		</div>
+	) : quotes && quotes.length > 0 ? (
+		<div class={`lb-split lb--${variant}`}>
+			<div class="lb-split__boxes">
+				{items.map((text) => (
+					<div class="lb__box">
+						{label && <span class="lb__tag">{label}</span>}
+						<p class="lb__text" set:html={text} />
+					</div>
+				))}
+			</div>
+			<div class="lb-split__quotes">
+				{quotesLabel && <div class="lb-split__quotes-label">{quotesLabel}</div>}
+				{quotes.map((q) => (
+					<blockquote class="lb-quote">{q}</blockquote>
+				))}
+			</div>
+		</div>
 	) : (
 		<div class={`lb lb--${variant}`} style={`--lb-n: ${Math.min(items.length, 3)};`}>
 			{items.map((text) => (
 				<div class="lb__box">
 					{label && <span class="lb__tag">{label}</span>}
-					<p class="lb__text">{text}</p>
+					<p class="lb__text" set:html={text} />
 				</div>
 			))}
 		</div>
@@ -73,6 +94,43 @@ const { label, items, variant = 'problem' } = Astro.props;
 		color: var(--color-text);
 	}
 
+	.lb-split {
+		container-type: inline-size;
+		display: grid;
+		grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+		gap: var(--space-5, 2.5rem);
+		align-items: start;
+	}
+
+	.lb-split__boxes {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-3);
+	}
+
+	.lb-split__quotes-label {
+		font-family: var(--font-sans);
+		font-size: var(--text-label);
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text);
+	}
+
+	.lb-quote {
+		margin: var(--space-3) 0 0;
+		padding-left: var(--space-3);
+		border-left: 2px solid var(--color-border);
+		font-style: italic;
+		line-height: 1.7;
+		color: var(--color-text-muted);
+	}
+
+	.lb__text :global(strong) {
+		color: var(--color-text);
+		font-weight: 600;
+	}
+
 	.lb-callout {
 		display: flex;
 		align-items: baseline;
@@ -101,7 +159,8 @@ const { label, items, variant = 'problem' } = Astro.props;
 	}
 
 	@media (max-width: 760px) {
-		.lb {
+		.lb,
+		.lb-split {
 			grid-template-columns: 1fr;
 		}
 

@@ -108,6 +108,9 @@ const workBlocks = defineCollection({
 		// Problem / Result pair or a one-line callout.
 		label: z.string().optional(),
 		variant: z.enum(['problem', 'result', 'callout']).optional(),
+		// optional second column of quotes (e.g. direct user feedback)
+		quotes: z.array(z.string()).optional(),
+		quotesLabel: z.string().optional(),
 	}),
 });
 
@@ -184,6 +187,9 @@ const workBlocksJa = defineCollection({
 		items: z.array(z.string()).optional(),
 		label: z.string().optional(),
 		variant: z.enum(['problem', 'result', 'callout']).optional(),
+		// optional second column of quotes (e.g. direct user feedback)
+		quotes: z.array(z.string()).optional(),
+		quotesLabel: z.string().optional(),
 	}),
 });
 

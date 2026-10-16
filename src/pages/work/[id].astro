@@ -233,7 +233,7 @@ const blockSections = await Promise.all(
 					return { type: 'placeholder-list', items: block.data.items ?? [] };
 				}
 				if (block.data.type === 'boxes') {
-					return { type: 'boxes', label: block.data.label, variant: block.data.variant, items: block.data.items ?? [] };
+					return { type: 'boxes', label: block.data.label, variant: block.data.variant, items: block.data.items ?? [], quotes: block.data.quotes, quotesLabel: block.data.quotesLabel };
 				}
 				const { Content } = await render(block);
 				return { type: 'prose', Content };
@@ -297,7 +297,7 @@ const renderedSections = [...flatSections, ...blockSections]
 							)}
 							<h2>{section.title}</h2>
 
-							{section.blocks.map(({ type, Content, Component, items, label, variant, cards }) => (
+							{section.blocks.map(({ type, Content, Component, items, label, variant, quotes, quotesLabel, cards }) => (
 								type === 'visual' ? (
 									Component && (
 										<div class="case-visuals case-visuals--diagram">
@@ -307,7 +307,7 @@ const renderedSections = [...flatSections, ...blockSections]
 								) : type === 'boxes' ? (
 									items && items.length > 0 && (
 										<div class="case-visuals case-visuals--diagram">
-											<LabelBoxes label={label} variant={variant} items={items} />
+											<LabelBoxes label={label} variant={variant} items={items} quotes={quotes} quotesLabel={quotesLabel} />
 										</div>
 									)
 								) : type === 'placeholder-list' ? (
