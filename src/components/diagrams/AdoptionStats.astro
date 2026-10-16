@@ -8,12 +8,12 @@
 const ja = Astro.url.pathname.startsWith('/ja/');
 
 const stats = [
-	{ value: ja ? '約15倍' : '~15×', label: ja ? 'hubstepの案件数の伸び' : 'Growth in hubstep cases', detail: ja ? '2025年9月〜2026年9月' : 'Sep 2025 – Sep 2026', wide: true },
-	{ value: ja ? '約60%' : '~60%', label: ja ? '全体の移行率' : 'Overall migration rate', detail: ja ? '2026年9月' : 'Sep 2026' },
+	{ value: ja ? '約19倍' : '~19×', label: ja ? 'hubstepの案件数の伸び' : 'Growth in hubstep cases', detail: ja ? '2025年9月〜2026年9月' : 'Sep 2025 – Sep 2026', wide: true },
+	{ value: ja ? '約70%' : '~70%', label: ja ? '全体の移行率' : 'Overall migration rate', detail: ja ? '2026年9月' : 'Sep 2026' },
 	{ value: ja ? '約80%' : '~80%', label: ja ? 'DMNETの移行率' : 'DMNET migration rate', detail: ja ? '2026年9月' : 'Sep 2026' },
 ];
 
-const growth = 15;
+const growth = 19;
 ---
 
 <div class="as-wrap">
@@ -39,7 +39,7 @@ const growth = 15;
 			</div>
 			<div class="as-trend__point">
 				<div class="as-trend__bar as-trend__bar--end" style="height: 100%" />
-				<div class="as-trend__point-value">{ja ? '約15倍' : '~15×'}</div>
+				<div class="as-trend__point-value">{ja ? '約19倍' : '~19×'}</div>
 				<div class="as-trend__point-label">{ja ? '2026年9月' : 'Sep 2026'}</div>
 			</div>
 		</div>
