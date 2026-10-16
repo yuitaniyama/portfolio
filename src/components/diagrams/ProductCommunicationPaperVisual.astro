@@ -1,12 +1,64 @@
 ---
-// Section 07 (hubstep-foundation case study) — the finished hubstep Lite
-// LP alongside the one-page sales collateral adapted from it.
+// Section 07 (hubstep-foundation case study) — the one-page sales
+// collateral adapted from the hubstep Lite LP. Japanese page: the real
+// two-sided sheet (front / back, rendered from the PDFs). English page:
+// the original English composite image.
 import EnlargeableImage from '../EnlargeableImage.astro';
 
 const ja = Astro.url.pathname.startsWith('/ja/');
 ---
 
-<EnlargeableImage
-	src={ja ? '/hubstep-foundation/section-07/section07-paper.png' : '/hubstep-foundation/en/section-07/section07-paper.png'}
-	alt={ja ? '完成したhubstep LiteのLPと、それを対面営業向けに編集した1枚ものの営業資料' : 'Finished hubstep Lite landing page alongside the one-page sales collateral adapted from it for in-person sales use'}
-/>
+{
+	ja ? (
+		<div class="paper">
+			<figure class="paper__side">
+				<EnlargeableImage
+					src="/hubstep-foundation/section-07/section07-paper-front.webp"
+					alt="hubstep Liteの営業資料（表面）：宛先リストのExcel管理をゼロに、というメッセージと、hubstepでできること"
+				/>
+				<figcaption class="paper__caption">表面</figcaption>
+			</figure>
+			<figure class="paper__side">
+				<EnlargeableImage
+					src="/hubstep-foundation/section-07/section07-paper-back.webp"
+					alt="hubstep Liteの営業資料（裏面）：hubstepの機能3つと、料金、お問い合わせ先"
+				/>
+				<figcaption class="paper__caption">裏面</figcaption>
+			</figure>
+		</div>
+	) : (
+		<EnlargeableImage
+			src="/hubstep-foundation/en/section-07/section07-paper.png"
+			alt="Finished hubstep Lite landing page alongside the one-page sales collateral adapted from it for in-person sales use"
+		/>
+	)
+}
+
+<style>
+	.paper {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--space-4);
+		align-items: start;
+	}
+
+	.paper__side {
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+		min-width: 0;
+	}
+
+	.paper__caption {
+		font-size: var(--text-label);
+		letter-spacing: 0.04em;
+		color: var(--color-text-muted);
+	}
+
+	@media (max-width: 640px) {
+		.paper {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
